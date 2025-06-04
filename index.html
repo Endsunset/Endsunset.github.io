@@ -6,7 +6,7 @@
     <title>Endsunset | GitHub</title>
     <style>
         :root {
-            --primary: #0366d6; /* GitHub blue */
+            --primary: #0366d6;
             --bg-light: #f6f8fa;
             --text: #24292e;
         }
@@ -17,6 +17,8 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             color: var(--text);
             line-height: 1.5;
+            overflow-x: hidden;
+            padding-bottom: 20px;
         }
         
         .header {
@@ -47,12 +49,14 @@
         
         .content {
             max-width: 800px;
-            margin: -50px auto 0;
+            margin: -30px auto 0;
             padding: 2rem;
             background: white;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
             border-radius: 8px;
             position: relative;
+            z-index: 1;
+            transform: translateZ(0);
         }
         
         .repo-grid {
@@ -67,6 +71,9 @@
             border-radius: 6px;
             padding: 1.5rem;
             transition: all 0.2s ease;
+            text-decoration: none;
+            display: block;
+            color: inherit;
         }
         
         .repo-card:hover {
@@ -79,17 +86,20 @@
             color: var(--primary);
             font-weight: 600;
             margin-top: 0;
+            text-decoration: none;
         }
         
         .repo-desc {
             font-size: 0.95rem;
             color: #586069;
+            text-decoration: none;
         }
         
         .repo-lang {
             font-size: 0.85rem;
             color: #586069;
             margin-top: 1rem;
+            text-decoration: none;
         }
         
         footer {
@@ -111,8 +121,17 @@
         
         @media (max-width: 768px) {
             .content {
-                margin: -30px 20px 0;
+                margin: -20px 20px 0;
                 padding: 1.5rem;
+            }
+        }
+        
+        @media (max-height: 800px) {
+            .header {
+                min-height: 150px;
+            }
+            .content {
+                margin-top: -20px;
             }
         }
     </style>
@@ -126,7 +145,7 @@
     <main class="content">
         <section class="about">
             <h2>About Me</h2>
-            <p>Hi, I'm Endsunset. I build things with code and share what I learn along the way. This is my digital garden where I host projects, experiments, and documentation.</p>
+            <p>Hi, I'm Endsunset. I build things with code and share what I learn along the way.</p>
         </section>
         
         <section class="projects">
