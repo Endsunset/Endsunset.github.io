@@ -1,1 +1,173 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endsunset | GitHub</title>
+    <style>
+        :root {
+            --primary: #0366d6; /* GitHub blue */
+            --bg-light: #f6f8fa;
+            --text: #24292e;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.5;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #05264e 100%);
+            height: 30vh;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            color: white;
+        }
+        
+        .title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 400;
+            max-width: 600px;
+        }
+        
+        .content {
+            max-width: 800px;
+            margin: -50px auto 0;
+            padding: 2rem;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .repo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .repo-card {
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+        
+        .repo-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .repo-name {
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 0;
+        }
+        
+        .repo-desc {
+            font-size: 0.95rem;
+            color: #586069;
+        }
+        
+        .repo-lang {
+            font-size: 0.85rem;
+            color: #586069;
+            margin-top: 1rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #586069;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--text);
+            margin: 0 0.5rem;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                margin: -30px 20px 0;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">Endsunset</h1>
+        <p class="subtitle">Developer • Creator • Explorer</p>
+    </div>
+    
+    <main class="content">
+        <section class="about">
+            <h2>About Me</h2>
+            <p>Hi, I'm Endsunset. I build things with code and share what I learn along the way. This is my digital garden where I host projects, experiments, and documentation.</p>
+        </section>
+        
+        <section class="projects">
+            <h2>Featured Projects</h2>
+            <div class="repo-grid">
+                <a href="https://endsunset.github.io/LinkMap/" class="repo-card">
+                    <h3 class="repo-name">LinkMap</h3>
+                    <p class="repo-desc">A Swift application.</p>
+                    <p class="repo-lang">Swift</p>
+                </a>
+                
+                <a href="https://endsunset.github.io/" class="repo-card">
+                    <h3 class="repo-name">Comming Soon</h3>
+                    <p class="repo-desc">Comming soon.</p>
+                    <p class="repo-lang">-</p>
+                </a>
+                
+                <a href="https://endsunset.github.com/" class="repo-card">
+                    <h3 class="repo-name">Comming Soon</h3>
+                    <p class="repo-desc">Comming soon.</p>
+                    <p class="repo-lang">-</p>
+                </a>
+            </div>
+        </section>
+        
+        <section class="connect">
+            <h2>Connect</h2>
+            <div class="social-links">
+                <a href="https://github.com/Endsunset">GitHub</a>
+                <a href="mailto:null">Email</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© <span id="year"></span> Endsunset</p>
+    </footer>
+
+    <script>
+        // Simple JS to update copyright year
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
