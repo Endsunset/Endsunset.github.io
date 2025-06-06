@@ -1,0 +1,41 @@
+/* footer.css - Styles for the footer component */
+
+footer {
+    background-color: var(--dark);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.legal-links {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.legal-links a {
+    color: var(--secondary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.legal-links a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Fallback footer styles if variables aren't defined */
+footer {
+    background-color: #1a1a1a;
+}
+
+.legal-links a {
+    color: #6c757d;
+}
+
+.legal-links a:hover {
+    color: #ffffff;
+}
