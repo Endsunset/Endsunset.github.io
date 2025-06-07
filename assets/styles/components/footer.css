@@ -1,10 +1,4 @@
 /* footer.css - Styles for the footer component */
-:root {
-    --dark: #1a1a1a;
-    --secondary: #6c757d;
-    --transition: all 0.2s ease;
-}
-
 footer {
     background-color: var(--dark);
     color: white;
