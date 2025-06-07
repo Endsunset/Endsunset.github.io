@@ -3,7 +3,7 @@ import { fetchWithFallback } from 'https://endsunset.github.io/assets/scripts/ut
 
 export function loadHeader() {
     fetchWithFallback(
-        'https://endsunset.github.io/assets/partials/header.html',
+        'https://endsunset.github.io/partials/header.html',
         'header-container',
         '<div class="fallback">
             <a href="/">Endsunset</a> |
