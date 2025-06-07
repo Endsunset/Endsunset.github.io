@@ -3,7 +3,7 @@ import { fetchWithFallback } from 'https://endsunset.github.io/assets/scripts/ut
 
 export function loadFooter() {
     fetchWithFallback(
-        'https://endsunset.github.io/assets/partials/footer.html',
+        'https://endsunset.github.io/partials/footer.html',
         'footer-container',
         '<div class="fallback">
             <a>© ${new Date().getFullYear()} Endsunset. All rights reserved.</a>
