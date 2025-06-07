@@ -8,5 +8,8 @@ export function loadFooter() {
         '<div class="fallback">
             <a>© ${new Date().getFullYear()} Endsunset. All rights reserved.</a>
         </div>'
-    );
+    )
+        .then(html => {
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
 }
