@@ -1,14 +1,4 @@
 /* header-styles.css */
-:root {
-    --primary: #0366d6;
-    --primary-dark: #05264e;
-    --secondary: #f6f8fa;
-    --dark: #12263f;
-    --light: #ffffff;
-    --transition: all 0.3s ease;
-}
-
-/* Top Navigation Bar */
 .top-bar {
     background-color: var(--dark);
     color: white;
