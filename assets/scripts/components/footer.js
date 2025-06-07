@@ -1,5 +1,5 @@
 // Load header with error handling
-import { fetchWithFallback } from '../utils/fetchUtils.js';
+import { fetchWithFallback } from 'https://endsunset.github.io/assets/scripts/utils/fetchUtils.js';
 
 export function loadFooter() {
     fetchWithFallback(
