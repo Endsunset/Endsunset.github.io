@@ -5,9 +5,9 @@ export function loadFooter() {
     fetchWithFallback(
         'https://endsunset.github.io/partials/footer.html',
         'footer-container',
-        '<div class="fallback">
+        `<div class="fallback">
             <a>© ${new Date().getFullYear()} Endsunset. All rights reserved.</a>
-        </div>'
+        </div>`
     )
         .then(html => {
             document.getElementById('year').textContent = new Date().getFullYear();
