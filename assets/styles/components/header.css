@@ -49,10 +49,6 @@
         position: fixed; /* Keep it fixed on mobile */
     }
 
-    body {
-        padding-top: 120px; /* More space for stacked header */
-    }
-
     .top-bar-links {
         gap: 1rem;
         margin-left: 0;
