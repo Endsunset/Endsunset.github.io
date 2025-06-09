@@ -6,13 +6,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: absolute; /* Changed from sticky to absolute */
+    position: fixed; /* Changed to fixed */
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    /* width: 100%; removed as it's covered by left/right 0 */
 }
 
 .top-bar-title {
@@ -47,16 +46,15 @@
         padding: 1rem;
         flex-direction: column;
         gap: 0.5rem;
-        position: absolute; /* Ensure it stays absolute on mobile */
+        position: fixed; /* Keep it fixed on mobile */
+    }
+
+    body {
+        padding-top: 120px; /* More space for stacked header */
     }
 
     .top-bar-links {
         gap: 1rem;
         margin-left: 0;
-    }
-
-    /* Adjust body padding for mobile if needed */
-    body {
-        padding-top: 100px; /* Might need more space for stacked header */
     }
 }
