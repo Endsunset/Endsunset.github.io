@@ -17,3 +17,9 @@ body {
     position: relative;
     min-height: 100vh;
 }
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 120px; /* More space for stacked header */
+    }
+}
