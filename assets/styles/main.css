@@ -12,7 +12,8 @@ body {
     line-height: 1.6;
     color: var(--dark);
     margin: 0;
-    padding: 0;
+    padding: 60px;
     background-color: var(--light);
-    min-height: 150vh;
+    position: relative;
+    min-height: 100vh;
 }
