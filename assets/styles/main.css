@@ -19,6 +19,13 @@ body {
     min-height: 100vh;
 }
 
+.markdown-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 20px;
+    margin-top: 0;
+}
+
 @media (max-width: 768px) {
     body {
         padding-top: 120px; /* More space for stacked header */
