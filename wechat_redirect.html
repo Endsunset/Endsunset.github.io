@@ -2,67 +2,79 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Opening...</title>
+<title>Redirecting...</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <style>
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #000;
-    color: #fff;
-  }
+    :root {
+        --primary: #0366d6;
+        --text: black;
+    }
 
-  #overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.92);
-    display: none;
-    z-index: 9999;
-  }
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        background: white;
+        color: var(--text);
+    }
 
-  .content {
-    padding: 24px;
-    text-align: center;
-  }
+    .content {
+        padding: 24px;
+        text-align: center;
+    }
 
-  .arrow {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 60px;
-    transform: rotate(45deg);
-  }
+    .arrow {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 60px;
+        transform: rotate(-45deg);
+        color: var(--primary);
+    }
 
-  .title {
-    font-size: 22px;
-    font-weight: 600;
-    margin-top: 80px;
-  }
+    .title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-top: 80px;
+        color: var(--text);
+    }
 
-  .desc {
-    font-size: 16px;
-    margin-top: 16px;
-    line-height: 1.6;
-    color: #ddd;
-  }
+    .desc {
+        font-size: 16px;
+        margin-top: 16px;
+        line-height: 1.6;
+        color: #aaa;
+    }
 
-  .highlight {
-    color: #4cd964;
-    font-weight: bold;
-  }
+    .highlight {
+        color: var(--primary);
+        font-weight: bold;
+    }
 
-  .fallback {
-    position: absolute;
-    bottom: 40px;
-    left: 0;
-    right: 0;
-    font-size: 14px;
-    color: #aaa;
-  }
+    .fallback {
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        right: 0;
+        font-size: 14px;
+        color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+        .content {
+            margin: -20px 20px 0;
+            padding: 1.5rem;
+        }
+    }
+
+    @media (max-height: 800px) {
+        .header {
+            min-height: 150px;
+        }
+        .content {
+            margin-top: -20px;
+        }
+    }
 </style>
 </head>
 
