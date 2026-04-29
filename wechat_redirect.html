@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Opening...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<style>
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #000;
+    color: #fff;
+  }
+
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.92);
+    display: none;
+    z-index: 9999;
+  }
+
+  .content {
+    padding: 24px;
+    text-align: center;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 60px;
+    transform: rotate(45deg);
+  }
+
+  .title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 80px;
+  }
+
+  .desc {
+    font-size: 16px;
+    margin-top: 16px;
+    line-height: 1.6;
+    color: #ddd;
+  }
+
+  .highlight {
+    color: #4cd964;
+    font-weight: bold;
+  }
+
+  .fallback {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    font-size: 14px;
+    color: #aaa;
+  }
+</style>
+</head>
+
+<body>
+
+<div id="overlay">
+  <div class="arrow">➤</div>
+
+  <div class="content">
+    <div class="title">Open in Safari</div>
+    <div class="desc">
+      Tap the <span class="highlight">•••</span> menu in the top right<br>
+      Then select <span class="highlight">"Open in Safari"</span>
+    </div>
+  </div>
+
+  <div class="fallback">
+    This step is required to continue
+  </div>
+</div>
+
+<script>
+  function isWeChat() {
+    return /MicroMessenger/i.test(navigator.userAgent);
+  }
+
+  function isIOS() {
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  }
+
+  function getTargetUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const raw = params.get('target');
+    return raw ? decodeURIComponent(raw) : null;
+  }
+
+  function safeRedirect(url) {
+    try {
+      const parsed = new URL(url);
+      window.location.replace(parsed.href);
+    } catch (e) {
+      document.body.innerHTML = "<h3 style='color:#000;background:#fff;padding:20px;'>Invalid target URL</h3>";
+    }
+  }
+
+  function showOverlay() {
+    const overlay = document.getElementById('overlay');
+    overlay.style.display = 'block';
+
+    if (!isIOS()) {
+      document.querySelector('.title').innerText = "Open in Browser";
+      document.querySelector('.desc').innerHTML =
+        'Tap the <span class="highlight">•••</span> menu<br>Then choose <span class="highlight">"Open in Browser"</span>';
+    }
+  }
+
+  function init() {
+    const target = getTargetUrl();
+
+    if (!target) {
+      document.body.innerHTML = "<h3 style='color:#000;background:#fff;padding:20px;'>Missing target parameter</h3>";
+      return;
+    }
+
+    if (isWeChat()) {
+      showOverlay();
+    } else {
+      safeRedirect(target);
+    }
+  }
+
+  init();
+</script>
+
+</body>
+</html>
