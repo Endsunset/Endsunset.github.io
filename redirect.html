@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Open in Safari</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<style>
+:root {
+  --primary: #0366d6;
+  --text: #000;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #fff;
+  color: var(--text);
+}
+
+/* Arrow */
+.arrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 60px;
+  transform: rotate(-45deg);
+  color: var(--primary);
+}
+
+/* Content */
+.content {
+  padding: 24px;
+  text-align: center;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 80px;
+}
+
+.desc {
+  font-size: 16px;
+  margin-top: 16px;
+  line-height: 1.6;
+  color: #666;
+}
+
+.highlight {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.fallback {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  font-size: 14px;
+  color: #999;
+}
+
+/* Optional animation (boost UX) */
+.arrow {
+  animation: bounce 3s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translate(0, 0) rotate(-45deg);
+  }
+  50% {
+    transform: translate(8px, -8px) rotate(-45deg);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="arrow">➤</div>
+
+<div class="content">
+  <div class="title" id="title">Open in Safari</div>
+  <div class="desc" id="desc">
+    Tap the <span class="highlight">•••</span> menu in the top right<br>
+    Then select <span class="highlight">"Open in Safari"</span>
+  </div>
+</div>
+
+<div class="fallback" id="fallback">
+  This link requires Safari to continue
+</div>
+
+<script>
+function isWeChat() {
+  return /MicroMessenger/i.test(navigator.userAgent);
+}
+
+function isIOS() {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function getTarget() {
+  const p = new URLSearchParams(location.search);
+  const raw = p.get('target');
+  return raw ? decodeURIComponent(raw) : null;
+}
+
+function go(url) {
+  window.location.replace(url);
+}
+
+(function init() {
+  const target = getTarget();
+
+  if (!target) {
+    document.body.innerHTML = "<h3 style='padding:20px'>Invalid link</h3>";
+    return;
+  }
+
+  // If user already opened in correct environment → redirect immediately
+  if (!isWeChat() && isIOS()) {
+    go(target);
+    return;
+  }
+
+  // If NOT iOS → block (your requirement)
+  if (!isIOS()) {
+    document.getElementById('title').innerText = "Unsupported Device";
+    document.getElementById('desc').innerHTML =
+      'This link only works on <span class="highlight">Safari (iOS)</span>.<br>Please open on iPhone.';
+  }
+
+  // Otherwise: stay on instruction page
+})();
+</script>
+
+</body>
+</html>
