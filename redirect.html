@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Redirecting...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+<script>
+function isWeChat() {
+  return /MicroMessenger/i.test(navigator.userAgent);
+}
+
+function isIOS() {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function getTarget() {
+  const p = new URLSearchParams(location.search);
+  const raw = p.get('target');
+  return raw ? decodeURIComponent(raw) : null;
+}
+
+function go(url) {
+  window.location.replace(url);
+}
+
+(function init() {
+  const target = getTarget();
+
+  if (!target) {
+    document.body.innerHTML = "<h3 style='padding:20px'>Invalid link</h3>";
+    return;
+  }
+
+  // 🚨 Step 1: If WeChat → go to manual page
+  if (isWeChat()) {
+    go(`/redirect_wechat.html?target=${encodeURIComponent(target)}`);
+    return;
+  }
+
+  // 🚨 Step 2: If not iOS → block (your requirement)
+  if (!isIOS()) {
+    document.body.innerHTML = `
+      <div style="padding:20px;font-family:sans-serif;">
+        <h3>Unsupported Device</h3>
+        <p>This link only works on Safari (iOS).</p>
+      </div>
+    `;
+    return;
+  }
+
+  // ✅ Step 3: Ideal case → redirect
+  go(target);
+
+})();
+</script>
+
+</body>
+</html>
