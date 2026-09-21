@@ -2,9 +2,9 @@
   {
     "slug": "linkmap",
     "name": "LinkMap",
-    "summary": "A place to organize feeding activities for people experiencing homelessness.",
+    "summary": "Plan places, routes, and supplies. Together.",
     "website": "https://endsunset.github.io/LinkMap/",
-    "image": "/assets/images/linkmap.svg",
-    "image_alt": "Illustration of connected gathering points on a neighborhood map"
+    "image": "/assets/images/linkmap-icon.png",
+    "image_alt": "LinkMap app icon: a red location pin above a folded map"
   }
 ]
