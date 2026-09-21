@@ -1,10 +1,8 @@
-.site-header { position: sticky; top: 0; z-index: 20; background: #f8f7f4ed; backdrop-filter: blur(18px); border-bottom: 1px solid #2628250b; }
+.site-header { position: sticky; top: 0; z-index: 20; background: #050509e8; backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
 .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 650; letter-spacing: -.6px; }
-.brand-mark { display: inline-block; width: 23px; height: 16px; background: #e77748; border-radius: 23px 23px 0 0; position: relative; margin-bottom: 4px; }
-.brand-mark::after { content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 2px; background: #e77748; }
 .nav-projects { font-size: 12px; }
-.nav-projects:hover { color: var(--orange); }
+.nav-projects:hover { color: var(--purple); }
 @media (max-width: 700px) {
   .nav { height: 62px; }
   .brand { font-size: 16px; }
