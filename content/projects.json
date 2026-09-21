@@ -2,18 +2,9 @@
   {
     "slug": "linkmap",
     "name": "LinkMap",
-    "category": "Community, connected",
-    "headline": "A little coordination.\nA meaningful difference.",
     "summary": "A place to organize feeding activities for people experiencing homelessness.",
     "website": "https://endsunset.github.io/LinkMap/",
     "image": "/assets/images/linkmap.svg",
-    "image_alt": "Illustration of connected gathering points on a neighborhood map",
-    "intro_title": "Built around bringing people together.",
-    "intro": "LinkMap is an Endsunset project focused on the organization of feeding activities for people experiencing homelessness. It brings a practical purpose to a simple idea: connecting people around care for their community.",
-    "details": [
-      {"title": "People at the center.", "text": "A project with a focus on people experiencing homelessness and the communities around them."},
-      {"title": "A shared purpose.", "text": "Centered on organizing feeding activities and bringing people together to help."},
-      {"title": "Explore LinkMap.", "text": "Visit the project’s own website to learn more about LinkMap and get started."}
-    ]
+    "image_alt": "Illustration of connected gathering points on a neighborhood map"
   }
 ]
