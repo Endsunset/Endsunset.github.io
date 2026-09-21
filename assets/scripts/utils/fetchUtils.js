@@ -1,4 +1,5 @@
 export function fetchWithFallback(url, elementId, fallbackHtml) {
+    if (!document.getElementById(elementId)) return Promise.resolve();
     return fetch(url)
         .then(response => {
             if (!response.ok) throw new Error(`Failed to load ${url}`);
