@@ -29,7 +29,7 @@ def showcase(project):
         <p>{e(project['summary'])}</p>
         <a class="button" href="{e(project['website'])}">Visit {e(project['name'])} <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="product-stage"><img class="product-icon" src="{e(project['image'])}" alt="{e(project['image_alt'])}" width="1024" height="1024"></div>
+      <div class="product-stage"><img class="product-icon" src="{e(project['image'])}" alt="{e(project['image_alt'])}" width="320" height="320"></div>
     </article>'''
 
 content = '<section id="projects" aria-labelledby="projects-title"><h1 class="visually-hidden" id="projects-title">Projects</h1>'
