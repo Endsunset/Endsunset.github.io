@@ -28,7 +28,7 @@ Projects appear directly on the homepage in catalog order. No separate project p
 - `templates/page.html`: document shell and metadata.
 - `partials/`: shared header and footer, included at build time.
 - `assets/styles/`: responsive styles.
-- `assets/images/`: project assets. `linkmap-brandmark.svg` reproduces the header mark in the local `LinkMap/components/header.html` and `LinkMap/styles.css` as a transparent SVG. Its bar proportions and rotation are preserved, with white, purple, and blue colors for the dark section.
+- `assets/images/`: project assets. `linkmap-brandmark.svg` reproduces the header mark in the local `LinkMap/components/header.html` and `LinkMap/styles.css` as a transparent SVG. Its bar proportions and rotation are preserved, with the original dark gray (`#202124`) and red (`#b4232c`) colors. The rotated artwork is centered within a square SVG viewport.
 - `assets/scripts/main.js`: current copyright year.
 
 Root-relative assets target deployment at `endsunset.github.io`. Existing redirect pages remain available.
