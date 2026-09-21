@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="-5.953154 -1.985127 36 36" fill="none">
   <!-- Geometry from LinkMap/styles.css .brand-mark: 6px bars, 3px gaps,
        24px height, 74% / 48% steps, and a -25deg rotation.
-       Original LinkMap colors; rotated artwork centered in a square viewBox. No background tile. -->
+       Original LinkMap colors; rotated artwork centered in a square viewBox. White icon background. -->
+  <rect x="-5.953154" y="-1.985127" width="36" height="36" fill="#ffffff"/>
   <g transform="rotate(-25 12.5 12)">
     <rect width="6" height="24" rx="2" fill="#202124"/>
     <rect x="9" y="6.24" width="6" height="17.76" rx="2" fill="#b4232c"/>
