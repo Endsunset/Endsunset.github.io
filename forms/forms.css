@@ -1,6 +1,10 @@
 body[data-page="forms"] { --header-height: 69px; --toolbar-height: 53px; }
 .forms-toolbar { position: sticky; top: var(--header-height); z-index: 15; display: flex; align-items: center; gap: 20px; height: var(--toolbar-height); padding: 0 24px; background: #0c0b14f5; border-bottom: 1px solid var(--line); }
 .forms-toolbar > a { font-weight: 600; }
+.sidebar-toggle { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 36px; height: 36px; padding: 0; border-radius: 5px; }
+.forms-toolbar .sidebar-toggle { min-height: 36px; }
+.sidebar-toggle[aria-expanded="true"] { color: var(--purple); }
+.sidebar-toggle:not([hidden]) + a { border-inline-start: 1px solid var(--line); padding-inline-start: 20px; }
 .forms-toolbar button, .sidebar-close { font: inherit; color: var(--muted); background: transparent; border: 0; cursor: pointer; min-height: 44px; }
 .forms-toolbar button:hover, .sidebar-close:hover { color: var(--purple); }
 button:focus-visible, input:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }

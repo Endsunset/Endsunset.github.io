@@ -27,20 +27,18 @@ def build_forms(root):
         rows = ''.join(f'<li data-filter-item><a href="/forms/{e(f["slug"])}/"'
                        + (' aria-current="page"' if selected == f else '')
                        + f'><span>{e(f["name"])}</span><span aria-hidden="true">›</span></a></li>' for f in forms)
-        home_current = ' aria-current="page"' if selected is None else ''
-        sidebar = f'''<div class="forms-toolbar"><button class="sidebar-toggle" aria-controls="forms-sidebar" aria-expanded="true" hidden>☰ <span>Browse forms</span></button><a href="/forms/">Forms</a></div>
+        sidebar = f'''<div class="forms-toolbar"><button class="sidebar-toggle" type="button" aria-label="Hide forms sidebar" aria-controls="forms-sidebar" aria-expanded="true" hidden><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 3v14M4 7h1M4 10h1M4 13h1" stroke="currentColor" stroke-width="1.5"/></svg></button><a href="/forms/">Forms</a></div>
 <div class="forms-layout">
   <aside class="forms-sidebar" id="forms-sidebar" aria-label="Forms sidebar">
     <div class="sidebar-heading"><span>Forms</span><button class="sidebar-close" aria-label="Close forms sidebar" hidden>×</button></div>
     <nav class="forms-navigation" aria-label="Forms navigation">
-      <a class="forms-overview" href="/forms/"{home_current}>All forms</a>
       <p class="sidebar-label">AVAILABLE FORMS</p><ul>{rows}</ul>
     </nav>
     <div class="forms-filter" hidden><label class="visually-hidden" for="form-filter">Filter forms</label><input id="form-filter" type="search" placeholder="Filter forms" autocomplete="off"><p class="filter-status" role="status" hidden></p></div>
   </aside>'''
         if selected:
             title = selected['name']
-            body = f'''<p class="eyebrow"><a href="/forms/">All forms</a> <span aria-hidden="true">/</span> Microsoft Forms</p>
+            body = f'''<p class="eyebrow">Microsoft Forms</p>
 <h1>{e(title)}</h1><p class="forms-intro">Open the form to take part, or scan the QR code on another device.</p>
 <a class="button" href="{e(selected['url'])}" target="_blank" rel="noopener noreferrer">Open form <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
 <a class="qr-link" href="{e(selected['url'])}" target="_blank" rel="noopener noreferrer" aria-label="Open {e(title)} in a new tab"><img class="form-qr" src="{e(selected['image'])}" alt="QR code for {e(title)}" width="1890" height="1890"></a>'''
