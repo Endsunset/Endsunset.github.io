@@ -7,7 +7,8 @@ export function loadHeader() {
         'header-container',
         `<div class="fallback">
             <a href="/">Endsunset</a> |
-            <a href="/#projects">Projects</a>
+            <a href="/#projects">Projects</a> |
+            <a href="/forms/">Forms</a>
         </div>`
     );
 }

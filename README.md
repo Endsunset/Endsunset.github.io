@@ -11,7 +11,7 @@ python3 scripts/build.py
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000`. Commit the generated `index.html` alongside source changes. GitHub Pages publishes the repository directly. Content and navigation work without JavaScript.
+Open `http://localhost:8000`. Commit the generated `index.html` and `forms/**/index.html` alongside source changes. GitHub Pages publishes the repository directly. Content and navigation work without JavaScript.
 
 ## Add a project
 
@@ -32,3 +32,11 @@ Projects appear directly on the homepage in catalog order. No separate project p
 - `assets/scripts/main.js`: current copyright year.
 
 Root-relative assets target deployment at `endsunset.github.io`. Existing redirect pages remain available.
+
+## Add a form
+
+1. Add an entry to `content/forms.json` with a unique lowercase, hyphen-separated `slug`, `name`, HTTPS `url`, and QR poster `image` path.
+2. Place its QR poster in `forms/assets/`.
+3. Run `python3 scripts/build.py` to regenerate the Forms homepage, sidebar rows, and individual form pages.
+
+`forms/forms.css` matches the homepage palette. `forms/sidebar.js` adapts the LinkMap documentation sidebar with a scrolling list, fixed filter, desktop collapse, and full-screen mobile navigation. Form links and pages remain available without JavaScript. Forms open on Microsoft Forms in a new tab.

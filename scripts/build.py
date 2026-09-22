@@ -44,3 +44,6 @@ template = Template((ROOT / 'templates/page.html').read_text())
     footer=(ROOT / 'partials/footer.html').read_text(),
 ))
 print(f'Built homepage with {len(projects)} project(s).')
+
+from build_forms import build_forms
+build_forms(ROOT)

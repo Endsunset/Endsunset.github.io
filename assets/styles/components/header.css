@@ -7,3 +7,5 @@
   .nav { height: 62px; }
   .brand { font-size: 16px; }
 }
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links [aria-current="page"] { color: var(--purple); }
