@@ -4,6 +4,7 @@ import re
 from html import escape
 from string import Template
 from urllib.parse import urlparse
+from site_chrome import render_header, render_footer
 
 
 def build_forms(root):
@@ -47,8 +48,8 @@ def build_forms(root):
             cards = ''.join(f'''<a class="form-card" href="/forms/{e(f['slug'])}/"><span class="eyebrow">MICROSOFT FORMS</span><h2>{e(f['name'])}</h2><span class="card-action">View form <span aria-hidden="true">↗</span></span></a>''' for f in forms)
             body = f'<p class="eyebrow">TAKE PART</p><h1>Forms</h1><p class="forms-intro">A place for questions, ideas, and participation. Find a form below to get started.</p><div class="forms-cards">{cards}</div>'
         content = sidebar + f'<div class="forms-content" id="form-content" tabindex="-1">{body}</div></div>'
-        header = (root / 'partials/header.html').read_text().replace('href="/forms/"', 'href="/forms/" aria-current="page"')
-        html = template.substitute(title=e(title + ' — Endsunset'), description=e('Browse forms and take part.' if selected is None else 'Take part in ' + title + '.'), page='forms', content=content, header=header, footer=(root / 'partials/footer.html').read_text())
+        header = render_header()
+        html = template.substitute(title=e(title + ' — Endsunset'), description=e('Browse forms and take part.' if selected is None else 'Take part in ' + title + '.'), page='forms', content=content, header=header, footer=render_footer())
         html = html.replace('</head>', '<link rel="stylesheet" href="/forms/forms.css">\n  <script src="/forms/sidebar.js" defer></script>\n</head>')
         html = html.replace('href="#main"', 'href="#form-content"')
         target = root / 'forms' / (selected['slug'] if selected else '')

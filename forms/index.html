@@ -11,17 +11,26 @@
   <title>Forms — Endsunset</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="/assets/styles/main.css">
-  <script src="/assets/scripts/main.js" defer></script>
+  <link rel="stylesheet" href="/assets/styles/site-chrome.css">
+  <script src="/assets/scripts/navigation.js" defer></script>
 <link rel="stylesheet" href="/forms/forms.css">
   <script src="/forms/sidebar.js" defer></script>
 </head>
 <body data-page="forms">
   <a class="skip-link" href="#form-content">Skip to content</a>
-  <header class="site-header">
-  <nav class="nav shell" aria-label="Main navigation">
-    <a class="brand" href="/" aria-label="Endsunset home">Endsunset</a>
-    <div class="nav-links"><a class="nav-projects" href="/#projects">Projects</a>
-    <a class="nav-projects" href="/forms/" aria-current="page">Forms</a></div>
+  <header class="endsunset-header">
+  <nav class="endsunset-nav endsunset-shell" aria-label="Main navigation">
+    <a class="endsunset-brand" href="/" aria-label="Endsunset home">Endsunset</a>
+    <div class="endsunset-controls">
+      <div class="endsunset-projects">
+        <a href="/projects/">Projects</a>
+        <button class="endsunset-projects-toggle" type="button" aria-label="Show projects menu" aria-expanded="false" aria-controls="endsunset-project-menu" hidden><span aria-hidden="true">⌄</span></button>
+        <div class="endsunset-project-menu" id="endsunset-project-menu" hidden>
+          <nav class="endsunset-shell" aria-label="Projects"><p>Explore projects</p><a href="/LinkMap/">LinkMap</a><a class="endsunset-all-projects" href="/projects/">All projects</a></nav>
+        </div>
+      </div>
+      <a href="/search/">Search</a>
+    </div>
   </nav>
 </header>
 
@@ -34,8 +43,11 @@
     </nav>
     <div class="forms-filter" hidden><label class="visually-hidden" for="form-filter">Filter forms</label><input id="form-filter" type="search" placeholder="Filter forms" autocomplete="off"><p class="filter-status" role="status" hidden></p></div>
   </aside><div class="forms-content" id="form-content" tabindex="-1"><p class="eyebrow">TAKE PART</p><h1>Forms</h1><p class="forms-intro">A place for questions, ideas, and participation. Find a form below to get started.</p><div class="forms-cards"><a class="form-card" href="/forms/1/"><span class="eyebrow">MICROSOFT FORMS</span><h2>The Keynesian Beauty Contest</h2><span class="card-action">View form <span aria-hidden="true">↗</span></span></a></div></div></div></main>
-  <footer class="site-footer shell">
-  <span>© <span id="year">2026</span> Endsunset</span>
+  <footer class="endsunset-footer">
+  <div class="endsunset-shell">
+
+    <div class="endsunset-copyright"><span>© <span data-endsunset-year>2026</span> Endsunset</span><a href="/forms/">Forms</a></div>
+  </div>
 </footer>
 
 </body>

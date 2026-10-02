@@ -3,30 +3,31 @@
   <script src="../../components/notification/notification.js" defer></script>
   <script src="../../shared/errors/cloudkit-errors.js" defer></script>
   <script src="../../cloudkit-config.js" defer></script>
-  <script src="../../cloudkit-auth.js" defer></script></head><body data-color-scheme="light"><!-- Shared header: edit components/header.html, then run scripts/build-headers.py -->
-<header draggable="false" class="site-header">
-  <a draggable="false" class="brand" href="../../" aria-label="LinkMap home">
-    <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
-    <span>LinkMap</span>
-  </a>
-  <nav class="nav-links" aria-label="Main navigation">
-    <a draggable="false" class="desktop-nav-link" href="../../documentation/" aria-current="true">Documentation</a>
-    <a draggable="false" class="desktop-nav-link" href="../../download/">Download</a>
-    <a draggable="false" class="button button-small button-outline" href="../../login/" data-header-sign-in>Sign in</a>
-    <a draggable="false" class="button button-small button-outline" href="../../account/" data-account-link hidden>Account</a>
-    <button class="mobile-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-navigation" popovertarget="mobile-navigation">
-      <span></span><span></span>
-    </button>
-  </nav>
-  <nav id="mobile-navigation" class="mobile-navigation" popover aria-label="Mobile navigation">
-    <a draggable="false" href="../../documentation/" aria-current="true">Documentation</a>
-    <a draggable="false" href="../../download/">Download</a>
+  <script src="../../cloudkit-auth.js" defer></script></head><body data-color-scheme="light"><!-- Shared header: edit ../partials/header.html, then run scripts/build-headers.py -->
+<link rel="stylesheet" href="/assets/styles/site-chrome.css">
+<script src="/assets/scripts/navigation.js" defer></script>
+<header class="endsunset-header">
+  <nav class="endsunset-nav endsunset-shell" aria-label="Main navigation">
+    <a class="endsunset-brand" href="/" aria-label="Endsunset home">Endsunset</a>
+    <div class="endsunset-controls">
+      <div class="endsunset-projects">
+        <a href="/projects/">Projects</a>
+        <button class="endsunset-projects-toggle" type="button" aria-label="Show projects menu" aria-expanded="false" aria-controls="endsunset-project-menu" hidden><span aria-hidden="true">⌄</span></button>
+        <div class="endsunset-project-menu" id="endsunset-project-menu" hidden>
+          <nav class="endsunset-shell" aria-label="Projects"><p>Explore projects</p><a href="/LinkMap/">LinkMap</a><a class="endsunset-all-projects" href="/projects/">All projects</a></nav>
+        </div>
+      </div>
+      <a href="/search/">Search</a>
+    </div>
   </nav>
 </header>
-<script src="../../header.js"></script>
-<!-- End shared header --><noscript><article><section><ul><li><a href="../index.html">LinkMap</a></li><li>Activities</li></ul><p>LinkMap Guide</p><h1>Activities</h1><p>An Activity is one round of work within a Project.</p></section><h2>Overview</h2><p>Create an Activity when you are ready to plan a visit, inspection, or other task. Add Routes for the places to visit and Assignments for the people or teams doing the work. Select the Activity in Dashboard → Context to show its route on the Map.</p><p>Archive an Activity after the work is finished. The Project and its Locations remain ready for another Activity.</p><h2>Topics</h2><h3>Plan an Activity</h3><ul><li><a href="../routes-and-stops/index.html"><p>Routes and Stops</p></a><p>A Route puts places in the order your team should visit them. Each Stop uses a Location from the Project.</p></li><li><a href="../assignments/index.html"><p>Assignments</p></a><p>An Assignment names the person, team, crew, or vehicle responsible for work in an Activity.</p></li></ul></article></noscript><div id="app"></div><!-- Shared footer: edit components/footer.html, then run scripts/build-footers.py -->
-<footer class="site-footer">
-  <a href="../../">LinkMap home</a>
-  <a href="../../privacy-policy/">Privacy policy</a>
+
+<script src="../../product-navigation.js" defer></script>
+<!-- End shared header --><noscript><article><section><ul><li><a href="../index.html">LinkMap</a></li><li>Activities</li></ul><p>LinkMap Guide</p><h1>Activities</h1><p>An Activity is one round of work within a Project.</p></section><h2>Overview</h2><p>Create an Activity when you are ready to plan a visit, inspection, or other task. Add Routes for the places to visit and Assignments for the people or teams doing the work. Select the Activity in Dashboard → Context to show its route on the Map.</p><p>Archive an Activity after the work is finished. The Project and its Locations remain ready for another Activity.</p><h2>Topics</h2><h3>Plan an Activity</h3><ul><li><a href="../routes-and-stops/index.html"><p>Routes and Stops</p></a><p>A Route puts places in the order your team should visit them. Each Stop uses a Location from the Project.</p></li><li><a href="../assignments/index.html"><p>Assignments</p></a><p>An Assignment names the person, team, crew, or vehicle responsible for work in an Activity.</p></li></ul></article></noscript><div id="app"></div><!-- Shared footer: edit ../partials/footer.html, then run scripts/build-footers.py -->
+<footer class="endsunset-footer">
+  <div class="endsunset-shell">
+    <nav class="endsunset-product-links" aria-label="LinkMap destinations"><a href="../../">LinkMap</a><a href="../../documentation/">Documentation</a><a href="../../download/">Download for iOS</a><a href="../../login/">Sign in</a><a href="../../account/">Account</a><a href="../../privacy-policy/">Privacy policy</a></nav>
+    <div class="endsunset-copyright"><span>© <span data-endsunset-year>2026</span> Endsunset</span><a href="/forms/">Forms</a></div>
+  </div>
 </footer>
 <!-- End shared footer --></body></html>

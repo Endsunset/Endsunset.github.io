@@ -1,18 +1,17 @@
 """Shared, statically rendered site header (no deployment build required)."""
 from pathlib import Path
-from string import Template
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+from site_chrome import render_header as global_header, render_assets
 
 ROOT = Path(__file__).resolve().parents[1]
-START = '<!-- Shared header: edit components/header.html, then run scripts/build-headers.py -->'
+START = '<!-- Shared header: edit ../partials/header.html, then run scripts/build-headers.py -->'
 END = '<!-- End shared header -->'
 
 
 def render_header(site_prefix='./', *, docs=False, account=False, download=False):
-    markup = Template((ROOT / 'components/header.html').read_text()).substitute(
-        site_prefix=site_prefix,
-        download_current=' aria-current="page"' if download else '',
-        docs_current=' aria-current="page"' if docs and site_prefix == '../' else (' aria-current="true"' if docs else ''),
-        account_current=' aria-current="page"' if account else '')
+    markup = render_assets() + "\n" + global_header()
+    markup += f'\n<script src="{site_prefix}product-navigation.js" defer></script>'
     return START + '\n' + markup.rstrip() + '\n' + END
 
 

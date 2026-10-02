@@ -28,9 +28,11 @@ the parent repository; `LinkMap/` has no separate Git metadata.
 | File | Responsibility |
 | --- | --- |
 | `index.html` | User-facing product content, navigation, and account controls |
-| `components/header.html` | Shared header template for all pages |
+| `../partials/header.html` | Shared Endsunset header template |
+| `components/header.html` | Preserved legacy LinkMap header |
 | `scripts/site_header.py` | Header renderer used by page generators |
-| `header.js` | Shared header authentication state |
+| `product-navigation.js` | Contextual authentication and sign-in return links |
+| `header.js` | Preserved legacy header behavior |
 | `styles.css` | Shared styles and responsive layouts |
 | `cloudkit-auth.js` | Shared CloudKit initialization, session state, and error recovery |
 | `account/account.js` | Account session UI and authentication retry |
@@ -139,7 +141,7 @@ to the homepage and privacy policy. DocC owns documentation navigation and layou
 
 `login/` provides Apple’s sign-in button. `login/login.js` observes the shared
 session and redirects restored or newly signed-in users to `../account/`.
-`header.js` updates the shared account links and hides the homepage hero sign-in
+`product-navigation.js` updates contextual account links and hides the homepage hero sign-in
 action for a confirmed session. Signed-out links go directly to `login/`.
 `cloudkit-auth.js` owns the shared CloudKit session lifecycle and persistence.
 
@@ -153,12 +155,17 @@ application code observes SDK-verified identity rather than window messages.
 
 ## Updating the shared header
 
-Edit `components/header.html` and run `python3 scripts/build-headers.py` to refresh
-all checked-in website pages. Commit the template and generated HTML together.
-The privacy policy generator also uses `scripts/site_header.py`; DocC pages are
-separate and skipped by the shared header and footer refresh scripts. Website
-navigation is rendered as HTML and works without JavaScript. `header.js` reacts
-to verified CloudKit session events on website pages.
+Edit `../partials/header.html` or `../partials/footer.html` and the scoped styles in
+`../assets/styles/`. The parent `scripts/site_chrome.py` renders both components.
+Run the parent `python3 scripts/build.py`, then from this directory run
+`python3 scripts/build-headers.py`, `python3 scripts/build-footers.py`,
+`python3 scripts/build-documentation.py`, and `python3 scripts/build-privacy.py`.
+Re-run the parent build after documentation changes to refresh site search.
+Commit sources and generated HTML together. Navigation works without JavaScript;
+the project disclosure adds hover, touch, and keyboard interactions.
+`product-navigation.js` preserves contextual account state and sign-in return links.
+The old `components/header.html`, `components/footer.html`, and `header.js` are
+retained but are no longer rendered or loaded.
 
 Load the SDK, `/LinkMap/cloudkit-config.js`, and `/LinkMap/cloudkit-auth.js` on each
 website page, with the configuration and auth scripts deferred in that order. The shared
@@ -169,6 +176,6 @@ uses `loading`, `signed-in`, `signed-out`, `error`, or `unavailable`; identity i
 cleared outside signed-in state. `LinkMapAuth.retry()` repeats session setup without
 reconfiguring CloudKit.
 
-The shared header stays at the top while scrolling, with a white blurred surface
-and native link dragging disabled. `--header-height` in `styles.css` also controls
-documentation sidebar offsets and anchor clearance.
+The shared Endsunset header keeps its dark blurred surface and sticky positioning.
+DocC's sticky navigation uses an offset beneath it; LinkMap content retains its
+existing white surfaces and red accents.

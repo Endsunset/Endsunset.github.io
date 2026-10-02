@@ -57,8 +57,12 @@ Apply these rules to the homepage, privacy policy, and future website pages.
 Update shared styles instead of adding conflicting page-specific color values.
 Follow `AGENTS.md` for clean folder links. DocC owns its documentation styles.
 
-Website pages use `components/footer.html`. Refresh checked-in website pages with
-`python3 scripts/build-footers.py`; DocC renders documentation separately.
+Website chrome uses the shared Endsunset templates in `../partials/` and scoped
+styles in `../assets/styles/`. Preserve their existing dark appearance while
+keeping LinkMap content white with red accents. The old LinkMap header/footer
+components remain as inactive source. Refresh checked-in website pages with
+`python3 scripts/build-headers.py` and `python3 scripts/build-footers.py`; regenerate
+DocC and privacy pages with their own generators.
 
 ## Documentation
 

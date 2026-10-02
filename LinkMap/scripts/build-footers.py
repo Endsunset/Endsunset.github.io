@@ -9,7 +9,7 @@ for page in sorted(ROOT.rglob('index.html')):
         continue
     depth = len(relative.parts) - 1
     footer = render_footer('../' * depth if depth else './')
-    source = page.read_text()
+    source = page.read_text().replace("edit components/footer.html", "edit ../partials/footer.html")
     replacement = footer
     if START in source:
         pattern = re.escape(START) + r'.*?' + re.escape(END)

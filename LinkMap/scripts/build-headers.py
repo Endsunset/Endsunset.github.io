@@ -9,7 +9,7 @@ for page in sorted(ROOT.rglob('index.html')):
         continue
     depth = len(relative.parts) - 1
     prefix = '../' * depth if depth else './'
-    source = page.read_text()
+    source = page.read_text().replace("edit components/header.html", "edit ../partials/header.html")
     header = render_header(prefix,
                            docs=relative.parts[0] == 'documentation',
                            download=relative.parts[0] == 'download',

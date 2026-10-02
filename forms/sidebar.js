@@ -6,7 +6,7 @@
   const filter = document.querySelector('#form-filter');
   if (!sidebar || !toggle || !close || !filter) return;
   const mobile = matchMedia('(max-width: 700px)');
-  const background = [...document.querySelectorAll('.site-header, .site-footer, .forms-toolbar, .forms-content, .skip-link')];
+  const background = [...document.querySelectorAll('.endsunset-header, .endsunset-footer, .forms-toolbar, .forms-content, .skip-link')];
   let open = false;
   let saved;
   try { saved = sessionStorage.getItem('endsunset-forms-sidebar'); } catch {}

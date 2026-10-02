@@ -1,7 +1,15 @@
-<header class="site-header">
-  <nav class="nav shell" aria-label="Main navigation">
-    <a class="brand" href="/" aria-label="Endsunset home">Endsunset</a>
-    <div class="nav-links"><a class="nav-projects" href="/#projects">Projects</a>
-    <a class="nav-projects" href="/forms/">Forms</a></div>
+<header class="endsunset-header">
+  <nav class="endsunset-nav endsunset-shell" aria-label="Main navigation">
+    <a class="endsunset-brand" href="/" aria-label="Endsunset home">Endsunset</a>
+    <div class="endsunset-controls">
+      <div class="endsunset-projects">
+        <a href="/projects/">Projects</a>
+        <button class="endsunset-projects-toggle" type="button" aria-label="Show projects menu" aria-expanded="false" aria-controls="endsunset-project-menu" hidden><span aria-hidden="true">⌄</span></button>
+        <div class="endsunset-project-menu" id="endsunset-project-menu" hidden>
+          <nav class="endsunset-shell" aria-label="Projects"><p>Explore projects</p>$project_links<a class="endsunset-all-projects" href="/projects/">All projects</a></nav>
+        </div>
+      </div>
+      <a href="/search/">Search</a>
+    </div>
   </nav>
 </header>

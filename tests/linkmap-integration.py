@@ -35,7 +35,10 @@ def check_url(source, url, *, fragments=False):
         target /= "index.html"
     assert target.is_file(), f"{source.relative_to(ROOT)}: missing {url}"
     if source.is_relative_to(PROJECT):
-        assert target.resolve().is_relative_to(PROJECT), f"LinkMap path escapes project: {url}"
+        assert target.resolve().is_relative_to(PROJECT) or (
+            target.resolve().is_relative_to(ROOT / "assets") or
+            target in [ROOT / "index.html", ROOT / "projects/index.html", ROOT / "search/index.html", ROOT / "forms/index.html"]
+        ), f"Unexpected LinkMap destination: {url}"
     if fragments and resolved.fragment and target.suffix == ".html":
         # DocC renders article headings at runtime from its JSON data.
         if target.is_relative_to(PROJECT / "documentation"):
@@ -54,7 +57,7 @@ def main():
         for name in (".git", ".gitmodules", ".github", ".nojekyll", ".gitignore", "CNAME", "_config.yml"):
             assert not (directory / name).exists(), f"Conflicting child metadata: {directory / name}"
 
-    pages = [*PROJECT.rglob("index.html"), ROOT / "index.html", ROOT / "redirect.html",
+    pages = [*PROJECT.rglob("index.html"), ROOT / "index.html", ROOT / "projects/index.html", ROOT / "search/index.html", ROOT / "redirect.html",
              ROOT / "redirect_wechat.html", *(ROOT / "forms").rglob("*.html")]
     for page in pages:
         for url in Page(page.read_text()).urls:

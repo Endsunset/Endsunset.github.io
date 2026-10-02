@@ -1,1 +1,4 @@
-.site-footer { border-top: 1px solid var(--line); padding-block: 24px; color: var(--muted); font-size: 11px; }
+.endsunset-footer { background: #050509; }
+.endsunset-footer > .endsunset-shell { border-top: 1px solid #ffffff18; padding-block: 24px; }
+.endsunset-copyright { display: flex; justify-content: space-between; gap: 20px; color: #aaaac1; font-size: 11px; }
+.endsunset-product-links { display: flex; flex-wrap: wrap; gap: 16px 28px; padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid #ffffff18; }

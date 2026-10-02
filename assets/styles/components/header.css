@@ -1,11 +1,19 @@
-.site-header { position: sticky; top: 0; z-index: 20; background: #050509e8; backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
-.nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 650; letter-spacing: -.6px; }
-.nav-projects { font-size: 12px; }
-.nav-projects:hover { color: var(--purple); }
+.endsunset-header { position: sticky; top: 0; z-index: 10000; background: #050509e8; backdrop-filter: blur(18px); border-bottom: 1px solid #ffffff18; }
+.endsunset-nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.endsunset-header .endsunset-brand { display: inline-flex; align-items: center; font-size: 18px; font-weight: 650; letter-spacing: -.6px; }
+.endsunset-controls { height: 100%; display: flex; align-items: center; gap: 28px; }
+.endsunset-projects { display: flex; align-items: center; align-self: stretch; }
+.endsunset-projects > a { display: flex; align-items: center; min-height: 44px; }
+.endsunset-projects-toggle { border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; width: 44px; height: 44px; padding: 0; }
+.endsunset-projects-toggle[aria-expanded="true"] span { display: inline-block; transform: rotate(180deg); }
+.endsunset-project-menu { position: absolute; inset: 100% 0 auto; background: #050509; border-bottom: 1px solid #ffffff18; max-height: calc(100dvh - 68px); overflow-y: auto; }
+.endsunset-project-menu nav { display: grid; gap: 14px; padding-block: 30px 36px; }
+.endsunset-project-menu p { margin: 0 0 4px; color: #aaaac1; font-size: 12px; }
+.endsunset-project-menu a { width: fit-content; font-size: 24px; font-weight: 600; }
+.endsunset-project-menu .endsunset-all-projects { font-size: 12px; font-weight: 400; margin-top: 8px; }
 @media (max-width: 700px) {
-  .nav { height: 62px; }
-  .brand { font-size: 16px; }
+  .endsunset-nav { height: 62px; }
+  .endsunset-header .endsunset-brand { font-size: 16px; }
+  .endsunset-controls { gap: 16px; }
+  .endsunset-project-menu { max-height: calc(100dvh - 62px); }
 }
-.nav-links { display: flex; align-items: center; gap: 28px; }
-.nav-links [aria-current="page"] { color: var(--purple); }

@@ -3,30 +3,31 @@
   <script src="../../components/notification/notification.js" defer></script>
   <script src="../../shared/errors/cloudkit-errors.js" defer></script>
   <script src="../../cloudkit-config.js" defer></script>
-  <script src="../../cloudkit-auth.js" defer></script></head><body data-color-scheme="light"><!-- Shared header: edit components/header.html, then run scripts/build-headers.py -->
-<header draggable="false" class="site-header">
-  <a draggable="false" class="brand" href="../../" aria-label="LinkMap home">
-    <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
-    <span>LinkMap</span>
-  </a>
-  <nav class="nav-links" aria-label="Main navigation">
-    <a draggable="false" class="desktop-nav-link" href="../../documentation/" aria-current="true">Documentation</a>
-    <a draggable="false" class="desktop-nav-link" href="../../download/">Download</a>
-    <a draggable="false" class="button button-small button-outline" href="../../login/" data-header-sign-in>Sign in</a>
-    <a draggable="false" class="button button-small button-outline" href="../../account/" data-account-link hidden>Account</a>
-    <button class="mobile-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-navigation" popovertarget="mobile-navigation">
-      <span></span><span></span>
-    </button>
-  </nav>
-  <nav id="mobile-navigation" class="mobile-navigation" popover aria-label="Mobile navigation">
-    <a draggable="false" href="../../documentation/" aria-current="true">Documentation</a>
-    <a draggable="false" href="../../download/">Download</a>
+  <script src="../../cloudkit-auth.js" defer></script></head><body data-color-scheme="light"><!-- Shared header: edit ../partials/header.html, then run scripts/build-headers.py -->
+<link rel="stylesheet" href="/assets/styles/site-chrome.css">
+<script src="/assets/scripts/navigation.js" defer></script>
+<header class="endsunset-header">
+  <nav class="endsunset-nav endsunset-shell" aria-label="Main navigation">
+    <a class="endsunset-brand" href="/" aria-label="Endsunset home">Endsunset</a>
+    <div class="endsunset-controls">
+      <div class="endsunset-projects">
+        <a href="/projects/">Projects</a>
+        <button class="endsunset-projects-toggle" type="button" aria-label="Show projects menu" aria-expanded="false" aria-controls="endsunset-project-menu" hidden><span aria-hidden="true">⌄</span></button>
+        <div class="endsunset-project-menu" id="endsunset-project-menu" hidden>
+          <nav class="endsunset-shell" aria-label="Projects"><p>Explore projects</p><a href="/LinkMap/">LinkMap</a><a class="endsunset-all-projects" href="/projects/">All projects</a></nav>
+        </div>
+      </div>
+      <a href="/search/">Search</a>
+    </div>
   </nav>
 </header>
-<script src="../../header.js"></script>
-<!-- End shared header --><noscript><article><section><ul><li><a href="../index.html">LinkMap</a></li><li>LinkMap for Web</li></ul><p>Article</p><h1>LinkMap for Web</h1><p>Open LinkMap in a browser to explore places and view your Project map.</p></section><h2>Open the web map</h2><p>Go to the <a href="https://endsunset.github.io/LinkMap/app/">LinkMap web map</a>. There is no app to install. You can search for places and inspect coordinates without signing in. To view your own or shared Projects, sign in with the Apple Account you use for LinkMap.</p><h3>Sign in to view your Projects</h3><ol><li><p>Choose Sign in on the web map.</p></li><li><p>Sign in with the same Apple Account you use for LinkMap on iOS. This is a separate browser sign-in, even if you already use the iOS app.</p></li><li><p>Use the Project selector above the map to choose a Project you own or have joined.</p></li></ol><p>The selected Project’s Locations appear on the map. Choose a Location to inspect it. You can switch Projects without signing in again.</p><p>If a shared Project is missing, check that you accepted its invitation in the iOS app, then load the web map again. If a Project has no visible Locations, add places in the iOS app and reload the web map.</p><h3>Find a place or address</h3><p>Type a place or address in Search and choose a suggestion or result. The map moves to the selected place and shows its details when available. Your Project Locations remain available when you change the search selection.</p><h3>Show and copy coordinates</h3><p>Enter a latitude and longitude pair in Coordinates, then choose Show on map. For example, enter <code>37.3349, -122.0090</code>. Choose Copy to share the coordinate text.</p><h3>Continue planning on iOS</h3><p>Use the iOS app to create Projects, add or edit Locations, plan Activities and Routes, and manage sharing. See <a href="../ios-platform/index.html">LinkMap for iOS</a> to get started.</p></article></noscript><div id="app"></div><!-- Shared footer: edit components/footer.html, then run scripts/build-footers.py -->
-<footer class="site-footer">
-  <a href="../../">LinkMap home</a>
-  <a href="../../privacy-policy/">Privacy policy</a>
+
+<script src="../../product-navigation.js" defer></script>
+<!-- End shared header --><noscript><article><section><ul><li><a href="../index.html">LinkMap</a></li><li>LinkMap for Web</li></ul><p>Article</p><h1>LinkMap for Web</h1><p>Open LinkMap in a browser to explore places and view your Project map.</p></section><h2>Open the web map</h2><p>Go to the <a href="https://endsunset.github.io/LinkMap/app/">LinkMap web map</a>. There is no app to install. You can search for places and inspect coordinates without signing in. To view your own or shared Projects, sign in with the Apple Account you use for LinkMap.</p><h3>Sign in to view your Projects</h3><ol><li><p>Choose Sign in on the web map.</p></li><li><p>Sign in with the same Apple Account you use for LinkMap on iOS. This is a separate browser sign-in, even if you already use the iOS app.</p></li><li><p>Use the Project selector above the map to choose a Project you own or have joined.</p></li></ol><p>The selected Project’s Locations appear on the map. Choose a Location to inspect it. You can switch Projects without signing in again.</p><p>If a shared Project is missing, check that you accepted its invitation in the iOS app, then load the web map again. If a Project has no visible Locations, add places in the iOS app and reload the web map.</p><h3>Find a place or address</h3><p>Type a place or address in Search and choose a suggestion or result. The map moves to the selected place and shows its details when available. Your Project Locations remain available when you change the search selection.</p><h3>Show and copy coordinates</h3><p>Enter a latitude and longitude pair in Coordinates, then choose Show on map. For example, enter <code>37.3349, -122.0090</code>. Choose Copy to share the coordinate text.</p><h3>Continue planning on iOS</h3><p>Use the iOS app to create Projects, add or edit Locations, plan Activities and Routes, and manage sharing. See <a href="../ios-platform/index.html">LinkMap for iOS</a> to get started.</p></article></noscript><div id="app"></div><!-- Shared footer: edit ../partials/footer.html, then run scripts/build-footers.py -->
+<footer class="endsunset-footer">
+  <div class="endsunset-shell">
+    <nav class="endsunset-product-links" aria-label="LinkMap destinations"><a href="../../">LinkMap</a><a href="../../documentation/">Documentation</a><a href="../../download/">Download for iOS</a><a href="../../login/">Sign in</a><a href="../../account/">Account</a><a href="../../privacy-policy/">Privacy policy</a></nav>
+    <div class="endsunset-copyright"><span>© <span data-endsunset-year>2026</span> Endsunset</span><a href="/forms/">Forms</a></div>
+  </div>
 </footer>
 <!-- End shared footer --></body></html>

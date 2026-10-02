@@ -11,17 +11,26 @@
   <title>The Keynesian Beauty Contest — Endsunset</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="/assets/styles/main.css">
-  <script src="/assets/scripts/main.js" defer></script>
+  <link rel="stylesheet" href="/assets/styles/site-chrome.css">
+  <script src="/assets/scripts/navigation.js" defer></script>
 <link rel="stylesheet" href="/forms/forms.css">
   <script src="/forms/sidebar.js" defer></script>
 </head>
 <body data-page="forms">
   <a class="skip-link" href="#form-content">Skip to content</a>
-  <header class="site-header">
-  <nav class="nav shell" aria-label="Main navigation">
-    <a class="brand" href="/" aria-label="Endsunset home">Endsunset</a>
-    <div class="nav-links"><a class="nav-projects" href="/#projects">Projects</a>
-    <a class="nav-projects" href="/forms/" aria-current="page">Forms</a></div>
+  <header class="endsunset-header">
+  <nav class="endsunset-nav endsunset-shell" aria-label="Main navigation">
+    <a class="endsunset-brand" href="/" aria-label="Endsunset home">Endsunset</a>
+    <div class="endsunset-controls">
+      <div class="endsunset-projects">
+        <a href="/projects/">Projects</a>
+        <button class="endsunset-projects-toggle" type="button" aria-label="Show projects menu" aria-expanded="false" aria-controls="endsunset-project-menu" hidden><span aria-hidden="true">⌄</span></button>
+        <div class="endsunset-project-menu" id="endsunset-project-menu" hidden>
+          <nav class="endsunset-shell" aria-label="Projects"><p>Explore projects</p><a href="/LinkMap/">LinkMap</a><a class="endsunset-all-projects" href="/projects/">All projects</a></nav>
+        </div>
+      </div>
+      <a href="/search/">Search</a>
+    </div>
   </nav>
 </header>
 
@@ -37,8 +46,11 @@
 <h1>The Keynesian Beauty Contest</h1><p class="forms-intro">Open the form to take part, or scan the QR code on another device.</p>
 <a class="button" href="https://forms.cloud.microsoft/r/7wnJtx46a1" target="_blank" rel="noopener noreferrer">Open form <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
 <a class="qr-link" href="https://forms.cloud.microsoft/r/7wnJtx46a1" target="_blank" rel="noopener noreferrer" aria-label="Open The Keynesian Beauty Contest in a new tab"><img class="form-qr" src="/forms/assets/keynesian-beauty-contest.png" alt="QR code for The Keynesian Beauty Contest" width="1890" height="1890"></a></div></div></main>
-  <footer class="site-footer shell">
-  <span>© <span id="year">2026</span> Endsunset</span>
+  <footer class="endsunset-footer">
+  <div class="endsunset-shell">
+
+    <div class="endsunset-copyright"><span>© <span data-endsunset-year>2026</span> Endsunset</span><a href="/forms/">Forms</a></div>
+  </div>
 </footer>
 
 </body>

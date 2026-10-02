@@ -81,7 +81,7 @@ h1 em { color: var(--accent); font-style: normal; }
 .approach { border-top: 1px solid var(--line); margin: 0 auto; max-width: 1280px; padding: 90px 5vw 120px; }
 .section-heading { align-items: end; display: flex; justify-content: space-between; margin-bottom: 62px; }.section-heading h2 { font-size: clamp(2.3rem, 5vw, 4.4rem); letter-spacing: -.05em; line-height: 1; max-width: 570px; }
 .principles { display: grid; gap: 1px; grid-template-columns: repeat(3, 1fr); }.principle { border-top: 3px solid var(--ink); padding: 20px 22px 0 0; }.principle-number { color: var(--accent); font-family: var(--display); font-size: .85rem; font-weight: 700; }.principle h3 { font-size: 1.3rem; margin: 36px 0 10px; }.principle p { color: var(--muted); margin: 0; max-width: 270px; }
-.about-band { background: var(--surface); color: var(--ink); border-top: 1px solid var(--line); padding: 100px 10vw; }.about-band .eyebrow { color: var(--accent); }.about-band .eyebrow-line { background: var(--accent); }.about-band h2 { font-size: clamp(2.6rem, 6vw, 5.6rem); letter-spacing: -.06em; line-height: .98; max-width: 850px; }.about-band > p:last-child { color: var(--muted); margin: 32px 0 0; max-width: 470px; }
+.about-band { background: var(--surface); color: var(--ink); border-top: 1px solid var(--line); padding: 100px 10vw; }.about-band .eyebrow { color: var(--accent); }.about-band .eyebrow-line { background: var(--accent); }.about-band h2 { font-size: clamp(2.6rem, 6vw, 5.6rem); letter-spacing: -.06em; line-height: .98; max-width: 850px; }.about-band > p:not(.eyebrow) { color: var(--muted); margin: 32px 0 0; max-width: 470px; }
 .site-footer { color: var(--muted); font-size: .8rem; padding-bottom: 34px; padding-top: 34px; }.site-footer .brand { color: var(--ink); font-size: 1rem; }
 
 @media (max-width: 760px) {
@@ -207,3 +207,5 @@ h1 em { color: var(--accent); font-style: normal; }
 @media (prefers-reduced-motion: reduce) {
   .mobile-menu-toggle span, .mobile-navigation, .mobile-navigation a { transition: none; }
 }
+
+.about-band .hero-actions { margin-top: 28px; }

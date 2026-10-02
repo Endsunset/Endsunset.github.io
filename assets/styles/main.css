@@ -1,5 +1,4 @@
-@import url('./components/header.css');
-@import url('./components/footer.css');
+
 
 :root {
   --ink: #f5f5ff;
@@ -55,3 +54,12 @@ p, h1, h2 { margin: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+
+.placeholder, .search-page { min-height: calc(100svh - 145px); padding-block: 100px; }
+.placeholder h1, .search-page h1 { font-size: clamp(40px, 6vw, 64px); letter-spacing: -2px; }
+.placeholder p, .search-page > p { color: var(--muted); margin: 20px 0 28px; }
+.search-page input { width: 100%; padding: 14px; margin-block: 20px; background: #12121c; color: var(--ink); border: 1px solid #aaaac1; border-radius: 4px; font: inherit; }
+.search-results { list-style: none; padding: 0; }
+.search-results li { padding-block: 16px; border-bottom: 1px solid var(--line); }
+.search-results a { font-size: 20px; color: var(--blue); }
+.search-results p { margin-top: 6px; color: var(--muted); }

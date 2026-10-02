@@ -1,6 +1,6 @@
 # Endsunset
 
-A dependency-free GitHub Pages homepage that presents projects with a full-width product section, short description, brand mark, and direct website link. LinkMap is currently the only project, maintained as a child project in [`LinkMap/`](LinkMap/README.md) and served at `https://endsunset.github.io/LinkMap/`.
+A dependency-free GitHub Pages site with a temporary homepage and a Projects catalogue that presents projects with a full-width product section, short description, brand mark, and direct website link. LinkMap is currently the only project, maintained as a child project in [`LinkMap/`](LinkMap/README.md) and served at `https://endsunset.github.io/LinkMap/`.
 
 ## Edit and preview
 
@@ -11,7 +11,7 @@ python3 scripts/build.py
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000`. Commit the generated `index.html` and `forms/**/index.html` alongside source changes. GitHub Pages publishes the repository directly. Content and navigation work without JavaScript.
+Open `http://localhost:8000`. Commit the generated `index.html`, `projects/index.html`, `search/index.html`, and `forms/**/index.html` alongside source changes. GitHub Pages publishes the repository directly. Content and navigation work without JavaScript.
 
 ## Add a project
 
@@ -19,17 +19,20 @@ Open `http://localhost:8000`. Commit the generated `index.html` and `forms/**/in
 2. Place its product mark in `assets/images/`.
 3. Run `python3 scripts/build.py`.
 
-Projects appear directly on the homepage in catalog order. No separate project pages or directories are generated.
+Projects appear at `/projects/` in catalog order. LinkMap stays at `/LinkMap/`.
 
 ## Shared structure
 
 - `content/projects.json`: project descriptions, icons, and website links.
-- `scripts/build.py`: reusable homepage project rendering.
+- `scripts/build.py`: homepage, Projects, search, and Forms rendering.
 - `templates/page.html`: document shell and metadata.
 - `partials/`: shared header and footer, included at build time.
 - `assets/styles/`: responsive styles.
 - `assets/images/`: project assets. `linkmap-brandmark.svg` reproduces the header mark in the local `LinkMap/components/header.html` and `LinkMap/styles.css` as an SVG with a white icon background. Its bar proportions and rotation are preserved, with the original dark gray (`#202124`) and red (`#b4232c`) colors. The rotated artwork is centered within a square SVG viewport; the section background remains independent.
-- `assets/scripts/main.js`: current copyright year.
+- `assets/scripts/navigation.js`: shared project-menu interactions and copyright year.
+- `scripts/site_chrome.py`: shared rendering, also used by LinkMap generators.
+- `assets/styles/site-chrome.css`: scoped domain chrome, independent of project styles.
+- `assets/scripts/search.js`: local filtering of the generated site directory. Search queries stay in the browser.
 
 Root-relative assets target deployment at `endsunset.github.io`. Existing redirect pages remain available.
 
@@ -46,7 +49,7 @@ Root-relative assets target deployment at `endsunset.github.io`. Existing redire
 `LinkMap/` belongs to this repository and uses the parent Git history and Pages
 deployment. Keep its project instructions in `LinkMap/AGENTS.md` and follow
 [`LinkMap/README.md`](LinkMap/README.md) for its own generators and checks.
-The root homepage generator does not build or overwrite LinkMap.
+After changing shared chrome, refresh LinkMap from its directory with `python3 scripts/build-headers.py`, `python3 scripts/build-footers.py`, `python3 scripts/build-documentation.py`, and `python3 scripts/build-privacy.py`, then run the parent build to refresh search. The old LinkMap component HTML, styles, and `header.js` remain as inactive source.
 
 Publish this repository's `main` branch from `/ (root)` in GitHub Pages settings.
 The root `.nojekyll` serves the checked-in static files directly, including
