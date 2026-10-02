@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sign in with your Apple Account to use LinkMap with iCloud.">
+  <title>Sign in | LinkMap</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../account/account.css">
+  <link rel="stylesheet" href="../../components/notification/notification.css">
+  <script src="https://cdn.apple-cloudkit.com/ck/2/cloudkit.js" async></script>
+  <script src="../../components/notification/notification.js" defer></script>
+  <script src="../../shared/errors/cloudkit-errors.js" defer></script>
+  <script src="../../cloudkit-config.js" defer></script>
+  <script src="../../cloudkit-auth.js" defer></script>
+  <script src="sign-in.js" defer></script>
+</head>
+<body>
+  <main class="account-page">
+    <h1>Sign in</h1>
+    <p>Sign in with your Apple Account to use LinkMap with iCloud.</p>
+    <section class="account-card" aria-label="Apple sign-in" data-auth aria-busy="true">
+      <p role="status" aria-live="polite" data-status>Checking your sign-in status…</p>
+      <div class="auth-controls" data-auth-controls hidden><div id="apple-sign-in-button"></div></div>
+      <button class="button button-small button-outline" type="button" data-auth-retry hidden>Try again</button>
+      <p class="account-note">Your credentials are handled by Apple.</p>
+      <noscript>Enable JavaScript to sign in with Apple.</noscript>
+    </section>
+  </main>
+</body>
+</html>

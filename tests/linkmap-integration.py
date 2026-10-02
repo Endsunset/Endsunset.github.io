@@ -1,4 +1,4 @@
-"""Check the parent static site and LinkMap's /LinkMap/ deployment paths."""
+"""Check the parent static site and LinkMap's /linkmap/ deployment paths."""
 from html.parser import HTMLParser
 import json
 from pathlib import Path
@@ -6,7 +6,7 @@ import re
 from urllib.parse import unquote, urljoin, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-PROJECT = ROOT / "LinkMap"
+PROJECT = ROOT / "linkmap"
 ORIGIN = "https://endsunset.github.io"
 
 
@@ -70,13 +70,37 @@ def main():
         for url in re.findall(r'from\s+["\']([^"\']+)', module.read_text()):
             check_url(module, url)
 
-    # DocC JSON paths are relative to its /LinkMap/ hosting base at runtime.
+    # Authentication and website chrome have distinct page scopes.
+    assert "linkmap" in {p.name for p in ROOT.iterdir()}
+    assert "LinkMap" not in {p.name for p in ROOT.iterdir()}
+    assert not (PROJECT / "login").exists()
+    assert not (PROJECT / "account").exists()
+    entry = (PROJECT / "index.html").read_text()
+    assert 'content="0; url=app/"' in entry and 'href="app/"' in entry
+    for page in pages:
+        source = page.read_text()
+        in_app = page.is_relative_to(PROJECT / "app")
+        if in_app:
+            assert "endsunset-header" not in source and "endsunset-footer" not in source
+            assert "cloudkit-auth.js" in source and "cloudkit-config.js" in source
+        else:
+            assert not re.search(r"cloudkit(?:-auth|-config|\.js)|apple-sign-(?:in|out)-button|data-account-link|data-header-sign-in", source), page
+            assert not any("/sign-in/" in url or "login/" in url or "account/" in url for url in Page(source).urls), page
+        # Redirects intentionally have no website chrome.
+        if not in_app and 'http-equiv="refresh"' not in source and page not in [ROOT / "redirect.html", ROOT / "redirect_wechat.html", PROJECT / "index.html"]:
+            assert "endsunset-header" in source and "endsunset-footer" in source, page
+    assert 'id="apple-sign-out-button"' in (PROJECT / "app/account/index.html").read_text()
+    assert 'id="apple-sign-in-button"' in (PROJECT / "app/sign-in/index.html").read_text()
+
+    assert 'href="account/"' in (PROJECT / "app/index.html").read_text()
+
+    # DocC JSON paths are relative to its /linkmap/ hosting base at runtime.
     for data in [*(PROJECT / "data").rglob("*.json"), PROJECT / "index" / "index.json"]:
         def check(value):
             if isinstance(value, dict):
                 for key, item in value.items():
                     if key in ("url", "path") and isinstance(item, str) and item.startswith("/documentation"):
-                        check_url(PROJECT / "index.html", "/LinkMap" + item)
+                        check_url(PROJECT / "index.html", "/linkmap" + item)
                     check(item)
             elif isinstance(value, list):
                 for item in value:

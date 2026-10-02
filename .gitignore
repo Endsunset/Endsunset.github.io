@@ -2,16 +2,16 @@
 **/.DS_Store
 
 # LinkMap local Xcode and Swift state
-LinkMap/**/xcuserdata/
-LinkMap/**/UserInterfaceState.xcuserstate
+linkmap/**/xcuserdata/
+linkmap/**/UserInterfaceState.xcuserstate
 
 # LinkMap local development data stores
-LinkMap/**/*.dstore
+linkmap/**/*.dstore
 
 # LinkMap editor and dependency output
-LinkMap/**/.vscode/
-LinkMap/**/node_modules/
-LinkMap/**/dist/
+linkmap/**/.vscode/
+linkmap/**/node_modules/
+linkmap/**/dist/
 
 # LinkMap Python renderer cache
-LinkMap/**/__pycache__/
+linkmap/**/__pycache__/

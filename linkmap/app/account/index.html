@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manage your LinkMap Apple Account and iCloud session.">
+  <title>Account | LinkMap</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="account.css">
+  <link rel="stylesheet" href="../../components/notification/notification.css">
+  <script src="https://cdn.apple-cloudkit.com/ck/2/cloudkit.js" async></script>
+  <script src="../../components/notification/notification.js" defer></script>
+  <script src="../../shared/errors/cloudkit-errors.js" defer></script>
+  <script src="../../cloudkit-config.js" defer></script>
+  <script src="../../cloudkit-auth.js" defer></script>
+  <script src="account.js" defer></script>
+</head>
+<body>
+  <main class="account-page">
+    <p class="eyebrow">Your LinkMap account</p>
+    <h1>Account</h1>
+    <p>Manage your Apple Account session.</p>
+    <section class="account-card" aria-labelledby="login-title" data-auth aria-busy="true">
+      <h2 id="login-title">Apple Account</h2>
+      <strong data-account hidden></strong>
+      <p role="status" aria-live="polite" data-status>Checking your sign-in status…</p>
+      <div class="auth-controls" data-auth-controls hidden>
+        <a class="button button-small button-outline" href="../sign-in/" data-sign-in-link hidden>Sign in</a>
+        <div id="apple-sign-out-button"></div>
+      </div>
+      <button class="button button-small button-outline" type="button" data-auth-retry hidden>Retry sign-in check</button>
+      <noscript>Enable JavaScript to manage your account session.</noscript>
+    </section>
+    <p class="account-note">Your projects are stored in personal iCloud storage and shared through project permissions. View your projects in the web app; create and edit them in the iOS app.</p>
+    <a class="text-link" href="../">Back to LinkMap</a>
+  </main>
+</body>
+</html>

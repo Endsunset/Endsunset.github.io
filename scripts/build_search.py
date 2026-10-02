@@ -9,14 +9,14 @@ def build_search(root):
     entries = [dict(title='Endsunset', url='/', summary='Endsunset home'), dict(title='Projects', url='/projects/', summary='Explore Endsunset projects'), dict(title='Forms', url='/forms/', summary='Browse forms and take part')]
     for project in json.loads((root / 'content/projects.json').read_text()):
         entries.append(dict(title=project['name'], url=project_url(project), summary=project['summary']))
-    for title, path, summary in [('Download LinkMap', 'download/', 'Get LinkMap for iPhone'), ('Sign in to LinkMap', 'login/', 'Access LinkMap with your Apple Account'), ('LinkMap account', 'account/', 'Manage your account'), ('LinkMap privacy policy', 'privacy-policy/', 'Storage, sharing, and deletion')]:
-        entries.append(dict(title=title, url='/LinkMap/' + path, summary=summary))
-    for data in sorted((root / 'LinkMap/data').rglob('*.json')):
+    for title, path, summary in [('Download LinkMap', 'download/', 'Get LinkMap for iPhone'), ('LinkMap privacy policy', 'privacy-policy/', 'Storage, sharing, and deletion')]:
+        entries.append(dict(title=title, url='/linkmap/' + path, summary=summary))
+    for data in sorted((root / 'linkmap/data').rglob('*.json')):
         article = json.loads(data.read_text())
         path = article.get('identifier', {}).get('url', '')
         if article.get('kind') == 'article' and '/documentation' in path:
             route = '/documentation' + ('/' + data.stem if data.parent.name == 'documentation' else '')
-            entries.append(dict(title=article['metadata']['title'], url='/LinkMap' + route + '/', summary='LinkMap documentation'))
+            entries.append(dict(title=article['metadata']['title'], url='/linkmap' + route + '/', summary='LinkMap documentation'))
     for form in json.loads((root / 'content/forms.json').read_text()):
         entries.append(dict(title=form['name'], url='/forms/' + form['slug'] + '/', summary='Microsoft Forms'))
     rows = ''.join(f'<li data-search-entry><a href="{escape(e["url"], quote=True)}">{escape(e["title"])}</a><p>{escape(e["summary"])}</p></li>' for e in entries)

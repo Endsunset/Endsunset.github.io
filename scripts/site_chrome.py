@@ -22,7 +22,7 @@ def render_header():
 def render_footer(linkmap_prefix=None):
     links = ''
     if linkmap_prefix is not None:
-        destinations = [('LinkMap', ''), ('Documentation', 'documentation/'), ('Download for iOS', 'download/'), ('Sign in', 'login/'), ('Account', 'account/'), ('Privacy policy', 'privacy-policy/')]
+        destinations = [('LinkMap', ''), ('Documentation', 'documentation/'), ('Download for iOS', 'download/'), ('Privacy policy', 'privacy-policy/')]
         links = '<nav class="endsunset-product-links" aria-label="LinkMap destinations">' + ''.join(
             f'<a href="{linkmap_prefix}{path}">{label}</a>' for label, path in destinations) + '</nav>'
     markup = Template((ROOT / 'partials/footer.html').read_text()).substitute(product_links=links)

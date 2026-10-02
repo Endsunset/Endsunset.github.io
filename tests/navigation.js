@@ -45,13 +45,3 @@ assert(entries[0].hidden && !entries[1].hidden && entries[2].hidden, 'Search mat
 input.value = 'missing'; input.events.input(); assert(status.textContent.startsWith('No results'), 'Search reports no results');
 input.value = ''; input.events.input(); assert(entries.every(entry => !entry.hidden), 'Clearing search restores links');
 print('Passed search filtering, empty results, and reset checks.');
-
-const signIn = element(), account = element(), footerAccount = element();
-footerAccount.getAttribute = () => './account/';
-document = { readyState: 'loading', events: {}, querySelector() { return footerAccount; }, querySelectorAll(selector) { return selector === '[data-account-link]' ? [account] : [signIn]; }, addEventListener(name, fn) { this.events[name] = fn; } };
-window.LinkMapAuth = {current: {state: 'signed-in'}};
-load('LinkMap/product-navigation.js');
-assert(!account.hidden && signIn.hidden, 'Signed-in state shows contextual account access');
-window.events['linkmap-auth']({detail: {state: 'signed-out'}});
-assert(account.hidden && !signIn.hidden, 'Signed-out state restores contextual sign in');
-print('Passed contextual authentication state checks.');

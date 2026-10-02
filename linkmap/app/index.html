@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Apple Maps with LinkMap.">
+  <title>Map | LinkMap</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="../components/notification/notification.css">
+  <script src="https://cdn.apple-cloudkit.com/ck/2/cloudkit.js" async></script>
+  <script src="../components/notification/notification.js" defer></script>
+  <script src="../shared/errors/cloudkit-errors.js" defer></script>
+  <script src="../cloudkit-config.js" defer></script>
+  <script src="../cloudkit-auth.js" defer></script>
+  <script src="../shared/errors/mapkit-errors.js" defer></script>
+</head>
+<body class="map-page">
+  <main class="map-workspace" aria-label="LinkMap map">
+    <section class="project-toolbar" aria-label="Project selection">
+      <div class="project-field">
+        <label for="project-select">Project</label>
+        <select id="project-select" aria-describedby="project-status" disabled>
+          <option value="">Loading projects…</option>
+        </select>
+      </div>
+      <p id="project-status" role="status" aria-live="polite">Connecting to iCloud…</p>
+      <button id="project-retry" class="button button-small button-outline" type="button" hidden>Try again</button>
+      <a id="project-sign-in" class="button button-small button-outline" href="sign-in/" hidden>Sign in</a>
+      <a class="button button-small button-outline" href="account/" data-account-link hidden>Account</a>
+    </section>
+    <div class="map-explorer">
+      <aside class="map-inspector" aria-label="Search and inspect places">
+        <section aria-labelledby="search-heading">
+          <h1 id="search-heading">Explore the map</h1>
+          <form id="place-search-form" role="search">
+            <label for="place-query">Search places</label>
+            <div class="map-input-row">
+              <input id="place-query" type="search" placeholder="Place or address" autocomplete="off" aria-describedby="search-status" disabled>
+              <button id="place-search-submit" class="button button-small button-outline" disabled>Search</button>
+            </div>
+          </form>
+          <p id="search-status" class="inspector-status" role="status">Waiting for Apple Maps…</p>
+          <ul id="place-results" class="place-results" aria-label="Places" hidden></ul>
+        </section>
+        <section aria-labelledby="coordinate-heading">
+          <h2 id="coordinate-heading">Coordinates</h2>
+          <form id="coordinate-form">
+            <label for="coordinate-input">Latitude, longitude</label>
+            <input id="coordinate-input" type="text" placeholder="37.3349, -122.0090" autocomplete="off" spellcheck="false" aria-describedby="coordinate-status" disabled>
+            <div class="map-input-row inspector-actions">
+              <button id="coordinate-show" class="button button-small button-outline" disabled>Show on map</button>
+              <button id="coordinate-copy" class="button button-small button-outline" type="button" disabled>Copy</button>
+            </div>
+          </form>
+          <p id="coordinate-status" class="inspector-status" role="status">Enter or paste a decimal coordinate pair.</p>
+        </section>
+        <section aria-labelledby="place-heading">
+          <h2 id="place-heading">Place details</h2>
+          <p id="place-summary" class="inspector-status" role="status">Select a search result to see its details.</p>
+          <div id="place-detail" hidden></div>
+        </section>
+      </aside>
+      <div class="map-canvas">
+      <div id="map" aria-label="Interactive Apple map"></div>
+      <div id="map-loading" class="map-notice" role="status">Loading Apple Maps…</div>
+      <noscript><p class="map-notice">Enable JavaScript to use the interactive map.</p></noscript>
+      </div>
+    </div>
+  </main>
+  <script src="session.js" defer></script>
+  <script src="app.js" type="module"></script>
+</body>
+</html>

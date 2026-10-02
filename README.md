@@ -1,6 +1,6 @@
 # Endsunset
 
-A dependency-free GitHub Pages site with a temporary homepage and a Projects catalogue that presents projects with a full-width product section, short description, brand mark, and direct website link. LinkMap is currently the only project, maintained as a child project in [`LinkMap/`](LinkMap/README.md) and served at `https://endsunset.github.io/LinkMap/`.
+A dependency-free GitHub Pages site with a temporary homepage and a Projects catalogue that presents projects with a full-width product section, short description, brand mark, and direct website link. LinkMap is currently the only project, maintained as a child project in [`linkmap/`](linkmap/README.md) and served at `https://endsunset.github.io/linkmap/`.
 
 ## Edit and preview
 
@@ -19,7 +19,7 @@ Open `http://localhost:8000`. Commit the generated `index.html`, `projects/index
 2. Place its product mark in `assets/images/`.
 3. Run `python3 scripts/build.py`.
 
-Projects appear at `/projects/` in catalog order. LinkMap stays at `/LinkMap/`.
+Projects appear at `/projects/` in catalog order. LinkMap stays at `/linkmap/`.
 
 ## Shared structure
 
@@ -28,7 +28,7 @@ Projects appear at `/projects/` in catalog order. LinkMap stays at `/LinkMap/`.
 - `templates/page.html`: document shell and metadata.
 - `partials/`: shared header and footer, included at build time.
 - `assets/styles/`: responsive styles.
-- `assets/images/`: project assets. `linkmap-brandmark.svg` reproduces the header mark in the local `LinkMap/components/header.html` and `LinkMap/styles.css` as an SVG with a white icon background. Its bar proportions and rotation are preserved, with the original dark gray (`#202124`) and red (`#b4232c`) colors. The rotated artwork is centered within a square SVG viewport; the section background remains independent.
+- `assets/images/`: project assets. `linkmap-brandmark.svg` reproduces the header mark in the local `linkmap/components/header.html` and `linkmap/styles.css` as an SVG with a white icon background. Its bar proportions and rotation are preserved, with the original dark gray (`#202124`) and red (`#b4232c`) colors. The rotated artwork is centered within a square SVG viewport; the section background remains independent.
 - `assets/scripts/navigation.js`: shared project-menu interactions and copyright year.
 - `scripts/site_chrome.py`: shared rendering, also used by LinkMap generators.
 - `assets/styles/site-chrome.css`: scoped domain chrome, independent of project styles.
@@ -46,14 +46,14 @@ Root-relative assets target deployment at `endsunset.github.io`. Existing redire
 
 ## LinkMap child project
 
-`LinkMap/` belongs to this repository and uses the parent Git history and Pages
-deployment. Keep its project instructions in `LinkMap/AGENTS.md` and follow
-[`LinkMap/README.md`](LinkMap/README.md) for its own generators and checks.
+`linkmap/` belongs to this repository and uses the parent Git history and Pages
+deployment. Keep its project instructions in `linkmap/AGENTS.md` and follow
+[`linkmap/README.md`](linkmap/README.md) for its own generators and checks.
 After changing shared chrome, refresh LinkMap from its directory with `python3 scripts/build-headers.py`, `python3 scripts/build-footers.py`, `python3 scripts/build-documentation.py`, and `python3 scripts/build-privacy.py`, then run the parent build to refresh search. The old LinkMap component HTML, styles, and `header.js` remain as inactive source.
 
 Publish this repository's `main` branch from `/ (root)` in GitHub Pages settings.
 The root `.nojekyll` serves the checked-in static files directly, including
 LinkMap's generated DocC assets. No separate LinkMap workflow or deployment is
-required. Serve the parent root to preview both `/` and `/LinkMap/` locally.
+required. Serve the parent root to preview both `/` and `/linkmap/` locally.
 Run `python3 tests/linkmap-integration.py` to check both sites' local paths,
 LinkMap's generated routes, and child repository metadata.
