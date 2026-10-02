@@ -29,7 +29,8 @@ Projects appear at `/projects/` in catalog order. LinkMap stays at `/linkmap/`.
 - `partials/`: shared header and footer, included at build time.
 - `assets/styles/`: responsive styles.
 - `assets/images/`: project assets. `linkmap-brandmark.svg` preserves the original LinkMap three-bar mark as an SVG with a white icon background. Its bar proportions and rotation are preserved, with the original dark gray (`#202124`) and red (`#b4232c`) colors. The rotated artwork is centered within a square SVG viewport; the section background remains independent.
-- `assets/scripts/navigation.js`: shared project-menu interactions and copyright year.
+- `assets/scripts/navigation.js`: shared animated Projects and inline Search states,
+  keyboard/touch interactions, and copyright year.
 - `scripts/site_chrome.py`: shared rendering, also used by LinkMap generators.
 - `assets/styles/site-chrome.css`: scoped domain chrome, independent of project styles.
 - `assets/scripts/search.js`: local filtering of the generated site directory. Search queries stay in the browser.
@@ -49,3 +50,19 @@ LinkMap's generated DocC assets. No separate LinkMap workflow or deployment is
 required. Serve the parent root to preview both `/` and `/linkmap/` locally.
 Run `python3 tests/linkmap-integration.py` to check both sites' local paths,
 LinkMap's generated routes, and child repository metadata.
+
+## Header interactions
+
+The global header lives in `partials/header.html`; its styles live in
+`assets/styles/components/header.css` and its state management in
+`assets/scripts/navigation.js`. Projects remains a normal `/projects/` link;
+hover, keyboard focus, or the disclosure button opens its panel. Search opens
+an empty inline input; Cancel and Escape close it and restore focus. Closed
+panels are inert while CSS handles their entrance and exit transitions. Reduced
+motion disables transitions.
+
+Search does not navigate or render results yet. Submitting a nonempty query emits
+a bubbling `endsunset-search` event from the header with `detail.query`, ready for
+a future site-search handler. The existing `/search/` directory remains accessible
+by its URL. Run the shared generators after changes, then
+`python3 tests/linkmap-integration.py` and the JavaScriptCore navigation tests.

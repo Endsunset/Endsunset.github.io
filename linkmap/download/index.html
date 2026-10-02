@@ -11,20 +11,29 @@
 </head>
 <body>
   <!-- site-header -->
-<header class="endsunset-header">
+<header class="endsunset-header" data-nav-state="closed">
   <nav class="endsunset-nav endsunset-shell" aria-label="Main navigation">
     <a class="endsunset-brand" href="/" aria-label="Endsunset home">Endsunset</a>
     <div class="endsunset-controls">
       <div class="endsunset-projects">
         <a href="/projects/">Projects</a>
         <button class="endsunset-projects-toggle" type="button" aria-label="Show projects menu" aria-expanded="false" aria-controls="endsunset-project-menu" hidden><span aria-hidden="true">⌄</span></button>
-        <div class="endsunset-project-menu" id="endsunset-project-menu" hidden>
+        <div class="endsunset-project-menu endsunset-panel" id="endsunset-project-menu" aria-hidden="true" inert hidden>
           <nav class="endsunset-shell" aria-label="Projects"><p>Explore projects</p><a href="/linkmap/">LinkMap</a><a class="endsunset-all-projects" href="/projects/">All projects</a></nav>
         </div>
       </div>
-      <a href="/search/">Search</a>
+      <button class="endsunset-search-toggle" type="button" aria-expanded="false" aria-controls="endsunset-search-panel" hidden>Search</button>
     </div>
   </nav>
+  <div class="endsunset-search-panel endsunset-panel" id="endsunset-search-panel" aria-hidden="true" inert hidden>
+    <form class="endsunset-shell" role="search" aria-label="Search Endsunset">
+      <label for="endsunset-search-input">Search Endsunset</label>
+      <div class="endsunset-search-row">
+        <input id="endsunset-search-input" name="query" type="search" placeholder="Search Endsunset" autocomplete="off" enterkeyhint="search">
+        <button class="endsunset-search-cancel" type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
 </header>
 <!-- /site-header -->
   <main class="download-page">

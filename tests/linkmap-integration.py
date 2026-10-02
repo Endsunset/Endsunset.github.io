@@ -85,6 +85,12 @@ def main():
     assert 'href="https://endsunset.github.io/linkmap/"' in entry
     assert 'href="app/">Open web app</a>' in entry
     shared_header = re.search(r"<header\b.*?</header>", (ROOT / "index.html").read_text(), re.S).group()
+    assert 'href="/projects/"' in shared_header
+    assert 'href="/search/"' not in shared_header
+    assert 'class="endsunset-search-toggle"' in shared_header
+    assert 'id="endsunset-search-input"' in shared_header
+    assert 'class="endsunset-search-cancel"' in shared_header
+    assert 'data-search-entry' not in shared_header and 'search-status' not in shared_header
     for page in pages:
         source = page.read_text()
         in_app = page.is_relative_to(PROJECT / "app")
