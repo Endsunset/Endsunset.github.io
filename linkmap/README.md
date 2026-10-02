@@ -152,10 +152,14 @@ The app, sign-in, and account pages omit Endsunset's shared header and footer.
 The browser token uses CloudKit’s postMessage callback. The SDK owns popup messages;
 application code observes SDK-verified identity rather than window messages.
 
-## Updating the shared header
+## Updating the shared header and footer
 
 Edit `../partials/header.html` or `../partials/footer.html` and the scoped styles in
 `../assets/styles/`. The parent `scripts/site_chrome.py` renders both components.
+LinkMap-specific footer links live in `components/footer-links.html`.
+`scripts/site_footer.py` renders that component with each page's relative prefix
+and inserts it into the shared Endsunset footer. Edit this component rather than
+duplicating footer links in individual pages or the global renderer.
 Run the parent `python3 scripts/build.py`, then from this directory run
 `python3 scripts/build-headers.py`, `python3 scripts/build-footers.py`,
 `python3 scripts/build-documentation.py`, and `python3 scripts/build-privacy.py`.

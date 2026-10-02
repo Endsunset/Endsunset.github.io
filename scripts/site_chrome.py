@@ -19,13 +19,8 @@ def render_header():
     return Template((ROOT / 'partials/header.html').read_text()).substitute(project_links=links)
 
 
-def render_footer(linkmap_prefix=None):
-    links = ''
-    if linkmap_prefix is not None:
-        destinations = [('LinkMap', ''), ('Documentation', 'documentation/'), ('Download', 'download/'), ('Privacy policy', 'privacy-policy/')]
-        links = '<nav class="endsunset-product-links" aria-label="LinkMap destinations">' + ''.join(
-            f'<a href="{linkmap_prefix}{path}">{label}</a>' for label, path in destinations) + '</nav>'
-    markup = Template((ROOT / 'partials/footer.html').read_text()).substitute(product_links=links)
+def render_footer(product_links=''):
+    markup = Template((ROOT / 'partials/footer.html').read_text()).substitute(product_links=product_links)
     return '\n'.join(line.rstrip() for line in markup.splitlines()) + '\n'
 
 
