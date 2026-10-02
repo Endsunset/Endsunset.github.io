@@ -28,7 +28,6 @@
 @media (prefers-reduced-motion: reduce) {
   .endsunset-header, .endsunset-controls, .endsunset-panel { transition: none; }
 }
-.endsunset-menu-panel h2 { margin: 0 0 8px; font: inherit; font-size: 24px; font-weight: 600; }
 .endsunset-search-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; }
 
 #endsunset-search-input::-webkit-search-cancel-button { -webkit-appearance: none; }
