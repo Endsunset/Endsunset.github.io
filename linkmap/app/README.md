@@ -90,7 +90,8 @@ and an invalid latitude, and check keyboard navigation and a narrow viewport.
 
 ## Session navigation
 
-`/linkmap/` opens this app. Signed-out users choose `sign-in/`; successful or
+`/linkmap/` is the product homepage; its Open web app action opens `/linkmap/app/`.
+Signed-out app users choose `sign-in/`; successful or
 restored authentication returns to the app. The toolbar's Account link opens
 `account/` for identity, session retry, and Apple's sign-out control. Authentication
 is loaded only by app pages. The app, sign-in, and account pages do not use the

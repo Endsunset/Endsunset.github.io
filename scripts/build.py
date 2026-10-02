@@ -28,7 +28,7 @@ def showcase(project):
       <div class="product-heading shell">
         <h2 id="{e(project['slug'])}-title">{e(project['name'])}</h2>
         <p>{e(project['summary'])}</p>
-        <a class="button" href="{e(project_url(project))}">Visit {e(project['name'])} <span aria-hidden="true">↗</span></a>
+        <a class="button" href="{e(project_url(project))}" aria-label="More about {e(project['name'])}">More <span aria-hidden="true">↗</span></a>
       </div>
       <div class="product-stage"><img class="product-icon" src="{e(project['image'])}" alt="{e(project['image_alt'])}" width="320" height="320"></div>
     </article>'''

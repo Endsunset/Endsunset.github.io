@@ -5,7 +5,7 @@ from site_header import ROOT, START, END, render_header
 for page in sorted(ROOT.rglob('index.html')):
     relative = page.relative_to(ROOT)
     # DocC owns every page in its generated output.
-    if len(relative.parts) == 1 or relative.parts[0] in ('app', 'documentation', 'docs'):
+    if relative.parts[0] in ('app', 'documentation', 'docs'):
         continue
     depth = len(relative.parts) - 1
     prefix = '../' * depth if depth else './'

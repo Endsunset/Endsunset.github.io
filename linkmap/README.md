@@ -27,7 +27,7 @@ the parent repository; `linkmap/` has no separate Git metadata.
 
 | File | Responsibility |
 | --- | --- |
-| `index.html` | Redirect to the LinkMap app |
+| `index.html` | Canonical LinkMap product homepage with an explicit web app action |
 | `../partials/header.html` | Shared Endsunset header template |
 | `components/header.html` | Preserved legacy LinkMap header |
 | `scripts/site_header.py` | Header renderer used by page generators |

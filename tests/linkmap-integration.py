@@ -76,7 +76,9 @@ def main():
     assert not (PROJECT / "login").exists()
     assert not (PROJECT / "account").exists()
     entry = (PROJECT / "index.html").read_text()
-    assert 'content="0; url=app/"' in entry and 'href="app/"' in entry
+    assert 'http-equiv="refresh"' not in entry
+    assert 'href="https://endsunset.github.io/linkmap/"' in entry
+    assert 'href="app/">Open web app</a>' in entry
     for page in pages:
         source = page.read_text()
         in_app = page.is_relative_to(PROJECT / "app")
@@ -87,7 +89,7 @@ def main():
             assert not re.search(r"cloudkit(?:-auth|-config|\.js)|apple-sign-(?:in|out)-button|data-account-link|data-header-sign-in", source), page
             assert not any("/sign-in/" in url or "login/" in url or "account/" in url for url in Page(source).urls), page
         # Redirects intentionally have no website chrome.
-        if not in_app and 'http-equiv="refresh"' not in source and page not in [ROOT / "redirect.html", ROOT / "redirect_wechat.html", PROJECT / "index.html"]:
+        if not in_app and 'http-equiv="refresh"' not in source and page not in [ROOT / "redirect.html", ROOT / "redirect_wechat.html"]:
             assert "endsunset-header" in source and "endsunset-footer" in source, page
     assert 'id="apple-sign-out-button"' in (PROJECT / "app/account/index.html").read_text()
     assert 'id="apple-sign-in-button"' in (PROJECT / "app/sign-in/index.html").read_text()
