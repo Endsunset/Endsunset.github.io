@@ -55,14 +55,16 @@ LinkMap's generated routes, and child repository metadata.
 
 The global header lives in `partials/header.html`; its styles live in
 `assets/styles/components/header.css` and its state management in
-`assets/scripts/navigation.js`. Projects remains a normal `/projects/` link;
-hover, keyboard focus, or the disclosure button opens its panel. Search opens
-an empty inline input; Cancel and Escape close it and restore focus. Closed
-panels are inert while CSS handles their entrance and exit transitions. Reduced
-motion disables transitions.
+`assets/scripts/navigation.js`. Projects and LinkMap expand on hover or keyboard
+focus. Projects remains a normal `/projects/` link; on touch, the first tap opens
+its panel and the second follows the link. LinkMap is a disclosure button.
+Escape or leaving the header closes its active panel. Closed panels are inert
+while CSS handles transitions; reduced motion disables them.
 
-Search does not navigate or render results yet. Submitting a nonempty query emits
-a bubbling `endsunset-search` event from the header with `detail.query`, ready for
-a future site-search handler. The existing `/search/` directory remains accessible
-by its URL. Run the shared generators after changes, then
-`python3 tests/linkmap-integration.py` and the JavaScriptCore navigation tests.
+The search-symbol button opens an empty inline input without Cancel or a clear
+button. Enter submits a native GET form to `/search/?q=...`. The results page uses
+`assets/scripts/search.js` to read the query and filter its generated directory.
+Its search bar has a clear button; every Enter submits the edited query as new
+URL parameters. Empty queries show no results or empty-results message.
+Run the shared generators after changes, then `python3 tests/linkmap-integration.py`,
+the JavaScriptCore navigation tests, and `node tests/search.mjs`.

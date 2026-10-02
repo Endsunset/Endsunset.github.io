@@ -89,7 +89,12 @@ def main():
     assert 'href="/search/"' not in shared_header
     assert 'class="endsunset-search-toggle"' in shared_header
     assert 'id="endsunset-search-input"' in shared_header
-    assert 'class="endsunset-search-cancel"' in shared_header
+    assert 'endsunset-search-cancel' not in shared_header
+    assert 'endsunset-projects-toggle' not in shared_header
+    assert 'aria-label="Search"' in shared_header
+    assert 'View the Latest' in shared_header and 'Explore LinkMap' in shared_header
+    assert 'href="/linkmap/app/">Web App</a>' in shared_header
+    assert 'action="/search/" method="get"' in shared_header
     assert 'data-search-entry' not in shared_header and 'search-status' not in shared_header
     for page in pages:
         source = page.read_text()

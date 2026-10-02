@@ -4,22 +4,26 @@
   <nav class="endsunset-nav endsunset-shell" aria-label="Main navigation">
     <a class="endsunset-brand" href="/" aria-label="Endsunset home">Endsunset</a>
     <div class="endsunset-controls">
-      <div class="endsunset-projects">
-        <a href="/projects/">Projects</a>
-        <button class="endsunset-projects-toggle" type="button" aria-label="Show projects menu" aria-expanded="false" aria-controls="endsunset-project-menu" hidden><span aria-hidden="true">⌄</span></button>
-        <div class="endsunset-project-menu endsunset-panel" id="endsunset-project-menu" aria-hidden="true" inert hidden>
-          <nav class="endsunset-shell" aria-label="Projects"><p>Explore projects</p><a href="/linkmap/">LinkMap</a><a class="endsunset-all-projects" href="/projects/">All projects</a></nav>
+      <div class="endsunset-projects endsunset-menu-group">
+        <a href="/projects/" aria-expanded="false" aria-controls="endsunset-project-menu">Projects</a>
+        <div class="endsunset-project-menu endsunset-menu-panel endsunset-panel" id="endsunset-project-menu" aria-hidden="true" inert hidden>
+          <nav class="endsunset-shell" aria-label="Projects"><h2>Projects</h2><p>View the Latest</p><a href="/linkmap/">LinkMap</a></nav>
         </div>
       </div>
-      <button class="endsunset-search-toggle" type="button" aria-expanded="false" aria-controls="endsunset-search-panel" hidden>Search</button>
+      <div class="endsunset-linkmap endsunset-menu-group">
+        <button class="endsunset-linkmap-toggle" type="button" aria-expanded="false" aria-controls="endsunset-linkmap-menu" hidden>LinkMap</button>
+        <div class="endsunset-linkmap-menu endsunset-menu-panel endsunset-panel" id="endsunset-linkmap-menu" aria-hidden="true" inert hidden>
+          <nav class="endsunset-shell" aria-label="LinkMap"><p>Explore LinkMap</p><a href="/linkmap/">Home</a><a href="/linkmap/app/">Web App</a><a href="/linkmap/documentation/">Documentation</a><a href="/linkmap/download/">Download</a></nav>
+        </div>
+      </div>
+      <button class="endsunset-search-toggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="endsunset-search-panel" hidden><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="m12.5 12.5 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
     </div>
   </nav>
   <div class="endsunset-search-panel endsunset-panel" id="endsunset-search-panel" aria-hidden="true" inert hidden>
-    <form class="endsunset-shell" role="search" aria-label="Search Endsunset">
+    <form class="endsunset-shell" role="search" aria-label="Search Endsunset" action="/search/" method="get">
       <label for="endsunset-search-input">Search Endsunset</label>
       <div class="endsunset-search-row">
-        <input id="endsunset-search-input" name="query" type="search" placeholder="Search Endsunset" autocomplete="off" enterkeyhint="search">
-        <button class="endsunset-search-cancel" type="button">Cancel</button>
+        <input id="endsunset-search-input" name="q" type="search" placeholder="Search Endsunset" autocomplete="off" enterkeyhint="search">
       </div>
     </form>
   </div>

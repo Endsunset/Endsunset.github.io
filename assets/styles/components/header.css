@@ -1,27 +1,23 @@
 .endsunset-header { position: sticky; top: 0; z-index: 10000; background: #050509e8; backdrop-filter: blur(18px); border-bottom: 1px solid #ffffff18; transition: background 240ms ease; }
-.endsunset-header[data-nav-state="projects"], .endsunset-header[data-nav-state="search"] { background: #050509; }
+.endsunset-header[data-nav-state="projects"], .endsunset-header[data-nav-state="linkmap"], .endsunset-header[data-nav-state="search"] { background: #050509; }
 .endsunset-nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .endsunset-header .endsunset-brand { display: inline-flex; align-items: center; font-size: 18px; font-weight: 650; letter-spacing: -.6px; }
 .endsunset-controls { height: 100%; display: flex; align-items: center; gap: 28px; opacity: 1; visibility: visible; transition: opacity 180ms ease, visibility 0s; }
 .endsunset-header[data-nav-state="search"] .endsunset-controls { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 180ms ease, visibility 0s 180ms; }
-.endsunset-projects { display: flex; align-items: center; align-self: stretch; }
-.endsunset-projects > a { display: flex; align-items: center; min-height: 44px; }
-.endsunset-projects-toggle, .endsunset-search-toggle, .endsunset-search-cancel { border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; min-height: 44px; padding: 0; }
-.endsunset-projects-toggle { width: 44px; }
-.endsunset-projects-toggle span { display: inline-block; transition: transform 240ms ease; }
-.endsunset-projects-toggle[aria-expanded="true"] span { transform: rotate(180deg); }
+.endsunset-menu-group { display: flex; align-items: center; align-self: stretch; }
+.endsunset-menu-group > a { display: flex; align-items: center; min-height: 44px; }
+.endsunset-linkmap-toggle, .endsunset-search-toggle { border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; min-height: 44px; padding: 0; }
 .endsunset-panel { position: absolute; inset: 100% 0 auto; background: #050509; border-bottom: 1px solid #ffffff18; max-height: calc(100dvh - 68px); overflow-y: auto; opacity: 0; transform: translateY(-8px); clip-path: inset(0 0 100%); visibility: hidden; pointer-events: none; transition: opacity 240ms ease, transform 280ms cubic-bezier(.2,.7,.3,1), clip-path 280ms cubic-bezier(.2,.7,.3,1), visibility 0s 280ms; }
-.endsunset-header[data-nav-state="projects"] .endsunset-project-menu, .endsunset-header[data-nav-state="search"] .endsunset-search-panel { opacity: 1; transform: translateY(0); clip-path: inset(0); visibility: visible; pointer-events: auto; transition-delay: 0s; }
-.endsunset-project-menu nav { display: grid; gap: 14px; padding-block: 30px 36px; }
-.endsunset-project-menu p { margin: 0 0 4px; color: #aaaac1; font-size: 12px; }
-.endsunset-project-menu a { width: fit-content; font-size: 24px; font-weight: 600; }
-.endsunset-project-menu .endsunset-all-projects { font-size: 12px; font-weight: 400; margin-top: 8px; }
+.endsunset-header[data-nav-state="projects"] .endsunset-project-menu, .endsunset-header[data-nav-state="linkmap"] .endsunset-linkmap-menu, .endsunset-header[data-nav-state="search"] .endsunset-search-panel { opacity: 1; transform: translateY(0); clip-path: inset(0); visibility: visible; pointer-events: auto; transition-delay: 0s; }
+.endsunset-menu-panel nav { display: grid; gap: 14px; padding-block: 30px 36px; }
+.endsunset-menu-panel p { margin: 0 0 4px; color: #aaaac1; font-size: 12px; }
+.endsunset-menu-panel a { width: fit-content; font-size: 24px; font-weight: 600; }
 .endsunset-search-panel form { padding-block: 30px 36px; }
 .endsunset-search-panel label { display: block; margin-bottom: 14px; color: #aaaac1; }
 .endsunset-search-row { display: flex; align-items: center; gap: 24px; }
 .endsunset-search-row input { flex: 1; min-width: 0; width: 100%; padding: 12px 0; border: 0; border-bottom: 1px solid #ffffff30; border-radius: 0; background: transparent; color: #f5f5ff; font: inherit; font-size: clamp(20px, 3vw, 28px); color-scheme: dark; }
 .endsunset-search-row input::placeholder { color: #aaaac1; }
-.endsunset-search-cancel:hover, .endsunset-search-toggle:hover { color: #a78bfa; }
+.endsunset-linkmap-toggle:hover, .endsunset-search-toggle:hover { color: #a78bfa; }
 @media (max-width: 700px) {
   .endsunset-nav { height: 62px; }
   .endsunset-header .endsunset-brand { font-size: 16px; }
@@ -30,5 +26,9 @@
   .endsunset-search-row { gap: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .endsunset-header, .endsunset-controls, .endsunset-projects-toggle span, .endsunset-panel { transition: none; }
+  .endsunset-header, .endsunset-controls, .endsunset-panel { transition: none; }
 }
+.endsunset-menu-panel h2 { margin: 0 0 8px; font: inherit; font-size: 24px; font-weight: 600; }
+.endsunset-search-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; }
+
+#endsunset-search-input::-webkit-search-cancel-button { -webkit-appearance: none; }

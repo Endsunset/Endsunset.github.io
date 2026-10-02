@@ -4,29 +4,29 @@
   const header = document.querySelector('.endsunset-header');
   if (!header) return;
   const controls = header.querySelector('.endsunset-controls');
-  const projects = header.querySelector('.endsunset-projects');
-  const projectLink = projects.querySelector('a');
-  const toggle = header.querySelector('.endsunset-projects-toggle');
-  const menu = header.querySelector('.endsunset-project-menu');
+  const menus = ['projects', 'linkmap'].map(name => {
+    const group = header.querySelector(`.endsunset-${name}`);
+    return { name, group, trigger: group.querySelector('a, button'), panel: group.querySelector('.endsunset-menu-panel') };
+  });
   const searchToggle = header.querySelector('.endsunset-search-toggle');
   const searchPanel = header.querySelector('.endsunset-search-panel');
-  const searchForm = searchPanel.querySelector('form');
   const searchInput = searchPanel.querySelector('input');
-  const cancel = searchPanel.querySelector('.endsunset-search-cancel');
   const hover = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 701px)');
   let state = 'closed';
   let timer;
   let restoringFocus = false;
   let keyboardNavigation = true;
+  let pointerType = 'mouse';
 
   function setState(next) {
     clearTimeout(timer);
     state = next;
     header.dataset.navState = next;
-    menu.inert = next !== 'projects';
-    menu.setAttribute('aria-hidden', String(next !== 'projects'));
-    toggle.setAttribute('aria-expanded', String(next === 'projects'));
-    toggle.setAttribute('aria-label', next === 'projects' ? 'Hide projects menu' : 'Show projects menu');
+    menus.forEach(menu => {
+      menu.panel.inert = next !== menu.name;
+      menu.panel.setAttribute('aria-hidden', String(next !== menu.name));
+      menu.trigger.setAttribute('aria-expanded', String(next === menu.name));
+    });
     searchPanel.inert = next !== 'search';
     searchPanel.setAttribute('aria-hidden', String(next !== 'search'));
     searchToggle.setAttribute('aria-expanded', String(next === 'search'));
@@ -34,66 +34,72 @@
   }
 
   function close(restoreFocus = false) {
-    const target = state === 'search' ? searchToggle : projectLink;
+    const target = state === 'search' ? searchToggle : menus.find(menu => menu.name === state)?.trigger;
     setState('closed');
-    if (restoreFocus) {
+    if (restoreFocus && target) {
       restoringFocus = true;
       target.focus();
       restoringFocus = false;
     }
   }
 
-  function openProjects() {
-    if (state !== 'search' && !restoringFocus) setState('projects');
-  }
-
-  function leaveProjects() {
-    if (hover.matches && state === 'projects' && !(keyboardNavigation && projects.contains(document.activeElement))) {
-      // Keep a brief bridge when crossing the header/panel boundary.
-      timer = setTimeout(() => setState('closed'), 160);
-    }
+  function openMenu(menu) {
+    if (state !== 'search' && !restoringFocus) setState(menu.name);
   }
 
   setState('closed');
-  [toggle, menu, searchToggle, searchPanel].forEach(element => { element.hidden = false; });
-  toggle.addEventListener('click', () => setState(state === 'projects' ? 'closed' : 'projects'));
-  projects.addEventListener('pointerenter', event => {
-    if (hover.matches && event.pointerType !== 'touch') openProjects();
-  });
-  projects.addEventListener('pointerleave', leaveProjects);
-  menu.addEventListener('pointerenter', event => {
-    if (hover.matches && event.pointerType !== 'touch') openProjects();
-  });
-  projects.addEventListener('focusin', () => {
-    if (keyboardNavigation) openProjects();
-  });
-  projects.addEventListener('focusout', event => {
-    if (state === 'projects' && !projects.contains(event.relatedTarget)) close();
-  });
-  projects.addEventListener('keydown', event => {
-    if (event.key === 'ArrowDown' && (event.target === projectLink || event.target === toggle)) {
-      event.preventDefault();
-      openProjects();
-      menu.querySelector('a').focus();
-    }
+  [searchToggle, searchPanel, menus[1].trigger, ...menus.map(menu => menu.panel)].forEach(element => { element.hidden = false; });
+  menus.forEach(menu => {
+    const enter = event => {
+      if (hover.matches && event.pointerType !== 'touch') openMenu(menu);
+    };
+    menu.group.addEventListener('pointerenter', enter);
+    menu.panel.addEventListener('pointerenter', enter);
+    menu.group.addEventListener('pointerleave', () => {
+      if (hover.matches && state === menu.name && !(keyboardNavigation && menu.group.contains(document.activeElement))) {
+        // Keep a brief bridge when crossing the header/panel boundary.
+        timer = setTimeout(() => setState('closed'), 160);
+      }
+    });
+    menu.group.addEventListener('focusin', () => {
+      if (keyboardNavigation) openMenu(menu);
+    });
+    menu.group.addEventListener('focusout', event => {
+      if (state === menu.name && !menu.group.contains(event.relatedTarget)) close();
+    });
+    menu.group.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown' && event.target === menu.trigger) {
+        event.preventDefault();
+        openMenu(menu);
+        menu.panel.querySelector('a').focus();
+      }
+    });
+    menu.trigger.addEventListener('click', event => {
+      if (menu.name === 'projects') {
+        // The link keeps normal mouse/keyboard navigation; first touch reveals it.
+        if (event.detail !== 0 && (pointerType === 'touch' || !hover.matches) && state !== menu.name) {
+          event.preventDefault();
+          openMenu(menu);
+        }
+      } else {
+        setState(state === menu.name ? 'closed' : menu.name);
+      }
+    });
   });
   searchToggle.addEventListener('click', () => {
     setState('search');
     searchInput.focus({ preventScroll: true });
   });
-  cancel.addEventListener('click', () => close(true));
   searchPanel.addEventListener('focusout', event => {
     if (state === 'search' && !searchPanel.contains(event.relatedTarget)) close();
-  });
-  searchForm.addEventListener('submit', event => {
-    event.preventDefault();
-    const query = searchInput.value.trim();
-    if (query) header.dispatchEvent(new CustomEvent('endsunset-search', { bubbles: true, detail: { query } }));
   });
   document.addEventListener('click', event => {
     if (!header.contains(event.target)) close(searchPanel.contains(document.activeElement));
   });
-  document.addEventListener('pointerdown', () => { keyboardNavigation = false; });
+  document.addEventListener('pointerdown', event => {
+    keyboardNavigation = false;
+    pointerType = event.pointerType;
+  });
   document.addEventListener('keydown', event => {
     keyboardNavigation = true;
     if (event.key === 'Escape' && state !== 'closed') {
@@ -102,6 +108,7 @@
     }
   });
   hover.addEventListener('change', () => {
-    if (state === 'projects') close(projects.contains(document.activeElement));
+    const menu = menus.find(menu => menu.name === state);
+    if (menu) close(menu.group.contains(document.activeElement));
   });
 })();

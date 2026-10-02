@@ -63,3 +63,10 @@ p, h1, h2 { margin: 0; }
 .search-results li { padding-block: 16px; border-bottom: 1px solid var(--line); }
 .search-results a { font-size: 20px; color: var(--blue); }
 .search-results p { margin-top: 6px; color: var(--muted); }
+.site-search-field { position: relative; }
+.site-search-field input { padding-right: 52px; }
+#site-search-clear { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 24px; cursor: pointer; }
+#site-search-clear:hover { color: var(--purple); }
+#site-search-clear[hidden], .search-results[hidden] { display: none; }
+
+#site-search::-webkit-search-cancel-button { -webkit-appearance: none; }
