@@ -1,2 +1,17 @@
 # macOS system files
 **/.DS_Store
+
+# LinkMap local Xcode and Swift state
+LinkMap/**/xcuserdata/
+LinkMap/**/UserInterfaceState.xcuserstate
+
+# LinkMap local development data stores
+LinkMap/**/*.dstore
+
+# LinkMap editor and dependency output
+LinkMap/**/.vscode/
+LinkMap/**/node_modules/
+LinkMap/**/dist/
+
+# LinkMap Python renderer cache
+LinkMap/**/__pycache__/

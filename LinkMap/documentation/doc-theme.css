@@ -1,0 +1,6 @@
+/* Small LinkMap accent layer over DocC's own responsive layout. */
+body[data-color-scheme="light"] {
+  --color-figure-blue: #b4232c;
+  --color-link: #b4232c;
+  background: #fff;
+}

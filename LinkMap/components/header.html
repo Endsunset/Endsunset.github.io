@@ -1,0 +1,20 @@
+<header draggable="false" class="site-header">
+  <a draggable="false" class="brand" href="$site_prefix" aria-label="LinkMap home">
+    <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span>LinkMap</span>
+  </a>
+  <nav class="nav-links" aria-label="Main navigation">
+    <a draggable="false" class="desktop-nav-link" href="${site_prefix}documentation/"$docs_current>Documentation</a>
+    <a draggable="false" class="desktop-nav-link" href="${site_prefix}download/"$download_current>Download</a>
+    <a draggable="false" class="button button-small button-outline" href="${site_prefix}login/" data-header-sign-in>Sign in</a>
+    <a draggable="false" class="button button-small button-outline" href="${site_prefix}account/"$account_current data-account-link hidden>Account</a>
+    <button class="mobile-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-navigation" popovertarget="mobile-navigation">
+      <span></span><span></span>
+    </button>
+  </nav>
+  <nav id="mobile-navigation" class="mobile-navigation" popover aria-label="Mobile navigation">
+    <a draggable="false" href="${site_prefix}documentation/"$docs_current>Documentation</a>
+    <a draggable="false" href="${site_prefix}download/"$download_current>Download</a>
+  </nav>
+</header>
+<script src="${site_prefix}header.js"></script>

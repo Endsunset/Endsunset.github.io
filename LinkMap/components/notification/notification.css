@@ -1,0 +1,4 @@
+.error-notifications { position: fixed; z-index: 2; top: 70px; left: 50%; transform: translateX(-50%); width: max-content; max-width: calc(100% - 32px); display: grid; gap: 8px; }
+.map-workspace .error-notifications { position: absolute; }
+.error-notification { margin: 0; padding: 12px 16px; background: var(--surface, #fff); border: 1px solid var(--line, #dedfe2); border-inline-end: 3px solid var(--accent, #b4232c); overflow-wrap: anywhere; }
+.error-notification button { margin-left: 12px; }

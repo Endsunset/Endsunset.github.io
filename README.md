@@ -1,6 +1,6 @@
 # Endsunset
 
-A dependency-free GitHub Pages homepage that presents projects with a full-width product section, short description, brand mark, and direct website link. LinkMap is currently the only project, linking to `https://endsunset.github.io/LinkMap/`.
+A dependency-free GitHub Pages homepage that presents projects with a full-width product section, short description, brand mark, and direct website link. LinkMap is currently the only project, maintained as a child project in [`LinkMap/`](LinkMap/README.md) and served at `https://endsunset.github.io/LinkMap/`.
 
 ## Edit and preview
 
@@ -40,3 +40,17 @@ Root-relative assets target deployment at `endsunset.github.io`. Existing redire
 3. Run `python3 scripts/build.py` to regenerate the Forms homepage, sidebar rows, and individual form pages.
 
 `forms/forms.css` matches the homepage palette. `forms/sidebar.js` adapts the LinkMap documentation sidebar with a scrolling list, fixed filter, desktop collapse, and full-screen mobile navigation. Form links and pages remain available without JavaScript. Forms open on Microsoft Forms in a new tab.
+
+## LinkMap child project
+
+`LinkMap/` belongs to this repository and uses the parent Git history and Pages
+deployment. Keep its project instructions in `LinkMap/AGENTS.md` and follow
+[`LinkMap/README.md`](LinkMap/README.md) for its own generators and checks.
+The root homepage generator does not build or overwrite LinkMap.
+
+Publish this repository's `main` branch from `/ (root)` in GitHub Pages settings.
+The root `.nojekyll` serves the checked-in static files directly, including
+LinkMap's generated DocC assets. No separate LinkMap workflow or deployment is
+required. Serve the parent root to preview both `/` and `/LinkMap/` locally.
+Run `python3 tests/linkmap-integration.py` to check both sites' local paths,
+LinkMap's generated routes, and child repository metadata.

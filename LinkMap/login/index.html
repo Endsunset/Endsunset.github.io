@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sign in with your Apple Account to use LinkMap with iCloud.">
+  <title>Sign in | LinkMap</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../account/account.css">
+  <link rel="stylesheet" href="../components/notification/notification.css">
+  <script src="https://cdn.apple-cloudkit.com/ck/2/cloudkit.js" async></script>
+  <script src="../components/notification/notification.js" defer></script>
+  <script src="../shared/errors/cloudkit-errors.js" defer></script>
+  <script src="../cloudkit-config.js" defer></script>
+  <script src="../cloudkit-auth.js" defer></script>
+  <script src="login.js" defer></script>
+</head>
+<body>
+  <!-- Shared header: edit components/header.html, then run scripts/build-headers.py -->
+<header draggable="false" class="site-header">
+  <a draggable="false" class="brand" href="../" aria-label="LinkMap home">
+    <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span>LinkMap</span>
+  </a>
+  <nav class="nav-links" aria-label="Main navigation">
+    <a draggable="false" class="desktop-nav-link" href="../documentation/">Documentation</a>
+    <a draggable="false" class="desktop-nav-link" href="../download/">Download</a>
+    <a draggable="false" class="button button-small button-outline" href="../login/" data-header-sign-in>Sign in</a>
+    <a draggable="false" class="button button-small button-outline" href="../account/" data-account-link hidden>Account</a>
+    <button class="mobile-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-navigation" popovertarget="mobile-navigation">
+      <span></span><span></span>
+    </button>
+  </nav>
+  <nav id="mobile-navigation" class="mobile-navigation" popover aria-label="Mobile navigation">
+    <a draggable="false" href="../documentation/">Documentation</a>
+    <a draggable="false" href="../download/">Download</a>
+  </nav>
+</header>
+<script src="../header.js"></script>
+<!-- End shared header -->
+  <main class="account-page">
+    <h1>Sign in</h1>
+    <p>Sign in with your Apple Account to use LinkMap with iCloud.</p>
+    <section class="account-card" aria-label="Apple sign-in" data-auth aria-busy="true">
+      <p role="status" aria-live="polite" data-status>Checking your sign-in status…</p>
+      <div class="auth-controls" data-auth-controls hidden><div id="apple-sign-in-button"></div></div>
+      <button class="button button-small button-outline" type="button" data-auth-retry hidden>Try again</button>
+      <p class="account-note">Your credentials are handled by Apple.</p>
+      <noscript>Enable JavaScript to sign in with Apple.</noscript>
+    </section>
+  </main>
+  <!-- Shared footer: edit components/footer.html, then run scripts/build-footers.py -->
+<footer class="site-footer">
+  <a href="../">LinkMap home</a>
+  <a href="../privacy-policy/">Privacy policy</a>
+</footer>
+<!-- End shared footer -->
+</body>
+</html>
