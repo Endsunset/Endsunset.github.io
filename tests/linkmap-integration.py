@@ -37,7 +37,7 @@ def check_url(source, url, *, fragments=False):
     if source.is_relative_to(PROJECT):
         assert target.resolve().is_relative_to(PROJECT) or (
             target.resolve().is_relative_to(ROOT / "assets") or
-            target in [ROOT / "index.html", ROOT / "projects/index.html", ROOT / "search/index.html", ROOT / "forms/index.html"]
+            target in [ROOT / "index.html", ROOT / "projects/index.html", ROOT / "search/index.html"]
         ), f"Unexpected LinkMap destination: {url}"
     if fragments and resolved.fragment and target.suffix == ".html":
         # DocC renders article headings at runtime from its JSON data.
@@ -58,12 +58,11 @@ def main():
             assert not (directory / name).exists(), f"Conflicting child metadata: {directory / name}"
 
     pages = [*PROJECT.rglob("index.html"), ROOT / "index.html", ROOT / "projects/index.html", ROOT / "search/index.html", ROOT / "redirect.html",
-             ROOT / "redirect_wechat.html", *(ROOT / "forms").rglob("*.html")]
+             ROOT / "redirect_wechat.html"]
     for page in pages:
         for url in Page(page.read_text()).urls:
             check_url(page, url, fragments=True)
-    for style in [*PROJECT.rglob("*.css"), *(ROOT / "assets").rglob("*.css"),
-                  *(ROOT / "forms").rglob("*.css")]:
+    for style in [*PROJECT.rglob("*.css"), *(ROOT / "assets").rglob("*.css")]:
         for url in re.findall(r"url\(\s*['\"]?([^)'\"\s]+)", style.read_text()):
             check_url(style, url)
     for module in (PROJECT / "app").glob("*.js"):

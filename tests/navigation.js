@@ -36,7 +36,7 @@ print('Passed desktop hover, touch disclosure, keyboard, dismissal, and input-mo
 
 const input = element(), controls = element(), status = element();
 input.value = '';
-const entries = ['LinkMap Plan places routes supplies', 'How LinkMap Works LinkMap documentation', 'Forms Browse forms'].map(textContent => ({textContent, hidden: false}));
+const entries = ['LinkMap Plan places routes supplies', 'How LinkMap Works LinkMap documentation', 'Projects Explore projects'].map(textContent => ({textContent, hidden: false}));
 document = { getElementById(id) { return {'site-search': input, 'site-search-controls': controls, 'search-status': status}[id]; }, querySelectorAll() { return entries; } };
 load('assets/scripts/search.js');
 assert(!controls.hidden && status.textContent === '3 destinations', 'Search initializes directory');

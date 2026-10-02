@@ -1,4 +1,4 @@
-"""Generate the homepage, Projects, search, and Forms: python3 scripts/build.py."""
+"""Generate the homepage, Projects, and search: python3 scripts/build.py."""
 import json
 import re
 from html import escape
@@ -50,6 +50,3 @@ print(f'Built Projects with {len(projects)} project(s).')
 
 from build_search import build_search
 build_search(ROOT)
-
-from build_forms import build_forms
-build_forms(ROOT)

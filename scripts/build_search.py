@@ -6,7 +6,7 @@ from site_chrome import render_header, render_footer, project_url
 
 
 def build_search(root):
-    entries = [dict(title='Endsunset', url='/', summary='Endsunset home'), dict(title='Projects', url='/projects/', summary='Explore Endsunset projects'), dict(title='Forms', url='/forms/', summary='Browse forms and take part')]
+    entries = [dict(title='Endsunset', url='/', summary='Endsunset home'), dict(title='Projects', url='/projects/', summary='Explore Endsunset projects')]
     for project in json.loads((root / 'content/projects.json').read_text()):
         entries.append(dict(title=project['name'], url=project_url(project), summary=project['summary']))
     for title, path, summary in [('Download LinkMap', 'download/', 'Get LinkMap for iPhone'), ('LinkMap privacy policy', 'privacy-policy/', 'Storage, sharing, and deletion')]:
@@ -17,11 +17,9 @@ def build_search(root):
         if article.get('kind') == 'article' and '/documentation' in path:
             route = '/documentation' + ('/' + data.stem if data.parent.name == 'documentation' else '')
             entries.append(dict(title=article['metadata']['title'], url='/linkmap' + route + '/', summary='LinkMap documentation'))
-    for form in json.loads((root / 'content/forms.json').read_text()):
-        entries.append(dict(title=form['name'], url='/forms/' + form['slug'] + '/', summary='Microsoft Forms'))
     rows = ''.join(f'<li data-search-entry><a href="{escape(e["url"], quote=True)}">{escape(e["title"])}</a><p>{escape(e["summary"])}</p></li>' for e in entries)
-    content = f'''<section class="search-page shell"><h1>Search Endsunset</h1><p>Find projects, documentation, and forms.</p><div id="site-search-controls" hidden><label for="site-search">Search this site</label><input id="site-search" type="search" autocomplete="off" placeholder="Search LinkMap, documentation…"><p id="search-status" role="status"></p></div><ul class="search-results">{rows}</ul></section>'''
-    page = Template((root / 'templates/page.html').read_text()).substitute(title='Search — Endsunset', description='Search Endsunset projects, documentation, and forms.', page='search', content=content, header=render_header(), footer=render_footer())
+    content = f'''<section class="search-page shell"><h1>Search Endsunset</h1><p>Find projects and documentation.</p><div id="site-search-controls" hidden><label for="site-search">Search this site</label><input id="site-search" type="search" autocomplete="off" placeholder="Search LinkMap, documentation…"><p id="search-status" role="status"></p></div><ul class="search-results">{rows}</ul></section>'''
+    page = Template((root / 'templates/page.html').read_text()).substitute(title='Search — Endsunset', description='Search Endsunset projects and documentation.', page='search', content=content, header=render_header(), footer=render_footer())
     page = page.replace('</head>', '<script src="/assets/scripts/search.js" defer></script>\n</head>')
     (root / 'search').mkdir(exist_ok=True)
     (root / 'search/index.html').write_text(page)

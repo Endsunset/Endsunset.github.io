@@ -11,7 +11,7 @@ python3 scripts/build.py
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000`. Commit the generated `index.html`, `projects/index.html`, `search/index.html`, and `forms/**/index.html` alongside source changes. GitHub Pages publishes the repository directly. Content and navigation work without JavaScript.
+Open `http://localhost:8000`. Commit the generated `index.html`, `projects/index.html`, and `search/index.html` alongside source changes. GitHub Pages publishes the repository directly. Content and navigation work without JavaScript.
 
 ## Add a project
 
@@ -24,7 +24,7 @@ Projects appear at `/projects/` in catalog order. LinkMap stays at `/linkmap/`.
 ## Shared structure
 
 - `content/projects.json`: project descriptions, icons, and website links.
-- `scripts/build.py`: homepage, Projects, search, and Forms rendering.
+- `scripts/build.py`: homepage, Projects, and search rendering.
 - `templates/page.html`: document shell and metadata.
 - `partials/`: shared header and footer, included at build time.
 - `assets/styles/`: responsive styles.
@@ -35,14 +35,6 @@ Projects appear at `/projects/` in catalog order. LinkMap stays at `/linkmap/`.
 - `assets/scripts/search.js`: local filtering of the generated site directory. Search queries stay in the browser.
 
 Root-relative assets target deployment at `endsunset.github.io`. Existing redirect pages remain available.
-
-## Add a form
-
-1. Add an entry to `content/forms.json` with a unique lowercase, hyphen-separated `slug`, `name`, HTTPS `url`, and QR poster `image` path.
-2. Place its QR poster in `forms/assets/`.
-3. Run `python3 scripts/build.py` to regenerate the Forms homepage, sidebar rows, and individual form pages.
-
-`forms/forms.css` matches the homepage palette. `forms/sidebar.js` adapts the LinkMap documentation sidebar with a scrolling list, fixed filter, desktop collapse, and full-screen mobile navigation. Form links and pages remain available without JavaScript. Forms open on Microsoft Forms in a new tab.
 
 ## LinkMap child project
 
