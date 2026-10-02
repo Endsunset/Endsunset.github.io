@@ -5,6 +5,15 @@ these instructions here. Run LinkMap generators and tests from this directory;
 Git history, ignore rules, and Pages deployment belong to the parent repository.
 Do not introduce nested Git metadata or a separate deployment workflow.
 
+## Product homepage and app routes
+
+`/linkmap/` is permanently the LinkMap product homepage. `index.html` must render
+the existing product page directly; never replace it with a redirect to `app/`
+in HTML, JavaScript, configuration, or a generator. Preserve its current design.
+Users open `/linkmap/app/` only through an explicit app action such as Open web app.
+Keep sign-in and account management under `app/sign-in/` and `app/account/`;
+documentation remains under `documentation/`.
+
 ## HTML links
 
 Use clean URLs for internal page links in authored HTML. Do not end page hyperlinks with
