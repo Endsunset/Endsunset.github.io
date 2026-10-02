@@ -7,7 +7,7 @@ import shutil
 import subprocess
 import tempfile
 
-from site_header import render_header
+from site_header import render_header, render_assets
 from site_footer import render_footer
 
 
@@ -120,20 +120,19 @@ def main():
             html = page.read_text()
             if 'var baseUrl = "/linkmap/"' not in html:
                 continue
-            prefix = "../" * len(page.relative_to(staged).parts[:-1])
             html = html.replace('data-color-scheme="auto"', 'data-color-scheme="light"')
             html = html.replace('/linkmap/favicon.', '/linkmap/documentation/favicon.')
             html = html.replace('/documentation/linkmap/', '/documentation/')
             html = html.replace('<p>API Collection</p>', '<p>LinkMap Guide</p>')
             html = html.replace(
                 "</head>",
-                f'<link rel="stylesheet" href="/linkmap/documentation/doc-theme.css">'
-                f'<link rel="stylesheet" href="{prefix}components/site-chrome.css">'
-                '</head>',
+                '<link rel="stylesheet" href="/linkmap/documentation/doc-theme.css">'
+                + render_assets()
+                + '</head>',
             )
             html = html.replace('<body data-color-scheme="light">',
-                                '<body data-color-scheme="light">' + render_header(prefix, docs=True))
-            html = html.replace('</body>', render_footer(prefix) + '</body>')
+                                '<body data-color-scheme="light">' + render_header())
+            html = html.replace('</body>', render_footer() + '</body>')
             page.write_text(html)
 
         # Replace only paths owned by this generator, preserving website pages.

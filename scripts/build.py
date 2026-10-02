@@ -5,7 +5,7 @@ from html import escape
 from pathlib import Path
 from string import Template
 from urllib.parse import urlparse
-from site_chrome import render_header, render_footer, project_url
+from site_chrome import render_header, render_footer, render_assets, project_url
 
 ROOT = Path(__file__).resolve().parents[1]
 projects = json.loads((ROOT / 'content/projects.json').read_text())
@@ -42,11 +42,11 @@ template = Template((ROOT / 'templates/page.html').read_text())
     title='Endsunset — Projects',
     description='Explore LinkMap. Plan service areas, locations, routes, and supplies in one shared map.',
     page='projects', content=content,
-    header=render_header(),
+    chrome_assets=render_assets(), header=render_header(),
     footer=render_footer(),
 ))
 print(f'Built Projects with {len(projects)} project(s).')
-(ROOT / 'index.html').write_text(template.substitute(title='Endsunset', description='Endsunset. A new homepage is on the way.', page='home', content='<section class="placeholder shell"><h1>Endsunset</h1><p>A new homepage is on the way.</p><a class="button" href="/projects/">Explore projects</a></section>', header=render_header(), footer=render_footer()))
+(ROOT / 'index.html').write_text(template.substitute(title='Endsunset', description='Endsunset. A new homepage is on the way.', page='home', content='<section class="placeholder shell"><h1>Endsunset</h1><p>A new homepage is on the way.</p><a class="button" href="/projects/">Explore projects</a></section>', chrome_assets=render_assets(), header=render_header(), footer=render_footer()))
 
 from build_search import build_search
 build_search(ROOT)

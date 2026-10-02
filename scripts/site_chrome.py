@@ -24,5 +24,5 @@ def render_footer(product_links=''):
     return '\n'.join(line.rstrip() for line in markup.splitlines()) + '\n'
 
 
-def render_assets(prefix='/'):
-    return f'<link rel="stylesheet" href="{prefix}assets/styles/site-chrome.css">\n<script src="{prefix}assets/scripts/navigation.js" defer></script>'
+def render_assets():
+    return '<link rel="stylesheet" href="/assets/styles/site-chrome.css">\n<script src="/assets/scripts/navigation.js" defer></script>'

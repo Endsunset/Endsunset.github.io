@@ -21,7 +21,9 @@ Use clean URLs for internal page links in authored HTML. Do not end page hyperli
 Omit `index.html` from hyperlinks too: use the folder URL (`./`, `../`, or
 `documentation/`), which automatically serves its index page.
 Use relative paths so the site works under the GitHub Pages `/linkmap/` base path.
-Keep fragments when linking to a section.
+Shared/generated chrome uses canonical `/linkmap/` destination paths and the
+domain assets under `/assets/`, regardless of page depth. Keep fragments when
+linking to a section.
 
 Back each clean URL with a directory containing `index.html`; do not simply remove
 an extension without providing a working destination. Asset references such as

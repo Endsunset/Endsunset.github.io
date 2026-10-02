@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="-5.953154 -1.985127 36 36" fill="none">
-  <!-- Geometry from linkmap/styles.css .brand-mark: 6px bars, 3px gaps,
+  <!-- Original LinkMap mark geometry: 6px bars, 3px gaps,
        24px height, 74% / 48% steps, and a -25deg rotation.
        Original LinkMap colors; rotated artwork centered in a square viewBox. White icon background; artwork scaled to 85% around the viewBox center. -->
   <rect x="-5.953154" y="-1.985127" width="36" height="36" fill="#ffffff"/>

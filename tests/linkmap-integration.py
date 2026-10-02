@@ -15,10 +15,16 @@ class Page(HTMLParser):
         super().__init__()
         self.urls = []
         self.ids = set()
+        self.styles = []
+        self.scripts = []
         self.feed(source)
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == "link" and attrs.get("rel") == "stylesheet":
+            self.styles.append(attrs["href"])
+        if tag == "script" and "src" in attrs:
+            self.scripts.append(attrs["src"])
         self.ids.update([attrs["id"]] if "id" in attrs else [])
         self.urls.extend(attrs[key] for key in ("href", "src", "action") if key in attrs)
         if tag == "meta" and attrs.get("http-equiv", "").lower() == "refresh":
@@ -78,6 +84,7 @@ def main():
     assert 'http-equiv="refresh"' not in entry
     assert 'href="https://endsunset.github.io/linkmap/"' in entry
     assert 'href="app/">Open web app</a>' in entry
+    shared_header = re.search(r"<header\b.*?</header>", (ROOT / "index.html").read_text(), re.S).group()
     for page in pages:
         source = page.read_text()
         in_app = page.is_relative_to(PROJECT / "app")
@@ -90,6 +97,19 @@ def main():
         # Redirects intentionally have no website chrome.
         if not in_app and 'http-equiv="refresh"' not in source and page not in [ROOT / "redirect.html", ROOT / "redirect_wechat.html"]:
             assert "endsunset-header" in source and "endsunset-footer" in source, page
+            parsed = Page(source)
+            assert parsed.styles.count("/assets/styles/site-chrome.css") == 1, page
+            assert parsed.scripts.count("/assets/scripts/navigation.js") == 1, page
+            assert len(parsed.styles) == len(set(parsed.styles)), page
+            assert len(parsed.scripts) == len(set(parsed.scripts)), page
+            head = source.split("</head>", 1)[0]
+            assert "/assets/styles/site-chrome.css" in head and "/assets/scripts/navigation.js" in head, page
+            assert re.search(r"<header\b.*?</header>", source, re.S).group() == shared_header, page
+            assert "Shared header:" not in source and "Shared footer:" not in source, page
+            assert "components/site-chrome.css" not in source and "header-appearance.css" not in source, page
+            if page.is_relative_to(PROJECT):
+                footer = re.search(r"<footer\b.*?</footer>", source, re.S).group()
+                assert Page(footer).urls == ["/linkmap/", "/linkmap/documentation/", "/linkmap/download/", "/linkmap/privacy-policy/"], page
     assert 'id="apple-sign-out-button"' in (PROJECT / "app/account/index.html").read_text()
     assert 'id="apple-sign-in-button"' in (PROJECT / "app/sign-in/index.html").read_text()
 

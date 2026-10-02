@@ -59,8 +59,7 @@ Follow `AGENTS.md` for clean folder links. DocC owns its documentation styles.
 
 Website chrome uses the shared Endsunset templates in `../partials/` and scoped
 styles in `../assets/styles/`. Preserve their existing dark appearance while
-keeping LinkMap content white with red accents. The old LinkMap header/footer
-components remain as inactive source. Refresh checked-in website pages with
+keeping LinkMap content white with red accents. Refresh checked-in website pages with
 `python3 scripts/build-headers.py` and `python3 scripts/build-footers.py`; regenerate
 DocC and privacy pages with their own generators.
 

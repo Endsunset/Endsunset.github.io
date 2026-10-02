@@ -7,9 +7,8 @@ for page in sorted(ROOT.rglob('index.html')):
     # DocC owns every page in its generated output.
     if relative.parts[0] in ('app', 'documentation', 'docs'):
         continue
-    depth = len(relative.parts) - 1
-    footer = render_footer('../' * depth if depth else './')
-    source = page.read_text().replace("edit components/footer.html", "edit ../partials/footer.html")
+    footer = render_footer()
+    source = page.read_text()
     replacement = footer
     if START in source:
         pattern = re.escape(START) + r'.*?' + re.escape(END)

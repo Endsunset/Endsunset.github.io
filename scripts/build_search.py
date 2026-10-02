@@ -2,7 +2,7 @@
 import json
 from html import escape
 from string import Template
-from site_chrome import render_header, render_footer, project_url
+from site_chrome import render_header, render_footer, render_assets, project_url
 
 
 def build_search(root):
@@ -19,7 +19,7 @@ def build_search(root):
             entries.append(dict(title=article['metadata']['title'], url='/linkmap' + route + '/', summary='LinkMap documentation'))
     rows = ''.join(f'<li data-search-entry><a href="{escape(e["url"], quote=True)}">{escape(e["title"])}</a><p>{escape(e["summary"])}</p></li>' for e in entries)
     content = f'''<section class="search-page shell"><h1>Search Endsunset</h1><p>Find projects and documentation.</p><div id="site-search-controls" hidden><label for="site-search">Search this site</label><input id="site-search" type="search" autocomplete="off" placeholder="Search LinkMap, documentation…"><p id="search-status" role="status"></p></div><ul class="search-results">{rows}</ul></section>'''
-    page = Template((root / 'templates/page.html').read_text()).substitute(title='Search — Endsunset', description='Search Endsunset projects and documentation.', page='search', content=content, header=render_header(), footer=render_footer())
+    page = Template((root / 'templates/page.html').read_text()).substitute(title='Search — Endsunset', description='Search Endsunset projects and documentation.', page='search', content=content, chrome_assets=render_assets(), header=render_header(), footer=render_footer())
     page = page.replace('</head>', '<script src="/assets/scripts/search.js" defer></script>\n</head>')
     (root / 'search').mkdir(exist_ok=True)
     (root / 'search/index.html').write_text(page)

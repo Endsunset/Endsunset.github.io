@@ -29,9 +29,7 @@ the parent repository; `linkmap/` has no separate Git metadata.
 | --- | --- |
 | `index.html` | Canonical LinkMap product homepage with an explicit web app action |
 | `../partials/header.html` | Shared Endsunset header template |
-| `components/header.html` | Preserved legacy LinkMap header |
 | `scripts/site_header.py` | Header renderer used by page generators |
-| `header.js` | Preserved legacy header behavior |
 | `styles.css` | Shared styles and responsive layouts |
 | `cloudkit-auth.js` | Shared CloudKit initialization, session state, and error recovery |
 | `app/session.js` | App account visibility and sign-in return links |
@@ -157,17 +155,18 @@ application code observes SDK-verified identity rather than window messages.
 Edit `../partials/header.html` or `../partials/footer.html` and the scoped styles in
 `../assets/styles/`. The parent `scripts/site_chrome.py` renders both components.
 LinkMap-specific footer links live in `components/footer-links.html`.
-`scripts/site_footer.py` renders that component with each page's relative prefix
-and inserts it into the shared Endsunset footer. Edit this component rather than
-duplicating footer links in individual pages or the global renderer.
+`scripts/site_footer.py` inserts that component into the shared Endsunset footer.
+Its links use canonical `/linkmap/` paths at every nesting depth. Edit this
+component rather than duplicating footer links in individual pages or the global renderer.
 Run the parent `python3 scripts/build.py`, then from this directory run
 `python3 scripts/build-headers.py`, `python3 scripts/build-footers.py`,
 `python3 scripts/build-documentation.py`, and `python3 scripts/build-privacy.py`.
 Re-run the parent build after documentation changes to refresh site search.
 Commit sources and generated HTML together. Navigation works without JavaScript;
-the project disclosure adds hover, touch, and keyboard interactions.
-The old `components/header.html`, `components/footer.html`, and `header.js` are
-retained but are no longer rendered or loaded.
+the project disclosure adds hover, touch, and keyboard interactions. Shared chrome
+assets are loaded once in each website page's head from `/assets/styles/site-chrome.css`
+and `/assets/scripts/navigation.js`. Short `site-header` and `site-footer` markers
+allow the static refresh scripts to replace their owned markup.
 
 Load the SDK, `/linkmap/cloudkit-config.js`, and `/linkmap/cloudkit-auth.js` only on
 app pages, with the configuration and auth scripts deferred in that order. The shared

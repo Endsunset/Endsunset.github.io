@@ -2,7 +2,7 @@
 from pathlib import Path
 import html
 import re
-from site_header import render_header
+from site_header import render_header, render_assets
 from site_footer import render_footer
 
 root = Path(__file__).resolve().parents[1]
@@ -37,14 +37,15 @@ output.mkdir(exist_ok=True)
   <title>Privacy Policy | LinkMap</title>
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="../policy.css">
+''' + render_assets() + '''
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-''' + render_header('../') + '''
+''' + render_header() + '''
   <main id="main" class="docs-main policy-main" tabindex="-1">
 ''' + '\n'.join(blocks) + '''
   </main>
-  ''' + render_footer('../') + '''
+  ''' + render_footer() + '''
 </body>
 </html>
 ''')
