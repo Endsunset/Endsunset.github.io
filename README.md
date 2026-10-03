@@ -64,7 +64,7 @@ vertical touch drags on the navigation bar do not scroll the page. Projects rema
 its panel and the second follows the link. LinkMap is a direct `/linkmap/` link
 on the first click or tap, with its menu available on hover or keyboard focus.
 The header is 44px high on desktop and 48px on mobile, with a 980px content width
-and navigation distributed across the desktop row.
+with Projects and LinkMap grouped beside the brand on the left and Search on the right.
 On mobile, Search and a two-line menu button sit beside the brand. The menu opens
 a full-height navigation panel with direct Projects and LinkMap links; adjacent
 arrows open their submenus. Back returns to the main menu and the menu button

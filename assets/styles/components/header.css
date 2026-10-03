@@ -6,7 +6,8 @@
 .endsunset-header-spacer { height: var(--endsunset-header-height); }
 .endsunset-nav { touch-action: pan-x; display: flex; align-items: center; justify-content: space-between; height: var(--endsunset-header-height); }
 .endsunset-header .endsunset-brand { display: inline-flex; align-items: center; height: 100%; font-size: 14px; font-weight: 600; letter-spacing: -.4px; }
-.endsunset-controls { height: 100%; display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 28px; margin-inline-start: clamp(40px, 10vw, 120px); opacity: 1; visibility: visible; transition: opacity 180ms ease, visibility 0s; }
+.endsunset-controls { height: 100%; display: flex; flex: 1; align-items: center; justify-content: flex-start; gap: 28px; margin-inline-start: 40px; opacity: 1; visibility: visible; transition: opacity 180ms ease, visibility 0s; }
+@media (min-width: 701px) { .endsunset-search-toggle { margin-inline-start: auto; } }
 .endsunset-menu-group { display: flex; align-items: center; align-self: stretch; }
 .endsunset-menu-group > a { display: flex; align-items: center; min-height: var(--endsunset-header-height); }
 .endsunset-search-toggle { border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; min-height: var(--endsunset-header-height); padding: 0; }
