@@ -1,6 +1,6 @@
 # Endsunset
 
-A dependency-free GitHub Pages site with a temporary homepage and a Projects catalogue that presents projects with a full-width product section, short description, brand mark, and direct website link. LinkMap is currently the only project, maintained as a child project in [`linkmap/`](linkmap/README.md) and served at `https://endsunset.github.io/linkmap/`.
+A dependency-free GitHub Pages site with a homepage showcase and a simple Projects index. The homepage presents projects with a full-width product section, short description, brand mark, and direct website link. `/projects/` lists linked project icons and names in a spacious row that wraps as more projects are added. LinkMap is currently the only project, maintained as a child project in [`linkmap/`](linkmap/README.md) and served at `https://endsunset.github.io/linkmap/`.
 
 ## Edit and preview
 
@@ -19,7 +19,7 @@ Open `http://localhost:8000`. Commit the generated `index.html`, `projects/index
 2. Place its product mark in `assets/images/`.
 3. Run `python3 scripts/build.py`.
 
-Projects appear at `/projects/` in catalog order. LinkMap stays at `/linkmap/`.
+Projects appear in both the homepage showcase and `/projects/` index in catalog order. LinkMap stays at `/linkmap/`.
 
 ## Shared structure
 
