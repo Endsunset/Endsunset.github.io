@@ -26,9 +26,17 @@
         <a href="/linkmap/" aria-expanded="false" aria-controls="endsunset-linkmap-menu">LinkMap</a>
       </div>
       <button class="endsunset-search-toggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="endsunset-search-panel" hidden><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="m12.5 12.5 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <button class="endsunset-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="endsunset-expansion" hidden><span></span><span></span></button>
     </div>
   </nav>
   <div class="endsunset-expansion" id="endsunset-expansion" aria-hidden="true" inert hidden>
+    <button class="endsunset-menu-back" type="button" aria-label="Back to main menu" hidden>‹ <span>Back</span></button>
+    <div class="endsunset-mobile-menu endsunset-expansion-content" id="endsunset-mobile-menu" aria-hidden="true" inert hidden>
+      <nav class="endsunset-shell" aria-label="Mobile navigation">
+        <div><a href="/projects/">Projects</a><button type="button" data-mobile-menu="projects" aria-label="Explore Projects" aria-controls="endsunset-project-menu">›</button></div>
+        <div><a href="/linkmap/">LinkMap</a><button type="button" data-mobile-menu="linkmap" aria-label="Explore LinkMap" aria-controls="endsunset-linkmap-menu">›</button></div>
+      </nav>
+    </div>
     <div class="endsunset-project-menu endsunset-menu-panel endsunset-expansion-content" id="endsunset-project-menu" aria-hidden="true" inert hidden>
       <nav class="endsunset-shell" aria-label="Projects"><p>Projects</p><a href="/projects/">View the Latest</a><a href="/linkmap/">LinkMap</a></nav>
     </div>

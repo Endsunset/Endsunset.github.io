@@ -1,5 +1,7 @@
 .endsunset-header { position: fixed; inset: 0 0 auto; z-index: 10000; background: #050509e8; backdrop-filter: blur(18px); box-shadow: inset 0 -1px #ffffff18; transition: background 240ms ease; }
 .endsunset-header[data-nav-state="projects"], .endsunset-header[data-nav-state="linkmap"], .endsunset-header[data-nav-state="search"] { background: #050509; }
+.endsunset-header[data-nav-state="menu"] { background: #050509; }
+.endsunset-menu-toggle, .endsunset-menu-back { display: none; }
 .endsunset-header .endsunset-shell { width: min(980px, calc(100% - 44px)); }
 .endsunset-header-spacer { height: var(--endsunset-header-height); }
 .endsunset-nav { touch-action: pan-x; display: flex; align-items: center; justify-content: space-between; height: var(--endsunset-header-height); }
@@ -32,4 +34,29 @@
 .endsunset-header[data-nav-state="projects"] .endsunset-project-menu, .endsunset-header[data-nav-state="linkmap"] .endsunset-linkmap-menu, .endsunset-header[data-nav-state="search"] .endsunset-search-panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); transition-delay: 0s; }
 .endsunset-backdrop { position: fixed; inset: var(--endsunset-header-height) 0 0; z-index: 9999; background: #05050930; -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 240ms ease, visibility 0s 240ms; }
 .endsunset-header:not([data-nav-state="closed"]) ~ .endsunset-backdrop { opacity: 1; visibility: visible; transition-delay: 0s; }
-@media (prefers-reduced-motion: reduce) { .endsunset-header, .endsunset-expansion, .endsunset-expansion-content, .endsunset-backdrop { transition: none; } }
+@media (max-width: 700px) {
+  html.endsunset-menu-open, html.endsunset-menu-open body { overflow: hidden; }
+  .endsunset-header[data-mobile-ready] .endsunset-menu-group { display: none; }
+  .endsunset-header[data-mobile-ready] .endsunset-controls { gap: 0; margin-inline-start: auto; }
+  .endsunset-search-toggle, .endsunset-menu-toggle { width: 48px; height: 48px; }
+  .endsunset-menu-toggle { position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 0; background: transparent; color: inherit; cursor: pointer; }
+  .endsunset-menu-toggle span { position: absolute; width: 18px; height: 1px; background: currentColor; transform: translateY(-3px); transition: transform 240ms ease; }
+  .endsunset-menu-toggle span + span { transform: translateY(3px); }
+  .endsunset-menu-toggle[aria-expanded="true"] span { transform: rotate(45deg); }
+  .endsunset-menu-toggle[aria-expanded="true"] span + span { transform: rotate(-45deg); }
+  .endsunset-header:not([data-nav-state="closed"]) .endsunset-expansion { height: calc(100dvh - var(--endsunset-header-height)); }
+  .endsunset-expansion { overscroll-behavior: contain; border-bottom: 0; }
+  .endsunset-expansion-content { min-height: 100%; padding-bottom: max(40px, env(safe-area-inset-bottom)); }
+  .endsunset-header .endsunset-expansion .endsunset-shell { width: calc(100% - 80px); }
+  .endsunset-header[data-nav-state="menu"] .endsunset-mobile-menu { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); transition-delay: 0s; }
+  .endsunset-mobile-menu nav { display: grid; gap: 8px; padding-block: 32px; }
+  .endsunset-mobile-menu nav > div { display: flex; align-items: center; justify-content: space-between; }
+  .endsunset-mobile-menu a { flex: 1; padding-block: 12px; font-size: 28px; line-height: 1.15; font-weight: 600; }
+  .endsunset-mobile-menu button { border: 0; background: transparent; color: inherit; font: inherit; font-size: 32px; cursor: pointer; width: 48px; height: 48px; }
+  .endsunset-menu-panel nav { padding-block: 72px 40px; gap: 20px; }
+  .endsunset-menu-panel a { font-size: 28px; line-height: 1.2; padding-block: 6px; }
+  .endsunset-menu-back { position: absolute; inset: 12px auto auto 24px; z-index: 2; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px; border: 0; background: transparent; color: #aaaac1; font: inherit; font-size: 28px; cursor: pointer; }
+  .endsunset-menu-back span { font-size: 14px; }
+  .endsunset-search-panel form { padding-block: 32px 40px; }
+}
+@media (prefers-reduced-motion: reduce) { .endsunset-header, .endsunset-expansion, .endsunset-expansion-content, .endsunset-backdrop, .endsunset-menu-toggle span { transition: none; } }

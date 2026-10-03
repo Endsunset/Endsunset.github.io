@@ -65,6 +65,13 @@ its panel and the second follows the link. LinkMap is a direct `/linkmap/` link
 on the first click or tap, with its menu available on hover or keyboard focus.
 The header is 44px high on desktop and 48px on mobile, with a 980px content width
 and navigation distributed across the desktop row.
+On mobile, Search and a two-line menu button sit beside the brand. The menu opens
+a full-height navigation panel with direct Projects and LinkMap links; adjacent
+arrows open their submenus. Back returns to the main menu and the menu button
+becomes Close. Search uses the same full-height expansion. Open mobile navigation
+locks page scrolling, keeps keyboard focus inside the header, and closes with
+Escape or when switching to desktop. Without JavaScript, the direct header links
+remain available.
 Escape or leaving the header closes its active panel. Closed panels are inert
 while CSS handles transitions; reduced motion disables them.
 

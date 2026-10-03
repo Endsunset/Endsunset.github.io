@@ -95,6 +95,9 @@ def main():
     assert 'View the Latest' in shared_header and 'Explore LinkMap' in shared_header
     assert '<a href="/linkmap/" aria-expanded="false" aria-controls="endsunset-linkmap-menu">LinkMap</a>' in shared_header
     assert 'endsunset-linkmap-toggle' not in shared_header
+    assert 'class="endsunset-menu-toggle"' in shared_header
+    assert 'id="endsunset-mobile-menu"' in shared_header
+    assert 'data-mobile-menu="linkmap"' in shared_header
     assert 'href="/linkmap/app/">Web App</a>' in shared_header
     assert 'action="/search/" method="get"' in shared_header
     assert 'data-search-entry' not in shared_header and 'search-status' not in shared_header

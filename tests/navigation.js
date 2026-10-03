@@ -8,6 +8,12 @@ function element() {
     focus() { document.activeElement = this; this.onFocus?.(); } };
 }
 const header = element(), expansion = element(), controls = element(), searchToggle = element(), searchPanel = element(), searchInput = element();
+const mobileToggle = element(), mobilePanel = element(), back = element(), mobileLink = element();
+const drilldowns = ['projects', 'linkmap'].map(name => {
+  const button = element(); button.dataset.mobileMenu = name; return button;
+});
+mobilePanel.querySelector = () => mobileLink;
+mobilePanel.contains = target => [mobilePanel, mobileLink, ...drilldowns].includes(target);
 const menus = ['projects', 'linkmap'].map(name => {
   const group = element(), trigger = element(), panel = element(), link = element();
   group.contains = target => [group, trigger].includes(target);
@@ -17,14 +23,21 @@ const menus = ['projects', 'linkmap'].map(name => {
   return {name, group, trigger, panel, link};
 });
 header.querySelector = selector => ({'.endsunset-expansion': expansion, '.endsunset-search-toggle': searchToggle,
+  '.endsunset-menu-toggle': mobileToggle, '.endsunset-mobile-menu': mobilePanel, '.endsunset-menu-back': back,
+  ...Object.fromEntries(drilldowns.map(button => ['[data-mobile-menu="' + button.dataset.mobileMenu + '"]', button])),
   '.endsunset-search-panel': searchPanel, '.endsunset-project-menu': menus[0].panel, '.endsunset-linkmap-menu': menus[1].panel,
   ...Object.fromEntries(menus.map(menu => ['.endsunset-' + menu.name, menu.group]))})[selector];
 searchPanel.querySelector = () => searchInput;
 searchPanel.contains = target => [searchPanel, searchInput].includes(target);
-header.contains = target => [header, expansion, controls, searchToggle].includes(target) || menus.some(menu => menu.group.contains(target) || menu.panel.contains(target)) || searchPanel.contains(target);
+header.contains = target => [header, expansion, controls, searchToggle, mobileToggle, back].includes(target) || mobilePanel.contains(target) || menus.some(menu => menu.group.contains(target) || menu.panel.contains(target)) || searchPanel.contains(target);
+let focusable = [searchToggle, mobileToggle, mobileLink, ...drilldowns];
+focusable.forEach(item => { item.closest = () => null; item.getClientRects = () => [1]; });
+header.querySelectorAll = selector => selector === '[data-mobile-menu]' ? drilldowns : focusable;
 const hover = { matches: true, addEventListener(name, fn) { this.change = fn; } };
-const window = { events: {}, matchMedia() { return hover; }, addEventListener(name, fn) { this.events[name] = fn; } };
-const document = { events: {}, querySelectorAll() { return []; }, querySelector() { return header; }, addEventListener(name, fn) { this.events[name] = fn; } };
+const mobile = { matches: false, addEventListener(name, fn) { this.change = fn; } };
+const classes = new Set();
+const window = { events: {}, matchMedia(query) { return query.includes('max-width') ? mobile : hover; }, addEventListener(name, fn) { this.events[name] = fn; } };
+const document = { documentElement: {classList: {toggle(name, active) { active ? classes.add(name) : classes.delete(name); }}}, events: {}, querySelectorAll() { return []; }, querySelector() { return header; }, addEventListener(name, fn) { this.events[name] = fn; } };
 let now = 0, nextTimer = 0;
 const timers = new Map();
 function setTimeout(fn, delay) { const id = ++nextTimer; timers.set(id, {fn, at: now + delay}); return id; }
@@ -95,9 +108,33 @@ assert(state() === 'closed' && document.activeElement === searchToggle, 'Nonfocu
 enter(linkmap); hover.change(); advance(300); assert(state() === 'closed', 'Input mode change cancels pending hover');
 searchToggle.events.click(); searchPanel.scrollHeight = 240; window.events.resize();
 assert(expansion.style['--expansion-height'] === '240px', 'Shared area updates on viewport resize');
+mobile.matches = true; hover.matches = false; mobile.change();
+assert(state() === 'closed' && document.activeElement === mobileToggle, 'Switch to mobile closes desktop panel and restores visible focus');
+mobileToggle.events.click();
+assert(state() === 'menu' && !mobilePanel.inert && document.activeElement === mobileLink, 'Mobile menu opens and focuses its first link');
+assert(classes.has('endsunset-menu-open') && mobileToggle.attrs['aria-label'] === 'Close menu', 'Mobile overlay locks page scrolling and exposes Close');
+drilldowns[1].events.click();
+assert(state() === 'linkmap' && !linkmap.panel.inert && !back.hidden && document.activeElement === back, 'Mobile LinkMap disclosure enters submenu with Back');
+back.events.click();
+assert(state() === 'menu' && document.activeElement === drilldowns[1] && back.hidden, 'Back returns to menu and originating disclosure');
+drilldowns[0].events.click();
+assert(state() === 'projects' && !projects.panel.inert, 'Mobile Projects disclosure enters submenu');
+back.events.click();
+focusable[focusable.length - 1].focus(); const tab = key('Tab'); document.events.keydown(tab);
+assert(tab.prevented && document.activeElement === focusable[0], 'Mobile Tab wraps within open navigation');
+const reverseTab = key('Tab'); reverseTab.shiftKey = true; document.events.keydown(reverseTab);
+assert(reverseTab.prevented && document.activeElement === focusable[focusable.length - 1], 'Mobile Shift Tab wraps backwards');
+const mobileEscape = key('Escape'); document.events.keydown(mobileEscape);
+assert(state() === 'closed' && document.activeElement === mobileToggle && !classes.has('endsunset-menu-open'), 'Mobile Escape closes, unlocks scrolling, and restores focus');
+searchToggle.events.click();
+assert(state() === 'search' && document.activeElement === searchInput && classes.has('endsunset-menu-open'), 'Mobile Search opens focused overlay');
+mobileToggle.events.click();
+assert(state() === 'closed' && document.activeElement === searchToggle && !classes.has('endsunset-menu-open'), 'Close button dismisses Search and restores Search focus');
+mobileToggle.events.click(); mobile.matches = false; hover.matches = true; mobile.change();
+assert(state() === 'closed' && document.activeElement === searchToggle && !classes.has('endsunset-menu-open'), 'Switch to desktop clears mobile overlay and scroll lock');
 const css = readFile('assets/styles/components/header.css');
 assert(css.includes('@media (prefers-reduced-motion: reduce)') && css.includes('transition: none'), 'Reduced motion disables transitions');
 assert(css.includes('backdrop-filter: blur(5px)') && css.includes('pointer-events: none'), 'Background blurs without intercepting outside interaction');
 assert(css.includes('position: fixed; inset: 0 0 auto') && css.includes('touch-action: pan-x') && css.includes('.endsunset-header-spacer'), 'Header stays anchored with reserved layout space and protected touch navigation');
 assert(!css.includes('[data-nav-state="search"] .endsunset-controls'), 'Search never hides controls');
-print('Passed shared expansion: 300ms hover, rapid switching, boundary movement, keyboard, touch, Search focus, outside dismissal, resize, anchored header, blur and reduced motion.');
+print('Passed desktop expansion and mobile menu, submenus, Back, Close, Search, focus wrapping, scroll lock, resize, and reduced motion.');
