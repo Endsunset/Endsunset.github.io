@@ -45,6 +45,8 @@ h1 { font-size: clamp(3.4rem, 7vw, 6.8rem); letter-spacing: -.06em; line-height:
 h1 em { color: var(--accent); font-style: normal; }
 .hero-description { color: var(--muted); font-size: 1.08rem; margin: 30px 0; max-width: 470px; }
 .hero-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 28px; }
+.hero .button-primary { background: var(--accent); color: var(--surface); }
+.hero .button-primary:hover { background: var(--accent-hover); color: var(--surface); }
 .text-link { color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 3px; }
 .text-link span { color: var(--accent); margin-left: 7px; }
 .status-message { color: var(--accent); font-size: .85rem; min-height: 1.3em; }

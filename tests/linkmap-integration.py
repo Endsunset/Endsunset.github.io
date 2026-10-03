@@ -83,7 +83,7 @@ def main():
     entry = (PROJECT / "index.html").read_text()
     assert 'http-equiv="refresh"' not in entry
     assert 'href="https://endsunset.github.io/linkmap/"' in entry
-    assert 'href="app/">Open web app</a>' in entry
+    assert 'href="app/">Web App</a>' in entry
     shared_header = re.search(r"<header\b.*?</header>", (ROOT / "index.html").read_text(), re.S).group()
     assert 'href="/projects/"' in shared_header
     assert 'href="/search/"' not in shared_header
