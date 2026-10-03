@@ -61,7 +61,10 @@ focus. Switching triggers keeps the area open until the pointer leaves the heade
 and expansion. Search keeps the navigation controls visible. An open expansion
 blurs the page behind it. The fixed header reserves its normal layout space;
 vertical touch drags on the navigation bar do not scroll the page. Projects remains a normal `/projects/` link; on touch, the first tap opens
-its panel and the second follows the link. LinkMap is a disclosure button.
+its panel and the second follows the link. LinkMap is a direct `/linkmap/` link
+on the first click or tap, with its menu available on hover or keyboard focus.
+The header is 44px high on desktop and 48px on mobile, with a 980px content width
+and navigation distributed across the desktop row.
 Escape or leaving the header closes its active panel. Closed panels are inert
 while CSS handles transitions; reduced motion disables them.
 

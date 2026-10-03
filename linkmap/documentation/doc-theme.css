@@ -6,7 +6,5 @@ body[data-color-scheme="light"] {
 }
 
 /* Keep DocC's own sticky navigation beneath the shared domain header. */
-body[data-color-scheme="light"] { --endsunset-header-height: 68px; }
 body[data-color-scheme="light"] .nav { top: var(--endsunset-header-height); }
 body[data-color-scheme="light"] .navigator-card { top: calc(var(--endsunset-header-height) + 3.0588235294rem); height: calc(var(--app-height) - var(--endsunset-header-height) - 3.05882rem); }
-@media (max-width: 700px) { body[data-color-scheme="light"] { --endsunset-header-height: 62px; } }

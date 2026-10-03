@@ -2,6 +2,7 @@
 @import url('./components/footer.css');
 
 /* Scoped chrome keeps each project's typography and colors independent. */
+:root { --endsunset-header-height: 44px; }
 .endsunset-header, .endsunset-footer {
   color: #f5f5ff;
   font: 12px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -13,4 +14,7 @@
 .endsunset-header a:hover, .endsunset-footer a:hover { color: #a78bfa; }
 .endsunset-header :focus-visible, .endsunset-footer :focus-visible { outline: 3px solid #75a7ff; outline-offset: 4px; }
 .endsunset-header [hidden], .endsunset-footer [hidden] { display: none !important; }
-@media (max-width: 700px) { .endsunset-shell { width: calc(100% - 40px); } }
+@media (max-width: 700px) {
+  :root { --endsunset-header-height: 48px; }
+  .endsunset-shell { width: calc(100% - 40px); }
+}

@@ -1,12 +1,13 @@
-.endsunset-header { position: fixed; inset: 0 0 auto; z-index: 10000; background: #050509e8; backdrop-filter: blur(18px); border-bottom: 1px solid #ffffff18; transition: background 240ms ease; }
+.endsunset-header { position: fixed; inset: 0 0 auto; z-index: 10000; background: #050509e8; backdrop-filter: blur(18px); box-shadow: inset 0 -1px #ffffff18; transition: background 240ms ease; }
 .endsunset-header[data-nav-state="projects"], .endsunset-header[data-nav-state="linkmap"], .endsunset-header[data-nav-state="search"] { background: #050509; }
-.endsunset-header-spacer { height: 69px; }
-.endsunset-nav { touch-action: pan-x; display: flex; align-items: center; justify-content: space-between; height: 68px; }
-.endsunset-header .endsunset-brand { display: inline-flex; align-items: center; font-size: 18px; font-weight: 650; letter-spacing: -.6px; }
-.endsunset-controls { height: 100%; display: flex; align-items: center; gap: 28px; opacity: 1; visibility: visible; transition: opacity 180ms ease, visibility 0s; }
+.endsunset-header .endsunset-shell { width: min(980px, calc(100% - 44px)); }
+.endsunset-header-spacer { height: var(--endsunset-header-height); }
+.endsunset-nav { touch-action: pan-x; display: flex; align-items: center; justify-content: space-between; height: var(--endsunset-header-height); }
+.endsunset-header .endsunset-brand { display: inline-flex; align-items: center; height: 100%; font-size: 14px; font-weight: 600; letter-spacing: -.4px; }
+.endsunset-controls { height: 100%; display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 28px; margin-inline-start: clamp(40px, 10vw, 120px); opacity: 1; visibility: visible; transition: opacity 180ms ease, visibility 0s; }
 .endsunset-menu-group { display: flex; align-items: center; align-self: stretch; }
-.endsunset-menu-group > a { display: flex; align-items: center; min-height: 44px; }
-.endsunset-linkmap-toggle, .endsunset-search-toggle { border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; min-height: 44px; padding: 0; }
+.endsunset-menu-group > a { display: flex; align-items: center; min-height: var(--endsunset-header-height); }
+.endsunset-search-toggle { border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; min-height: var(--endsunset-header-height); padding: 0; }
 .endsunset-menu-panel nav { display: grid; gap: 14px; padding-block: 30px 36px; }
 .endsunset-menu-panel p { margin: 0 0 4px; color: #aaaac1; font-size: 12px; }
 .endsunset-menu-panel a { width: fit-content; font-size: 24px; font-weight: 600; }
@@ -15,22 +16,20 @@
 .endsunset-search-row { display: flex; align-items: center; gap: 24px; }
 .endsunset-search-row input { flex: 1; min-width: 0; width: 100%; padding: 12px 0; border: 0; border-bottom: 1px solid #ffffff30; border-radius: 0; background: transparent; color: #f5f5ff; font: inherit; font-size: clamp(20px, 3vw, 28px); color-scheme: dark; }
 .endsunset-search-row input::placeholder { color: #aaaac1; }
-.endsunset-linkmap-toggle:hover, .endsunset-search-toggle:hover { color: #a78bfa; }
+.endsunset-search-toggle:hover { color: #a78bfa; }
 @media (max-width: 700px) {
-  .endsunset-nav { height: 62px; }
-  .endsunset-header .endsunset-brand { font-size: 16px; }
-  .endsunset-controls { gap: 16px; }
+  .endsunset-header .endsunset-shell { width: calc(100% - 32px); }
+  .endsunset-controls { flex: 0 1 auto; margin-inline-start: 24px; gap: 20px; }
   .endsunset-search-row { gap: 16px; }
 }
 .endsunset-search-toggle { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; }
 
 #endsunset-search-input::-webkit-search-cancel-button { -webkit-appearance: none; }
 
-.endsunset-expansion { position: absolute; inset: 100% 0 auto; height: var(--expansion-height, 0px); max-height: calc(100dvh - 68px); overflow: hidden auto; background: #050509; border-bottom: 1px solid #ffffff18; opacity: 0; visibility: hidden; pointer-events: none; transition: height 280ms cubic-bezier(.2,.7,.3,1), opacity 240ms ease, visibility 0s 280ms; }
+.endsunset-expansion { position: absolute; inset: 100% 0 auto; height: var(--expansion-height, 0px); max-height: calc(100dvh - var(--endsunset-header-height)); overflow: hidden auto; background: #050509; border-bottom: 1px solid #ffffff18; opacity: 0; visibility: hidden; pointer-events: none; transition: height 280ms cubic-bezier(.2,.7,.3,1), opacity 240ms ease, visibility 0s 280ms; }
 .endsunset-header:not([data-nav-state="closed"]) .endsunset-expansion { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
 .endsunset-expansion-content { position: absolute; inset: 0 0 auto; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-6px); transition: opacity 180ms ease, transform 240ms ease, visibility 0s 240ms; }
 .endsunset-header[data-nav-state="projects"] .endsunset-project-menu, .endsunset-header[data-nav-state="linkmap"] .endsunset-linkmap-menu, .endsunset-header[data-nav-state="search"] .endsunset-search-panel { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); transition-delay: 0s; }
-.endsunset-backdrop { position: fixed; inset: 68px 0 0; z-index: 9999; background: #05050930; -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 240ms ease, visibility 0s 240ms; }
+.endsunset-backdrop { position: fixed; inset: var(--endsunset-header-height) 0 0; z-index: 9999; background: #05050930; -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 240ms ease, visibility 0s 240ms; }
 .endsunset-header:not([data-nav-state="closed"]) ~ .endsunset-backdrop { opacity: 1; visibility: visible; transition-delay: 0s; }
-@media (max-width: 700px) { .endsunset-header-spacer { height: 63px; } .endsunset-expansion { max-height: calc(100dvh - 62px); } .endsunset-backdrop { top: 62px; } }
 @media (prefers-reduced-motion: reduce) { .endsunset-header, .endsunset-expansion, .endsunset-expansion-content, .endsunset-backdrop { transition: none; } }

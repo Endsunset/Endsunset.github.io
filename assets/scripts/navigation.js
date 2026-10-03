@@ -55,7 +55,7 @@
   }
   function openMenu(menu) { if (!restoringFocus) setState(menu.name); }
 
-  [expansion, searchToggle, searchPanel, menus[1].trigger, ...menus.map(menu => menu.panel)].forEach(element => { element.hidden = false; });
+  [expansion, searchToggle, searchPanel, ...menus.map(menu => menu.panel)].forEach(element => { element.hidden = false; });
   setState('closed');
   menus.forEach(menu => {
     menu.group.addEventListener('pointerenter', event => {
@@ -80,7 +80,7 @@
           event.preventDefault();
           openMenu(menu);
         }
-      } else openMenu(menu);
+      }
     });
   });
   header.addEventListener('pointerenter', () => clearTimeout(closeTimer));
