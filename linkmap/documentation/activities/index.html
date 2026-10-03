@@ -6,28 +6,32 @@
     <div class="endsunset-controls">
       <div class="endsunset-projects endsunset-menu-group">
         <a href="/projects/" aria-expanded="false" aria-controls="endsunset-project-menu">Projects</a>
-        <div class="endsunset-project-menu endsunset-menu-panel endsunset-panel" id="endsunset-project-menu" aria-hidden="true" inert hidden>
-          <nav class="endsunset-shell" aria-label="Projects"><p>Projects</p><a href="/projects/">View the Latest</a><a href="/linkmap/">LinkMap</a></nav>
-        </div>
       </div>
       <div class="endsunset-linkmap endsunset-menu-group">
         <button class="endsunset-linkmap-toggle" type="button" aria-expanded="false" aria-controls="endsunset-linkmap-menu" hidden>LinkMap</button>
-        <div class="endsunset-linkmap-menu endsunset-menu-panel endsunset-panel" id="endsunset-linkmap-menu" aria-hidden="true" inert hidden>
-          <nav class="endsunset-shell" aria-label="LinkMap"><p>Explore LinkMap</p><a href="/linkmap/">Home</a><a href="/linkmap/app/">Web App</a><a href="/linkmap/documentation/">Documentation</a><a href="/linkmap/download/">Download</a></nav>
-        </div>
       </div>
       <button class="endsunset-search-toggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="endsunset-search-panel" hidden><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="m12.5 12.5 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
     </div>
   </nav>
-  <div class="endsunset-search-panel endsunset-panel" id="endsunset-search-panel" aria-hidden="true" inert hidden>
-    <form class="endsunset-shell" role="search" aria-label="Search Endsunset" action="/search/" method="get">
-      <label for="endsunset-search-input">Search Endsunset</label>
-      <div class="endsunset-search-row">
-        <input id="endsunset-search-input" name="q" type="search" placeholder="Search Endsunset" autocomplete="off" enterkeyhint="search">
-      </div>
-    </form>
+  <div class="endsunset-expansion" id="endsunset-expansion" aria-hidden="true" inert hidden>
+    <div class="endsunset-project-menu endsunset-menu-panel endsunset-expansion-content" id="endsunset-project-menu" aria-hidden="true" inert hidden>
+      <nav class="endsunset-shell" aria-label="Projects"><p>Projects</p><a href="/projects/">View the Latest</a><a href="/linkmap/">LinkMap</a></nav>
+    </div>
+    <div class="endsunset-linkmap-menu endsunset-menu-panel endsunset-expansion-content" id="endsunset-linkmap-menu" aria-hidden="true" inert hidden>
+      <nav class="endsunset-shell" aria-label="LinkMap"><p>Explore LinkMap</p><a href="/linkmap/">Home</a><a href="/linkmap/app/">Web App</a><a href="/linkmap/documentation/">Documentation</a><a href="/linkmap/download/">Download</a></nav>
+    </div>
+    <div class="endsunset-search-panel endsunset-expansion-content" id="endsunset-search-panel" aria-hidden="true" inert hidden>
+      <form class="endsunset-shell" role="search" aria-label="Search Endsunset" action="/search/" method="get">
+        <label for="endsunset-search-input">Search Endsunset</label>
+        <div class="endsunset-search-row">
+          <input id="endsunset-search-input" name="q" type="search" placeholder="Search Endsunset" autocomplete="off" enterkeyhint="search">
+        </div>
+      </form>
+    </div>
   </div>
 </header>
+<div class="endsunset-backdrop" aria-hidden="true"></div>
+<div class="endsunset-header-spacer" aria-hidden="true"></div>
 <!-- /site-header --><noscript><article><section><ul><li><a href="../index.html">LinkMap</a></li><li>Activities</li></ul><p>LinkMap Guide</p><h1>Activities</h1><p>An Activity is one round of work within a Project.</p></section><h2>Overview</h2><p>Create an Activity when you are ready to plan a visit, inspection, or other task. Add Routes for the places to visit and Assignments for the people or teams doing the work. Select the Activity in Dashboard → Context to show its route on the Map.</p><p>Archive an Activity after the work is finished. The Project and its Locations remain ready for another Activity.</p><h2>Topics</h2><h3>Plan an Activity</h3><ul><li><a href="../routes-and-stops/index.html"><p>Routes and Stops</p></a><p>A Route puts places in the order your team should visit them. Each Stop uses a Location from the Project.</p></li><li><a href="../assignments/index.html"><p>Assignments</p></a><p>An Assignment names the person, team, crew, or vehicle responsible for work in an Activity.</p></li></ul></article></noscript><div id="app"></div><!-- site-footer -->
 <footer class="endsunset-footer">
   <div class="endsunset-shell">

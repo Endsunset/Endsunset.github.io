@@ -116,6 +116,9 @@ def main():
             head = source.split("</head>", 1)[0]
             assert "/assets/styles/site-chrome.css" in head and "/assets/scripts/navigation.js" in head, page
             assert re.search(r"<header\b.*?</header>", source, re.S).group() == shared_header, page
+            assert source.count('class="endsunset-expansion"') == 1, page
+            assert source.count('class="endsunset-backdrop"') == 1, page
+            assert source.count('class="endsunset-header-spacer"') == 1, page
             assert "Shared header:" not in source and "Shared footer:" not in source, page
             assert "components/site-chrome.css" not in source and "header-appearance.css" not in source, page
             if page.is_relative_to(PROJECT):

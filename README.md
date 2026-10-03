@@ -55,8 +55,12 @@ LinkMap's generated routes, and child repository metadata.
 
 The global header lives in `partials/header.html`; its styles live in
 `assets/styles/components/header.css` and its state management in
-`assets/scripts/navigation.js`. Projects and LinkMap expand on hover or keyboard
-focus. Projects remains a normal `/projects/` link; on touch, the first tap opens
+`assets/scripts/navigation.js`. Projects, LinkMap, and Search use one shared expansion area. Projects and
+LinkMap expand after 0.3 seconds of pointer hover, or immediately on keyboard
+focus. Switching triggers keeps the area open until the pointer leaves the header
+and expansion. Search keeps the navigation controls visible. An open expansion
+blurs the page behind it. The fixed header reserves its normal layout space;
+vertical touch drags on the navigation bar do not scroll the page. Projects remains a normal `/projects/` link; on touch, the first tap opens
 its panel and the second follows the link. LinkMap is a disclosure button.
 Escape or leaving the header closes its active panel. Closed panels are inert
 while CSS handles transitions; reduced motion disables them.

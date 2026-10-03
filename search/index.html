@@ -23,28 +23,32 @@
     <div class="endsunset-controls">
       <div class="endsunset-projects endsunset-menu-group">
         <a href="/projects/" aria-expanded="false" aria-controls="endsunset-project-menu">Projects</a>
-        <div class="endsunset-project-menu endsunset-menu-panel endsunset-panel" id="endsunset-project-menu" aria-hidden="true" inert hidden>
-          <nav class="endsunset-shell" aria-label="Projects"><p>Projects</p><a href="/projects/">View the Latest</a><a href="/linkmap/">LinkMap</a></nav>
-        </div>
       </div>
       <div class="endsunset-linkmap endsunset-menu-group">
         <button class="endsunset-linkmap-toggle" type="button" aria-expanded="false" aria-controls="endsunset-linkmap-menu" hidden>LinkMap</button>
-        <div class="endsunset-linkmap-menu endsunset-menu-panel endsunset-panel" id="endsunset-linkmap-menu" aria-hidden="true" inert hidden>
-          <nav class="endsunset-shell" aria-label="LinkMap"><p>Explore LinkMap</p><a href="/linkmap/">Home</a><a href="/linkmap/app/">Web App</a><a href="/linkmap/documentation/">Documentation</a><a href="/linkmap/download/">Download</a></nav>
-        </div>
       </div>
       <button class="endsunset-search-toggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="endsunset-search-panel" hidden><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="m12.5 12.5 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
     </div>
   </nav>
-  <div class="endsunset-search-panel endsunset-panel" id="endsunset-search-panel" aria-hidden="true" inert hidden>
-    <form class="endsunset-shell" role="search" aria-label="Search Endsunset" action="/search/" method="get">
-      <label for="endsunset-search-input">Search Endsunset</label>
-      <div class="endsunset-search-row">
-        <input id="endsunset-search-input" name="q" type="search" placeholder="Search Endsunset" autocomplete="off" enterkeyhint="search">
-      </div>
-    </form>
+  <div class="endsunset-expansion" id="endsunset-expansion" aria-hidden="true" inert hidden>
+    <div class="endsunset-project-menu endsunset-menu-panel endsunset-expansion-content" id="endsunset-project-menu" aria-hidden="true" inert hidden>
+      <nav class="endsunset-shell" aria-label="Projects"><p>Projects</p><a href="/projects/">View the Latest</a><a href="/linkmap/">LinkMap</a></nav>
+    </div>
+    <div class="endsunset-linkmap-menu endsunset-menu-panel endsunset-expansion-content" id="endsunset-linkmap-menu" aria-hidden="true" inert hidden>
+      <nav class="endsunset-shell" aria-label="LinkMap"><p>Explore LinkMap</p><a href="/linkmap/">Home</a><a href="/linkmap/app/">Web App</a><a href="/linkmap/documentation/">Documentation</a><a href="/linkmap/download/">Download</a></nav>
+    </div>
+    <div class="endsunset-search-panel endsunset-expansion-content" id="endsunset-search-panel" aria-hidden="true" inert hidden>
+      <form class="endsunset-shell" role="search" aria-label="Search Endsunset" action="/search/" method="get">
+        <label for="endsunset-search-input">Search Endsunset</label>
+        <div class="endsunset-search-row">
+          <input id="endsunset-search-input" name="q" type="search" placeholder="Search Endsunset" autocomplete="off" enterkeyhint="search">
+        </div>
+      </form>
+    </div>
   </div>
 </header>
+<div class="endsunset-backdrop" aria-hidden="true"></div>
+<div class="endsunset-header-spacer" aria-hidden="true"></div>
 
   <main id="main"><section class="search-page shell"><h1>Search Endsunset</h1><p>Find projects and documentation.</p><form id="site-search-controls" role="search" action="/search/" method="get"><label for="site-search">Search this site</label><div class="site-search-field"><input id="site-search" name="q" type="search" autocomplete="off" placeholder="Search LinkMap, documentation…"><button id="site-search-clear" type="button" aria-label="Clear search" hidden>×</button></div><p id="search-status" role="status"></p></form><ul class="search-results" hidden><li data-search-entry><a href="/">Endsunset</a><p>Endsunset home</p></li><li data-search-entry><a href="/projects/">Projects</a><p>Explore Endsunset projects</p></li><li data-search-entry><a href="/linkmap/">LinkMap</a><p>Plan places, routes, and supplies. Together.</p></li><li data-search-entry><a href="/linkmap/download/">Download LinkMap</a><p>Get LinkMap for iPhone</p></li><li data-search-entry><a href="/linkmap/privacy-policy/">LinkMap privacy policy</a><p>Storage, sharing, and deletion</p></li><li data-search-entry><a href="/linkmap/documentation/activities/">Activities</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/assignments/">Assignments</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/basic-workflow/">Basic Workflow Example</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/how-linkmap-works/">How LinkMap Works</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/ios-platform/">LinkMap for iOS</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/locations/">Locations</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/map/">Map</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/project/">Project</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/regions-and-layers/">Regions and Layers</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/routes-and-stops/">Routes and Stops</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/sharing/">Sharing</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/web-platform/">LinkMap for Web</a><p>LinkMap documentation</p></li><li data-search-entry><a href="/linkmap/documentation/">LinkMap Documentation</a><p>LinkMap documentation</p></li></ul><noscript><p>Enable JavaScript to show search results.</p></noscript></section></main>
   <footer class="endsunset-footer">

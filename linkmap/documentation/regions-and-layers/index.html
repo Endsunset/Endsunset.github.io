@@ -6,28 +6,32 @@
     <div class="endsunset-controls">
       <div class="endsunset-projects endsunset-menu-group">
         <a href="/projects/" aria-expanded="false" aria-controls="endsunset-project-menu">Projects</a>
-        <div class="endsunset-project-menu endsunset-menu-panel endsunset-panel" id="endsunset-project-menu" aria-hidden="true" inert hidden>
-          <nav class="endsunset-shell" aria-label="Projects"><p>Projects</p><a href="/projects/">View the Latest</a><a href="/linkmap/">LinkMap</a></nav>
-        </div>
       </div>
       <div class="endsunset-linkmap endsunset-menu-group">
         <button class="endsunset-linkmap-toggle" type="button" aria-expanded="false" aria-controls="endsunset-linkmap-menu" hidden>LinkMap</button>
-        <div class="endsunset-linkmap-menu endsunset-menu-panel endsunset-panel" id="endsunset-linkmap-menu" aria-hidden="true" inert hidden>
-          <nav class="endsunset-shell" aria-label="LinkMap"><p>Explore LinkMap</p><a href="/linkmap/">Home</a><a href="/linkmap/app/">Web App</a><a href="/linkmap/documentation/">Documentation</a><a href="/linkmap/download/">Download</a></nav>
-        </div>
       </div>
       <button class="endsunset-search-toggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="endsunset-search-panel" hidden><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="m12.5 12.5 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
     </div>
   </nav>
-  <div class="endsunset-search-panel endsunset-panel" id="endsunset-search-panel" aria-hidden="true" inert hidden>
-    <form class="endsunset-shell" role="search" aria-label="Search Endsunset" action="/search/" method="get">
-      <label for="endsunset-search-input">Search Endsunset</label>
-      <div class="endsunset-search-row">
-        <input id="endsunset-search-input" name="q" type="search" placeholder="Search Endsunset" autocomplete="off" enterkeyhint="search">
-      </div>
-    </form>
+  <div class="endsunset-expansion" id="endsunset-expansion" aria-hidden="true" inert hidden>
+    <div class="endsunset-project-menu endsunset-menu-panel endsunset-expansion-content" id="endsunset-project-menu" aria-hidden="true" inert hidden>
+      <nav class="endsunset-shell" aria-label="Projects"><p>Projects</p><a href="/projects/">View the Latest</a><a href="/linkmap/">LinkMap</a></nav>
+    </div>
+    <div class="endsunset-linkmap-menu endsunset-menu-panel endsunset-expansion-content" id="endsunset-linkmap-menu" aria-hidden="true" inert hidden>
+      <nav class="endsunset-shell" aria-label="LinkMap"><p>Explore LinkMap</p><a href="/linkmap/">Home</a><a href="/linkmap/app/">Web App</a><a href="/linkmap/documentation/">Documentation</a><a href="/linkmap/download/">Download</a></nav>
+    </div>
+    <div class="endsunset-search-panel endsunset-expansion-content" id="endsunset-search-panel" aria-hidden="true" inert hidden>
+      <form class="endsunset-shell" role="search" aria-label="Search Endsunset" action="/search/" method="get">
+        <label for="endsunset-search-input">Search Endsunset</label>
+        <div class="endsunset-search-row">
+          <input id="endsunset-search-input" name="q" type="search" placeholder="Search Endsunset" autocomplete="off" enterkeyhint="search">
+        </div>
+      </form>
+    </div>
   </div>
 </header>
+<div class="endsunset-backdrop" aria-hidden="true"></div>
+<div class="endsunset-header-spacer" aria-hidden="true"></div>
 <!-- /site-header --><noscript><article><section><ul><li><a href="../index.html">LinkMap</a></li><li><a href="../project/index.html">Project</a></li><li>Regions and Layers</li></ul><p>Article</p><h1>Regions and Layers</h1><p>Regions divide a Project into broad areas. Layers describe levels or surfaces inside a Region, such as floors in a building.</p></section><h2>Overview</h2><p>Assign Locations to a Region and Layer when this helps your team find them. On the Map, the Layer selector appears when the center of the view is inside a Layer area. Use Project details to manage Regions and Layers.</p></article></noscript><div id="app"></div><!-- site-footer -->
 <footer class="endsunset-footer">
   <div class="endsunset-shell">
