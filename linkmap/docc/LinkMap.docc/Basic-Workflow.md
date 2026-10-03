@@ -1,4 +1,4 @@
-# Basic Workflow Example
+# Basic Workflow
 
 Follow one Project from a first place to a planned visit.
 

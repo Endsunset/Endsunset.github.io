@@ -32,23 +32,30 @@ def check_navigation():
     [library] = index["interfaceLanguages"]["swift"]
     assert library["path"] == "/documentation"
     entries = library["children"]
-    assert [entry["title"] for entry in entries if entry["type"] == "groupMarker"] == [
-        "Essentials", "Start Here", "Project and Map", "Plan Work", "Collaborate"
-    ]
+    expected = {
+        "Essentials": ["How LinkMap Works", "Basic Workflow"],
+        "Concepts": ["Project", "Map", "Activities", "Assignments", "Locations",
+                     "Routes and Stops", "Regions and Layers"],
+        "Platforms": ["LinkMap for iOS", "LinkMap for Web"],
+        "Collaboration": ["Sharing"],
+        "Services": ["iCloud", "Apple Maps"],
+    }
+    groups = {}
+    for entry in entries:
+        if entry["type"] == "groupMarker":
+            group = entry["title"]
+            groups[group] = []
+        else:
+            groups[group].append(entry["title"])
+            assert not children(entry), f"Duplicate nested curation: {entry['title']}"
+    assert list(groups) == list(expected)
+    assert groups == expected
     pages = children(library)
-    assert list(pages) == [
-        "How LinkMap Works", "LinkMap for Web", "LinkMap for iOS", "Basic Workflow Example",
-        "Project", "Map", "Activities", "Sharing"
-    ]
-    assert not children(pages["LinkMap for Web"])
-    assert not children(pages["LinkMap for iOS"])
-    essentials = entries[1:next(i for i, entry in enumerate(entries) if entry["title"] == "Start Here")]
-    assert [entry["title"] for entry in essentials] == [
-        "How LinkMap Works", "LinkMap for Web", "LinkMap for iOS"
-    ]
-    assert "Regions and Layers" in children(pages["Project"])
-    assert "Locations" in children(pages["Map"])
-    assert "Routes and Stops" in children(pages["Activities"])
+    assert len(pages) == sum(map(len, expected.values()))
+    landing = json.loads((ROOT / "data" / "documentation.json").read_text())
+    assert [section["title"] for section in landing["topicSections"]] == list(expected)
+    for section in landing["topicSections"]:
+        assert [landing["references"][identifier]["title"] for identifier in section["identifiers"]] == expected[section["title"]]
 
 
 def main():

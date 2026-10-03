@@ -39,13 +39,13 @@ and fragments, and run `git diff --check`.
 Documentation source lives in the single `docc/LinkMap.docc` catalog. Run
 `python3 scripts/build-documentation.py` to regenerate the checked-in
 `documentation/` static site. Curate its visible hierarchy with `## Topics`:
-Essentials, Start Here, Project and Map, Plan Work, and Collaborate, in that
-order. Essentials directly contains How LinkMap Works, LinkMap for Web, and
-LinkMap for iOS. Keep one getting-started article per platform, including
-account access and available actions; do not add a Platforms section. Curate
-the existing iOS task pages directly under the landing page's task sections.
-Project and Map are separate curated pages with their own children. The DocC landing
-article is served directly at `/linkmap/documentation/`.
+Essentials, Concepts, Platforms, Collaboration, and Services, in that order.
+Essentials contains How LinkMap Works and Basic Workflow. Curate the existing
+concept pages directly under Concepts, with one curated parent per article.
+Keep one getting-started article per platform under Platforms, including
+account access and available actions. Collaboration contains sharing guidance;
+Services explains how LinkMap uses iCloud and Apple Maps, not generic APIs.
+The DocC landing article is served directly at `/linkmap/documentation/`.
 Write the public documentation as a user booklet: explain what readers can do
 in LinkMap and how to do it. Keep implementation details, developer reference,
 Swift symbols, CloudKit and MapKit internals, and `projectZone` out of the

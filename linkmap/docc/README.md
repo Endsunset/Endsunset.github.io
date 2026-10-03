@@ -1,11 +1,13 @@
 # LinkMap documentation library
 
 `LinkMap.docc` is the single authored Swift-DocC catalog. Its root page curates
-Essentials, Start Here, Project and Map, Plan Work, and Collaborate, in that
-order. Essentials directly contains How LinkMap Works and one getting-started
-article each for web and iOS, including account access and available actions.
-There is no Essentials wrapper article or Platforms section. The task sections
-directly curate the existing iOS guides; Project and Map are separate pages.
+Essentials, Concepts, Platforms, Collaboration, and Services, in that order.
+Essentials contains How LinkMap Works and Basic Workflow. Concepts directly
+curates the existing Project, Map, and work-planning guides. Platforms contains
+the iOS and web guides; Collaboration contains Sharing. Services explains how
+LinkMap uses iCloud and Apple Maps in user-facing language.
+There is no Essentials wrapper article. Each article has one curated parent;
+use inline links for related concepts rather than duplicating navigator entries.
 Keep each child in a parent's `## Topics` section; folders
 and filenames alone do not define the visible navigator hierarchy.
 

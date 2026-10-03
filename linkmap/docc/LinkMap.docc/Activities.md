@@ -6,9 +6,4 @@ Create an Activity when you are ready to plan a visit, inspection, or other task
 
 Archive an Activity after the work is finished. The Project and its Locations remain ready for another Activity.
 
-## Topics
-
-### Plan an Activity
-
-- <doc:Routes-and-Stops>
-- <doc:Assignments>
+See <doc:Routes-and-Stops> to plan the visit order and <doc:Assignments> to connect the work to a person or team.

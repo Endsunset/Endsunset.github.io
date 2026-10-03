@@ -6,8 +6,4 @@ Open Dashboard → Context to select a Project, Activity, and optional Assignmen
 
 Tap a Location marker to open its actions, then choose Detail. Use the Map toolbar’s Edit Locations action to add or move places. Save to keep changes or Cancel to discard them.
 
-## Topics
-
-### Organize Places
-
-- <doc:Locations>
+See <doc:Locations> for the places shown on your Project map.
