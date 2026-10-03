@@ -70,7 +70,8 @@ a full-height navigation panel with direct Projects and LinkMap links; adjacent
 arrows open their submenus. Back returns to the main menu and the menu button
 becomes Close. Search uses the same full-height expansion. Open mobile navigation
 locks page scrolling, keeps keyboard focus inside the header, and closes with
-Escape or when switching to desktop. Without JavaScript, the direct header links
+the Close button, Escape, or when switching to desktop. Tapping elsewhere or
+blurring a control does not dismiss mobile navigation. Without JavaScript, the direct header links
 remain available.
 Escape or leaving the header closes its active panel. Closed panels are inert
 while CSS handles transitions; reduced motion disables them.

@@ -114,14 +114,15 @@
     if (hover.matches && state !== 'closed') closeTimer = setTimeout(() => close(header.contains(document.activeElement)), 120);
   });
   header.addEventListener('focusout', event => {
-    if (!header.contains(event.relatedTarget)) close();
+    // Touch blur can precede the Close click; mobile dismissal is explicit.
+    if (!mobile.matches && !header.contains(event.relatedTarget)) close();
   });
   searchToggle.addEventListener('click', () => {
     setState('search');
     searchInput.focus({ preventScroll: true });
   });
   document.addEventListener('click', event => {
-    if (!header.contains(event.target)) close(header.contains(document.activeElement));
+    if (!mobile.matches && !header.contains(event.target)) close(header.contains(document.activeElement));
   });
   document.addEventListener('pointerdown', event => {
     keyboardNavigation = false;
