@@ -69,7 +69,7 @@
   setState('closed');
   mobileToggle.addEventListener('click', () => {
     if (state !== 'closed') close(true);
-    else { setState('menu'); mobilePanel.querySelector('a').focus(); }
+    else { setState('menu'); mobilePanel.querySelector('button').focus(); }
   });
   header.querySelectorAll('[data-mobile-menu]').forEach(button => {
     button.addEventListener('click', () => {

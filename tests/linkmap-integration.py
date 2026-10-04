@@ -98,6 +98,9 @@ def main():
     assert 'class="endsunset-menu-toggle"' in shared_header
     assert 'id="endsunset-mobile-menu"' in shared_header
     assert 'data-mobile-menu="linkmap"' in shared_header
+    mobile_menu = re.search(r'<div class="endsunset-mobile-menu\b.*?</nav>', shared_header, re.S).group()
+    assert '<a ' not in mobile_menu and '›' not in mobile_menu
+    assert '>Projects</button>' in mobile_menu and '>LinkMap</button>' in mobile_menu
     assert 'href="/linkmap/app/">Web App</a>' in shared_header
     assert 'action="/search/" method="get"' in shared_header
     assert 'data-search-entry' not in shared_header and 'search-status' not in shared_header

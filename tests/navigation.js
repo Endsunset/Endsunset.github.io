@@ -8,12 +8,12 @@ function element() {
     focus() { document.activeElement = this; this.onFocus?.(); } };
 }
 const header = element(), expansion = element(), controls = element(), searchToggle = element(), searchPanel = element(), searchInput = element();
-const mobileToggle = element(), mobilePanel = element(), back = element(), mobileLink = element();
+const mobileToggle = element(), mobilePanel = element(), back = element();
 const drilldowns = ['projects', 'linkmap'].map(name => {
   const button = element(); button.dataset.mobileMenu = name; return button;
 });
-mobilePanel.querySelector = () => mobileLink;
-mobilePanel.contains = target => [mobilePanel, mobileLink, ...drilldowns].includes(target);
+mobilePanel.querySelector = selector => selector === 'button' ? drilldowns[0] : null;
+mobilePanel.contains = target => [mobilePanel, ...drilldowns].includes(target);
 const menus = ['projects', 'linkmap'].map(name => {
   const group = element(), trigger = element(), panel = element(), link = element();
   group.contains = target => [group, trigger].includes(target);
@@ -30,7 +30,7 @@ header.querySelector = selector => ({'.endsunset-expansion': expansion, '.endsun
 searchPanel.querySelector = () => searchInput;
 searchPanel.contains = target => [searchPanel, searchInput].includes(target);
 header.contains = target => [header, expansion, controls, searchToggle, mobileToggle, back].includes(target) || mobilePanel.contains(target) || menus.some(menu => menu.group.contains(target) || menu.panel.contains(target)) || searchPanel.contains(target);
-let focusable = [searchToggle, mobileToggle, mobileLink, ...drilldowns];
+let focusable = [searchToggle, mobileToggle, ...drilldowns];
 focusable.forEach(item => { item.closest = () => null; item.getClientRects = () => [1]; });
 header.querySelectorAll = selector => selector === '[data-mobile-menu]' ? drilldowns : focusable;
 const hover = { matches: true, addEventListener(name, fn) { this.change = fn; } };
@@ -111,7 +111,7 @@ assert(expansion.style['--expansion-height'] === '240px', 'Shared area updates o
 mobile.matches = true; hover.matches = false; mobile.change();
 assert(state() === 'closed' && document.activeElement === mobileToggle, 'Switch to mobile closes desktop panel and restores visible focus');
 mobileToggle.events.click();
-assert(state() === 'menu' && !mobilePanel.inert && document.activeElement === mobileLink, 'Mobile menu opens and focuses its first link');
+assert(state() === 'menu' && !mobilePanel.inert && document.activeElement === drilldowns[0], 'Mobile menu opens and focuses Projects button');
 assert(classes.has('endsunset-menu-open') && mobileToggle.attrs['aria-label'] === 'Close menu', 'Mobile overlay locks page scrolling and exposes Close');
 header.events.focusout({relatedTarget: null});
 assert(state() === 'menu', 'Mobile touch blur does not close the menu before the Close click');

@@ -51,9 +51,7 @@
   .endsunset-header .endsunset-expansion .endsunset-shell { width: calc(100% - 80px); }
   .endsunset-header[data-nav-state="menu"] .endsunset-mobile-menu { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); transition-delay: 0s; }
   .endsunset-mobile-menu nav { display: grid; gap: 8px; padding-block: 32px; }
-  .endsunset-mobile-menu nav > div { display: flex; align-items: center; justify-content: space-between; }
-  .endsunset-mobile-menu a { flex: 1; padding-block: 12px; font-size: 28px; line-height: 1.15; font-weight: 600; }
-  .endsunset-mobile-menu button { border: 0; background: transparent; color: inherit; font: inherit; font-size: 32px; cursor: pointer; width: 48px; height: 48px; }
+  .endsunset-mobile-menu button { display: block; width: 100%; min-height: 48px; padding: 12px 0; border: 0; background: transparent; color: inherit; font: inherit; font-size: 28px; line-height: 1.15; font-weight: 600; text-align: start; cursor: pointer; }
   .endsunset-menu-panel nav { padding-block: 72px 40px; gap: 20px; }
   .endsunset-menu-panel a { font-size: 28px; line-height: 1.2; padding-block: 6px; }
   .endsunset-menu-back { position: absolute; inset: 12px auto auto 24px; z-index: 2; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px; border: 0; background: transparent; color: #aaaac1; font: inherit; font-size: 28px; cursor: pointer; }
