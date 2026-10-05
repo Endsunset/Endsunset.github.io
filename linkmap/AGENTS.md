@@ -44,7 +44,7 @@ Essentials contains How LinkMap Works and Basic Workflow. Curate the existing
 concept pages directly under Concepts, with one curated parent per article.
 Keep one getting-started article per platform under Platforms, including
 account access and available actions. Collaboration contains sharing guidance;
-Services explains how LinkMap uses iCloud and Apple Maps, not generic APIs.
+Services explains how LinkMap uses iCloud and map providers, not generic APIs.
 The DocC landing article is served directly at `/linkmap/documentation/`.
 Write the public documentation as a user booklet: explain what readers can do
 in LinkMap and how to do it. Keep implementation details, developer reference,
