@@ -10,6 +10,7 @@ root = Path(__file__).resolve().parents[1]
 def inline(text):
     text = html.escape(text)
     text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+    text = re.sub(r'\[([^\]]+)\]\(([^\s)]+)\)', r'<a href="\2">\1</a>', text)
     if re.fullmatch(r'https://[^\s<>]+', text):
         text = f'<a href="{text}">{text}</a>'
     return text
