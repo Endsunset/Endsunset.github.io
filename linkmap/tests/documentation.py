@@ -38,7 +38,7 @@ def check_navigation():
                      "Routes and Stops", "Regions and Layers"],
         "Platforms": ["LinkMap for iOS", "LinkMap for Web"],
         "Collaboration": ["Sharing"],
-        "Services": ["iCloud", "Map Providers"],
+        "Services": ["iCloud", "Maps"],
     }
     groups = {}
     for entry in entries:

@@ -5,7 +5,7 @@ Essentials, Concepts, Platforms, Collaboration, and Services, in that order.
 Essentials contains How LinkMap Works and Basic Workflow. Concepts directly
 curates the existing Project, Map, and work-planning guides. Platforms contains
 the iOS and web guides; Collaboration contains Sharing. Services explains how
-LinkMap uses iCloud and map providers in user-facing language. The Map Providers
+LinkMap uses iCloud and map providers in user-facing language. The Maps
 guide retains the `Apple-Maps.md` filename and `/documentation/apple-maps/` route
 so existing links continue to work.
 There is no Essentials wrapper article. Each article has one curated parent;

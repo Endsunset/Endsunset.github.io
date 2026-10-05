@@ -1,4 +1,4 @@
-# Map Providers
+# Maps
 
 Map providers supply the geographic context and place information shown in LinkMap.
 
