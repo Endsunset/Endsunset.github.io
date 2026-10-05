@@ -74,25 +74,30 @@ for (const menu of menus) {
   assert(escape.prevented && state() === 'closed' && document.activeElement === menu.trigger, 'Escape restores trigger without reopening');
   document.activeElement = {};
 }
-const mouseClick = click(); projects.trigger.events.click(mouseClick);
-assert(!mouseClick.prevented, 'Projects mouse click follows normal link');
-hover.matches = false; document.events.pointerdown({pointerType: 'touch'}); projects.trigger.focus();
-assert(state() === 'closed', 'Touch focus waits for tap');
-const firstTap = click(); projects.trigger.events.click(firstTap);
-assert(firstTap.prevented && state() === 'projects', 'First Projects tap expands');
-header.events.pointerleave(); advance(500); assert(state() === 'projects', 'Touch is independent of hover exit');
-const secondTap = click(); projects.trigger.events.click(secondTap);
-assert(!secondTap.prevented, 'Second Projects tap follows link');
-const keyboardClick = click(0); projects.trigger.events.click(keyboardClick);
-assert(!keyboardClick.prevented, 'Keyboard Projects activation follows link');
+for (const pointerType of ['mouse', 'touch']) {
+  hover.matches = pointerType === 'mouse';
+  document.events.pointerdown({pointerType});
+  for (const menu of menus) {
+    header.events.focusout({relatedTarget: {}});
+    menu.trigger.focus();
+    assert(state() === 'closed', 'Pointer focus waits for first activation');
+    const first = click(); menu.trigger.events.click(first);
+    assert(first.prevented && state() === menu.name, pointerType + ' first activation opens ' + menu.name);
+    const second = click(); menu.trigger.events.click(second);
+    assert(!second.prevented, pointerType + ' second activation follows ' + menu.name + ' link');
+    const other = menus.find(item => item !== menu);
+    const switchClick = click(); other.trigger.events.click(switchClick);
+    assert(!switchClick.prevented && state() === menu.name, 'Any open expansion allows navigation to ' + other.name);
+  }
+}
+header.events.pointerleave(); advance(500); assert(state() === 'linkmap', 'Touch is independent of hover exit');
 header.events.focusout({relatedTarget: {}});
-const linkmapTap = click(); linkmap.trigger.events.click(linkmapTap);
-assert(!linkmapTap.prevented && state() === 'closed', 'LinkMap first touch follows its link without intercepting navigation');
-hover.matches = true; document.events.pointerdown({pointerType: 'mouse'});
-const linkmapClick = click(); linkmap.trigger.events.click(linkmapClick);
-assert(!linkmapClick.prevented, 'LinkMap mouse click follows normal link');
-const linkmapKeyboard = click(0); linkmap.trigger.events.click(linkmapKeyboard);
-assert(!linkmapKeyboard.prevented, 'LinkMap keyboard activation follows normal link');
+for (const menu of menus) {
+  const modified = click(); modified.metaKey = true; menu.trigger.events.click(modified);
+  assert(!modified.prevented && state() === 'closed', 'Modified activation preserves normal link behaviour');
+  const keyboardClick = click(0); menu.trigger.events.click(keyboardClick);
+  assert(!keyboardClick.prevented, 'Keyboard activation follows normal link');
+}
 searchToggle.events.click();
 assert(state() === 'search' && document.activeElement === searchInput && !searchPanel.inert, 'Search shares area and focuses input');
 assert(!controls.inert && menus.every(menu => !menu.trigger.inert), 'Search keeps all navigation controls available');

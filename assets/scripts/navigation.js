@@ -22,7 +22,6 @@
   let closeTimer;
   let restoringFocus = false;
   let keyboardNavigation = true;
-  let pointerType = 'mouse';
 
   function triggerFor(name) { return name === 'search' ? searchToggle : mobile.matches ? mobileToggle : menus.find(menu => menu.name === name)?.trigger; }
   function focusTrigger(name) {
@@ -100,11 +99,9 @@
       }
     });
     menu.trigger.addEventListener('click', event => {
-      if (menu.name === 'projects') {
-        if (event.detail !== 0 && (pointerType === 'touch' || !hover.matches) && state !== menu.name) {
-          event.preventDefault();
-          openMenu(menu);
-        }
+      if (event.detail !== 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && state === 'closed') {
+        event.preventDefault();
+        openMenu(menu);
       }
     });
   });
@@ -124,9 +121,8 @@
   document.addEventListener('click', event => {
     if (!mobile.matches && !header.contains(event.target)) close(header.contains(document.activeElement));
   });
-  document.addEventListener('pointerdown', event => {
+  document.addEventListener('pointerdown', () => {
     keyboardNavigation = false;
-    pointerType = event.pointerType;
   });
   document.addEventListener('keydown', event => {
     keyboardNavigation = true;
