@@ -4,6 +4,10 @@ import json
 from pathlib import Path
 import re
 from urllib.parse import unquote, urljoin, urlsplit
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+from site_chrome import render_header
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT / "linkmap"
@@ -92,7 +96,8 @@ def main():
     assert 'endsunset-search-cancel' not in shared_header
     assert 'endsunset-projects-toggle' not in shared_header
     assert 'aria-label="Search"' in shared_header
-    assert 'View the Latest' in shared_header and 'Explore LinkMap' in shared_header
+    assert 'All Projects' in shared_header and 'Explore LinkMap' in shared_header
+    assert shared_header == re.search(r"<header\b.*?</header>", render_header(), re.S).group()
     assert '<a href="/linkmap/" aria-expanded="false" aria-controls="endsunset-linkmap-menu">LinkMap</a>' in shared_header
     assert 'endsunset-linkmap-toggle' not in shared_header
     assert 'class="endsunset-menu-toggle"' in shared_header

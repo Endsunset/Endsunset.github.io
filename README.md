@@ -53,7 +53,13 @@ LinkMap's generated routes, and child repository metadata.
 
 ## Header interactions
 
-The global header lives in `partials/header.html`; its styles live in
+The global header lives in `partials/header.html`, which includes
+`partials/header-expansion.html` through `scripts/site_chrome.py`. The expansion
+partial owns the mobile menu, Projects, LinkMap, and Search panels; project links
+come from `content/projects.json`. Run `python3 scripts/build-headers.py` to
+refresh the complete header on every page that uses it, including DocC pages,
+without rebuilding page content. Both full page builds and this refresh use the
+same renderer. Its styles live in
 `assets/styles/components/header.css` and its state management in
 `assets/scripts/navigation.js`. Projects, LinkMap, and Search use one shared expansion area. Projects and
 LinkMap expand after 0.3 seconds of pointer hover, or immediately on keyboard

@@ -16,7 +16,8 @@ def project_url(project):
 def render_header():
     projects = json.loads((ROOT / 'content/projects.json').read_text())
     links = ''.join(f'<a href="{escape(project_url(p), quote=True)}">{escape(p["name"])}</a>' for p in projects)
-    return Template((ROOT / 'partials/header.html').read_text()).substitute(project_links=links)
+    expansion = Template((ROOT / 'partials/header-expansion.html').read_text()).substitute(project_links=links).rstrip()
+    return Template((ROOT / 'partials/header.html').read_text()).substitute(expansion=expansion)
 
 
 def render_footer(product_links=''):
