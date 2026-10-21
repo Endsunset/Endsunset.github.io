@@ -5,6 +5,13 @@ body[data-color-scheme="light"] {
   background: #fff;
 }
 
-/* Let the site header scroll away; DocC keeps its own navigation offsets. */
-body[data-color-scheme="light"] .endsunset-header { position: relative; }
-body[data-color-scheme="light"] .endsunset-header-spacer { display: none; }
+/* Let the documentation navigation scroll with the article. */
+body[data-color-scheme="light"] .nav { position: relative; top: auto; }
+
+/* Keep the desktop topic list below the fixed Endsunset header. */
+@media only screen and (min-width: 1024px) {
+  body[data-color-scheme="light"] .navigator-card {
+    top: var(--endsunset-header-height);
+    height: calc(var(--app-height) - var(--endsunset-header-height));
+  }
+}
