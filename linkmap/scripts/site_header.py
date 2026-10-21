@@ -9,5 +9,5 @@ START = '<!-- site-header -->'
 END = '<!-- /site-header -->'
 
 
-def render_header(*, sticky=True):
-    return START + '\n' + global_header(sticky=sticky).rstrip() + '\n' + END
+def render_header(*, inline=False):
+    return START + '\n' + global_header(inline=inline).rstrip() + '\n' + END

@@ -13,13 +13,13 @@ def project_url(project):
     return url.path if url.netloc == 'endsunset.github.io' else project['website']
 
 
-def render_header(*, sticky=True):
+def render_header(*, inline=False):
     projects = json.loads((ROOT / 'content/projects.json').read_text())
     links = ''.join(f'<a href="{escape(project_url(p), quote=True)}">{escape(p["name"])}</a>' for p in projects)
     expansion = Template((ROOT / 'partials/header-expansion.html').read_text()).substitute(project_links=links).rstrip()
     position_attribute = ''
-    if not sticky:
-        position_attribute = ' data-header-position="scroll"'
+    if inline:
+        position_attribute = ' data-header-position="inline"'
     return Template((ROOT / 'partials/header.html').read_text()).substitute(
         expansion=expansion, position_attribute=position_attribute,
     )

@@ -130,7 +130,7 @@ def main():
             assert "/assets/styles/site-chrome.css" in head and "/assets/scripts/navigation.js" in head, page
             expected_header = shared_header
             if page.is_relative_to(PROJECT / "documentation"):
-                expected_header = re.search(r"<header\b.*?</header>", render_header(sticky=False), re.S).group()
+                expected_header = re.search(r"<header\b.*?</header>", render_header(inline=True), re.S).group()
             assert re.search(r"<header\b.*?</header>", source, re.S).group() == expected_header, page
             assert source.count('class="endsunset-expansion"') == 1, page
             assert source.count('class="endsunset-backdrop"') == 1, page
