@@ -5,6 +5,6 @@ body[data-color-scheme="light"] {
   background: #fff;
 }
 
-/* Keep DocC's own sticky navigation beneath the shared domain header. */
-body[data-color-scheme="light"] .nav { top: var(--endsunset-header-height); }
-body[data-color-scheme="light"] .navigator-card { top: calc(var(--endsunset-header-height) + 3.0588235294rem); height: calc(var(--app-height) - var(--endsunset-header-height) - 3.05882rem); }
+/* Let the site header scroll away; DocC keeps its own navigation offsets. */
+body[data-color-scheme="light"] .endsunset-header { position: relative; }
+body[data-color-scheme="light"] .endsunset-header-spacer { display: none; }
