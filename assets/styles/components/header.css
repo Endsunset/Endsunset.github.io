@@ -4,6 +4,8 @@
 .endsunset-menu-toggle, .endsunset-menu-back { display: none; }
 .endsunset-header .endsunset-shell { width: min(980px, calc(100% - 44px)); }
 .endsunset-header-spacer { height: var(--endsunset-header-height); }
+.endsunset-header[data-header-position="scroll"] { position: relative; }
+.endsunset-header[data-header-position="scroll"] ~ .endsunset-header-spacer { display: none; }
 .endsunset-nav { touch-action: pan-x; display: flex; align-items: center; justify-content: space-between; height: var(--endsunset-header-height); }
 .endsunset-header .endsunset-brand { display: inline-flex; align-items: center; height: 100%; font-size: 14px; font-weight: 600; letter-spacing: -.4px; }
 .endsunset-controls { height: 100%; display: flex; flex: 1; align-items: center; justify-content: flex-start; gap: 28px; margin-inline-start: 40px; opacity: 1; visibility: visible; transition: opacity 180ms ease, visibility 0s; }

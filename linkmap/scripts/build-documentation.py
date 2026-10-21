@@ -131,7 +131,7 @@ def main():
                 + '</head>',
             )
             html = html.replace('<body data-color-scheme="light">',
-                                '<body data-color-scheme="light">' + render_header())
+                                '<body data-color-scheme="light">' + render_header(sticky=False))
             html = html.replace('</body>', render_footer() + '</body>')
             page.write_text(html)
 

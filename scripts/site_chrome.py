@@ -13,11 +13,16 @@ def project_url(project):
     return url.path if url.netloc == 'endsunset.github.io' else project['website']
 
 
-def render_header():
+def render_header(*, sticky=True):
     projects = json.loads((ROOT / 'content/projects.json').read_text())
     links = ''.join(f'<a href="{escape(project_url(p), quote=True)}">{escape(p["name"])}</a>' for p in projects)
     expansion = Template((ROOT / 'partials/header-expansion.html').read_text()).substitute(project_links=links).rstrip()
-    return Template((ROOT / 'partials/header.html').read_text()).substitute(expansion=expansion)
+    position_attribute = ''
+    if not sticky:
+        position_attribute = ' data-header-position="scroll"'
+    return Template((ROOT / 'partials/header.html').read_text()).substitute(
+        expansion=expansion, position_attribute=position_attribute,
+    )
 
 
 def render_footer(product_links=''):

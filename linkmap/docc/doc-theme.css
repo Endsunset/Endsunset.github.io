@@ -4,14 +4,3 @@ body[data-color-scheme="light"] {
   --color-link: #b4232c;
   background: #fff;
 }
-
-/* Let the documentation navigation scroll with the article. */
-body[data-color-scheme="light"] .nav { position: relative; top: auto; }
-
-/* Keep the desktop topic list below the fixed Endsunset header. */
-@media only screen and (min-width: 1024px) {
-  body[data-color-scheme="light"] .navigator-card {
-    top: var(--endsunset-header-height);
-    height: calc(var(--app-height) - var(--endsunset-header-height));
-  }
-}

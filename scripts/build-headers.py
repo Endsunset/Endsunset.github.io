@@ -15,12 +15,13 @@ PATTERN = re.compile(
 
 
 def main():
-    header = render_header().rstrip()
     count = 0
     for page in sorted(ROOT.rglob('index.html')):
         source = page.read_text()
         if '<header class="endsunset-header"' not in source:
             continue
+        is_linkmap_documentation = page.is_relative_to(ROOT / 'linkmap/documentation')
+        header = render_header(sticky=not is_linkmap_documentation).rstrip()
         updated, matches = PATTERN.subn(lambda _: header, source)
         if matches != 1:
             raise ValueError(f'Expected one complete shared header in {page.relative_to(ROOT)}')
