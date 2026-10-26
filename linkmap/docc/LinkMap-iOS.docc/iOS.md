@@ -3,6 +3,7 @@
 Keep your places together and plan the work around them.
 
 @Metadata {
+    @TechnologyRoot
     @TitleHeading("User Guide")
 }
 

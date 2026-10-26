@@ -15,7 +15,7 @@ python3 -m http.server 8000
 ```
 
 Open `http://localhost:8000/linkmap/`. The website uses plain HTML, CSS, and JavaScript without package installation.
-Documentation is generated from one checked-in DocC catalog.
+Documentation is generated from two independent DocC catalogs and a native merged archive.
 
 Run LinkMap-specific generators and tests from `linkmap/` (`cd linkmap`);
 the paths below are relative to that directory. These commands also work from
@@ -37,7 +37,9 @@ the parent repository; `linkmap/` has no separate Git metadata.
 | `app/sign-in/sign-in.js` | Sign-in UI and return to the app |
 | `cloudkit-config.js` | Public configuration for LinkMap’s existing CloudKit integration |
 | `privacy-policy.md` | Privacy policy source; rendered to `privacy-policy/index.html` |
-| `docc/LinkMap.docc/` | Authored LinkMap documentation library |
+| `docc/LinkMap-iOS.docc/` | iOS User Guide collection |
+| `docc/LinkMap-Web.docc/` | Web under-development collection |
+| `docc/theme-settings.json` | Shared native DocC renderer configuration |
 | `documentation/` | Checked-in DocC site and landing page |
 
 Apple’s CloudKit JS SDK provides the sign-in and sign-out buttons and manages the
@@ -113,14 +115,19 @@ Remove personal account details and session tokens from screenshots or logs.
 
 ## Updating the documentation
 
-The single `docc/LinkMap.docc` catalog builds a platform overview and curated
-task sections for getting started, Projects and the Map, planning, and sharing. The native
-LinkMap-core repository is the read-only source of truth for iOS behavior; the
-website app is the source for web behavior. Follow
-[documentation maintenance](docc/README.md), run
-`python3 scripts/build-documentation.py`, and commit source and generated output
-together. `/linkmap/documentation/` enters the generated LinkMap library; former
-platform roots redirect to their platform pages.
+The independent `docc/LinkMap-iOS.docc` and `docc/LinkMap-Web.docc` catalogs each
+have a native technology root. `scripts/build-documentation.py` converts them
+and uses `docc merge` to generate All Collections at `/linkmap/documentation/`.
+The iOS guide is under `/linkmap/documentation/ios/`; Web remains a brief
+under-development collection under `/linkmap/documentation/web/`. Former flat
+article and platform URLs redirect directly to their new destinations.
+
+The native LinkMap-core repository is strictly read-only. Follow
+[documentation maintenance](docc/README.md), regenerate the guide, then run the
+parent `scripts/build_search.py` to refresh nested documentation destinations in search.
+Commit source and generated output together. Preserve DocC's native navigator,
+including its accepted sidebar-scope difference after refreshing a deep article.
+The ordinary All Collections link remains available in both states.
 
 ## Internal page URLs
 
@@ -161,7 +168,7 @@ component rather than duplicating footer links in individual pages or the global
 Run the parent `python3 scripts/build.py`, then from this directory run
 `python3 scripts/build-headers.py`, `python3 scripts/build-footers.py`,
 `python3 scripts/build-documentation.py`, and `python3 scripts/build-privacy.py`.
-Re-run the parent build after documentation changes to refresh site search.
+Run `python3 ../scripts/build_search.py` after documentation changes to refresh site search.
 Commit sources and generated HTML together. Navigation works without JavaScript;
 the project disclosure adds hover, touch, and keyboard interactions. Shared chrome
 assets are loaded once in each website page's head from `/assets/styles/site-chrome.css`

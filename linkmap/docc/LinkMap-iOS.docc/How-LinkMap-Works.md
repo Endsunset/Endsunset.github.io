@@ -26,4 +26,4 @@ See <doc:Basic-Workflow> to try this in the iOS app.
 
 Share a Project so collaborators can access its map. Share an Activity separately when they also need access to that work. Each invitation has its own permissions. See <doc:Sharing>.
 
-LinkMap uses your Apple Account and iCloud for your Projects. This guide describes LinkMap for iOS; see <doc:Web-Platform> for the Web App's development status.
+LinkMap uses your Apple Account and iCloud for your Projects. This guide describes LinkMap for iOS. Choose All Collections above for the Web App's development status.

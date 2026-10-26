@@ -36,22 +36,34 @@ and fragments, and run `git diff --check`.
 
 ## Documentation
 
-Documentation source lives in the single `docc/LinkMap.docc` catalog. Run
-`python3 scripts/build-documentation.py` to regenerate the checked-in
-`documentation/` static site. The root API collection separates LinkMap for iOS
-and LinkMap for Web. Curate all iOS task articles under the iOS collection in
-this order: Get started, Projects and places, Plan and follow work, Share and
-sync. Give each article one curated parent and retain established filenames
-and URLs. The Web page briefly states that the Web App is still under development.
-The DocC landing collection is served directly at `/linkmap/documentation/`.
-Write the public documentation as a user guide: explain what readers can do
-and how to do it, using current app labels, numbered steps, and relevant
+Documentation has two independent catalogs: `docc/LinkMap-iOS.docc` and
+`docc/LinkMap-Web.docc`. Each has its own Info.plist bundle identifier and an
+explicit `@TechnologyRoot`. The short display names iOS and Web define native
+route namespaces; the authored headings supply the full platform titles.
+Run `python3 scripts/build-documentation.py` to convert both catalogs, merge
+with native `docc merge`, and regenerate the checked-in static site. Do not
+replace this with nested Collection Groups or a separate documentation framework.
+`/linkmap/documentation/` is DocC's synthesized All Collections directory;
+`/linkmap/documentation/ios/` and `/web/` are independent collection roots.
+Curate iOS tasks in this order: Get started, Projects and places, Plan and follow
+work, Share and sync. Web remains a brief under-development collection.
+Keep the renderer native. The installed renderer scopes the sidebar differently
+on client-side entry versus a deep refresh; this is an accepted limitation.
+Retain the ordinary All Collections link in the generated documentation chrome.
+Do not add a collection-switching script or patch DocC's JavaScript bundles.
+Preserve old flat article/platform URLs with direct redirects in the generator.
+Do not flatten or rewrite the native collection routes, roles, or identifiers.
+Rebuild parent site search after documentation changes; its generator derives
+routes from render-data paths, including nested collection directories.
+Write a user guide using current app labels, numbered steps, and relevant
 permission and Activity-state requirements. Keep implementation details,
-developer reference, Swift symbols, CloudKit and MapKit internals, and
-`projectZone` out of the published library. Leave Inventory and Transaction
-guidance out for now. Keep Shared Concepts and its former articles out.
-Do not edit generated files directly. The build leaves redirects at the former
-platform roots and at `/linkmap/docs/` for the native app's current link.
+developer reference, Swift symbols, CloudKit and MapKit internals, `projectZone`,
+Shared Concepts, and Inventory and Transaction guidance out of the guide.
+Edit catalog sources, shared `docc/theme-settings.json`, `docc/doc-theme.css`,
+or the generator; never hand-edit generated HTML or JSON. Commit generated
+output with source. Verify native collection metadata, deep static routes,
+redirects, shared chrome, local links, search, and deterministic regeneration.
+The build also preserves `/linkmap/docs/` for existing native app links.
 The privacy policy source remains in
 `privacy-policy.md`; regenerate its public page with `python3 scripts/build-privacy.py`.
 Commit generated pages with their source changes. No deployment build is required.

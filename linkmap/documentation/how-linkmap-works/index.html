@@ -1,50 +1,12 @@
-<!doctype html><html lang="en-US" class="no-js"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="icon" href="/linkmap/documentation/favicon.ico"><link rel="mask-icon" href="/linkmap/documentation/favicon.svg" color="#333333"><title>How LinkMap Works</title><script>var baseUrl = "/linkmap/"</script><script defer="defer" src="/linkmap/js/chunk-vendors.88e02fc3.js"></script><script defer="defer" src="/linkmap/js/index.f7bc5188.js"></script><link href="/linkmap/css/index.63be42cf.css" rel="stylesheet"><meta content="Bring places, routes, and shared work together on a map." name="description"/><link rel="stylesheet" href="/linkmap/documentation/doc-theme.css"><link rel="stylesheet" href="/assets/styles/site-chrome.css">
-<script src="/assets/scripts/navigation.js" defer></script></head><body data-color-scheme="light"><!-- site-header -->
-<header class="endsunset-header" data-header-position="inline" data-nav-state="closed">
-  <nav class="endsunset-nav endsunset-shell" aria-label="Main navigation">
-    <a class="endsunset-brand" href="/" aria-label="Endsunset home">Endsunset</a>
-    <div class="endsunset-controls">
-      <div class="endsunset-projects endsunset-menu-group">
-        <a href="/projects/" aria-expanded="false" aria-controls="endsunset-project-menu">Projects</a>
-      </div>
-      <div class="endsunset-linkmap endsunset-menu-group">
-        <a href="/linkmap/" aria-expanded="false" aria-controls="endsunset-linkmap-menu">LinkMap</a>
-      </div>
-      <button class="endsunset-search-toggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="endsunset-search-panel" hidden><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="m12.5 12.5 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-      <button class="endsunset-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="endsunset-expansion" hidden><span></span><span></span></button>
-    </div>
-  </nav>
-  <div class="endsunset-expansion" id="endsunset-expansion" aria-hidden="true" inert hidden>
-    <button class="endsunset-menu-back" type="button" aria-label="Back to main menu" hidden>‹ <span>Back</span></button>
-    <div class="endsunset-mobile-menu endsunset-expansion-content" id="endsunset-mobile-menu" aria-hidden="true" inert hidden>
-      <nav class="endsunset-shell" aria-label="Mobile navigation">
-        <button type="button" data-mobile-menu="projects" aria-expanded="false" aria-controls="endsunset-project-menu">Projects</button>
-        <button type="button" data-mobile-menu="linkmap" aria-expanded="false" aria-controls="endsunset-linkmap-menu">LinkMap</button>
-      </nav>
-    </div>
-    <div class="endsunset-project-menu endsunset-menu-panel endsunset-expansion-content" id="endsunset-project-menu" aria-hidden="true" inert hidden>
-      <nav class="endsunset-shell" aria-label="Projects"><p>Projects</p><a href="/projects/">All Projects</a><a href="/linkmap/">LinkMap</a></nav>
-    </div>
-    <div class="endsunset-linkmap-menu endsunset-menu-panel endsunset-expansion-content" id="endsunset-linkmap-menu" aria-hidden="true" inert hidden>
-      <nav class="endsunset-shell" aria-label="LinkMap"><p>Explore LinkMap</p><a href="/linkmap/">Home</a><a href="/linkmap/app/">Web App</a><a href="/linkmap/documentation/">Documentation</a><a href="/linkmap/download/">Download</a></nav>
-    </div>
-    <div class="endsunset-search-panel endsunset-expansion-content" id="endsunset-search-panel" aria-hidden="true" inert hidden>
-      <form class="endsunset-shell" role="search" aria-label="Search Endsunset" action="/search/" method="get">
-        <label for="endsunset-search-input">Search Endsunset</label>
-        <div class="endsunset-search-row">
-          <input id="endsunset-search-input" name="q" type="search" placeholder="Search Endsunset" autocomplete="off" enterkeyhint="search">
-        </div>
-      </form>
-    </div>
-  </div>
-</header>
-<div class="endsunset-backdrop" aria-hidden="true"></div>
-<div class="endsunset-header-spacer" aria-hidden="true"></div>
-<!-- /site-header --><noscript><article><section><ul><li><a href="../index.html">LinkMap</a></li><li><a href="../ios-platform/index.html">LinkMap for iOS</a></li><li>How LinkMap Works</li></ul><p>Article</p><h1>How LinkMap Works</h1><p>Bring places, routes, and shared work together on a map.</p></section><h2>Keep your places together</h2><p>A Project holds the places for an area or shared effort. Add a Location for each entrance, room, checkpoint, or delivery point your team needs to find. Use Regions to group places and Layers to organize levels, such as floors in a building.</p><p>Your Project map stays available for future visits. You can plan another round of work using the same Locations.</p><h2>Plan a visit</h2><p>An Activity is one round of work in a Project. A Route puts Locations in visit order; each visit is a Stop. An Assignment groups the Routes for a person or team.</p><p>For example, keep a building’s delivery points in one Project. Create an Activity for today’s deliveries, arrange the Stops into Routes, and give each team an Assignment.</p><p>Activities move through three states:</p><ul><li><p><b>Planning:</b> Prepare the Routes and Assignments.</p></li><li><p><b>Active:</b> Follow the plan. Its Routes and Assignments are locked.</p></li><li><p><b>Ended:</b> Review the work. The Activity is read-only.</p></li></ul><p>See <a href="../basic-workflow/index.html">Basic Workflow</a> to try this in the iOS app.</p><h2>Work with other people</h2><p>Share a Project so collaborators can access its map. Share an Activity separately when they also need access to that work. Each invitation has its own permissions. See <a href="../sharing/index.html">Sharing</a>.</p><p>LinkMap uses your Apple Account and iCloud for your Projects. This guide describes LinkMap for iOS; see <a href="../web-platform/index.html">LinkMap for Web</a> for the Web App’s development status.</p></article></noscript><div id="app"></div><!-- site-footer -->
-<footer class="endsunset-footer">
-  <div class="endsunset-shell">
-    <nav class="endsunset-product-links" aria-label="LinkMap destinations"><a href="/linkmap/">LinkMap</a><a href="/linkmap/documentation/">Documentation</a><a href="/linkmap/download/">Download</a><a href="/linkmap/privacy-policy/">Privacy policy</a></nav>
-    <div class="endsunset-copyright"><span>© <span data-endsunset-year>2026</span> Endsunset</span></div>
-  </div>
-</footer>
-<!-- /site-footer --></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="../ios/how-linkmap-works/">
+  <script>window.location.replace("../ios/how-linkmap-works/" + window.location.search + window.location.hash);</script>
+  <noscript><meta http-equiv="refresh" content="0; url=../ios/how-linkmap-works/"></noscript>
+  <title>LinkMap Documentation</title>
+</head>
+<body><p><a href="../ios/how-linkmap-works/">Open LinkMap documentation</a></p></body>
+</html>

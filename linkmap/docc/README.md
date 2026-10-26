@@ -1,35 +1,91 @@
-# LinkMap user guide
+# LinkMap DocC collections
 
-`LinkMap.docc` is the single authored Swift-DocC catalog. Its root API collection
-separates LinkMap for iOS and LinkMap for Web. The iOS collection curates Get
-started, Projects and places, Plan and follow work, and Share and sync. The Web
-page briefly explains that the Web App is still under development.
+The user guides are independent article-based Swift-DocC collections:
 
-Keep one curated parent per article in `## Topics`; use inline links for related
-reading. Keep existing filenames so published URLs remain stable. In particular,
-Maps retains `Apple-Maps.md` and `/documentation/apple-maps/`.
+| Catalog | Root | Bundle identifier | Native route |
+| --- | --- | --- | --- |
+| `LinkMap-iOS.docc` | `iOS.md` | `io.github.endsunset.LinkMap.iOS` | `/linkmap/documentation/ios/` |
+| `LinkMap-Web.docc` | `Web.md` | `io.github.endsunset.LinkMap.Web` | `/linkmap/documentation/web/` |
 
-Write for people using LinkMap: introduce the task, state any permission or
-Activity-state requirement, then give numbered steps using the app's labels.
-Use concise explanations, quiet system typography, and DocC's responsive layout,
-in the spirit of Apple's user guides. Keep implementation details, developer
-reference, Shared Concepts, and Inventory and Transaction guidance out.
+Each root declares `@TechnologyRoot`, so both have the native `collection` role.
+They are not Collection Groups underneath an authored LinkMap collection.
+Info.plist display names iOS and Web provide stable native route namespaces;
+the root article headings provide the full LinkMap for iOS and LinkMap for Web
+names. Keep these identities stable. iOS contains the comprehensive user guide;
+Web contains a brief development notice.
 
-Check iOS behavior against `/Library/Developer/Projects/LinkMap-core`. That
-repository is read-only. All guide changes belong in this website repository.
-Do not present unfinished Web App behavior as supported iOS instructions.
+## Build and hosting
 
-From `linkmap/`, run `PYTHONDONTWRITEBYTECODE=1 python3 scripts/build-documentation.py`.
-The build treats warnings as errors and uses the `/linkmap` hosting base path.
-Commit the generated static output with its source. The landing collection is
-served at `/linkmap/documentation/`. Its source heading metadata supplies the
-user-facing User Guide label on collection pages.
+From `linkmap/`, run:
 
-Preserve the former platform and introductory redirects, and `/linkmap/docs/`.
-DocC's shared static assets live at the `linkmap/` root. Do not edit generated
-HTML or JSON by hand.
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 scripts/build-documentation.py
+```
 
-Run `PYTHONDONTWRITEBYTECODE=1 python3 tests/documentation.py` and the parent
-`tests/linkmap-integration.py`, then build again to check determinism. For visual
-verification, serve the parent repository root and open
-`http://localhost:8000/linkmap/documentation/` on wide and narrow viewports.
+The generator copies the common `theme-settings.json` into temporary copies of
+both catalogs, converts them with warnings as errors and the `/linkmap` hosting
+base, then uses native `docc merge` to synthesize All Collections at
+`/linkmap/documentation/`. The merged archive supplies the pages, references,
+collection roles, and combined navigator. Canonical iOS articles live below
+`/linkmap/documentation/ios/<article>/`. There is no route-flattening pass.
+
+The compiler was checked with Xcode 27.1 (27A9275). This bundled DocC does not
+expose `--version`; its `merge --help` and installed features.json confirm
+synthesized landing-page support. A temporary two-catalog archive verified both
+native roots and deep static-hosting pages before migration. The build checks
+for the required merge options before replacing checked-in output.
+
+DocC's synthesized directory can vary collection order, so the generator fixes
+iOS before Web and stabilizes JSON key order. It does not change collection
+roles, identifiers, or canonical routes. DocC assets remain at the `linkmap/`
+root. Shared website header/footer integration is applied by the generator;
+the documentation header remains inline.
+
+## Native navigation
+
+The installed renderer initially scopes its navigator from the loaded URL.
+Entering a platform from the merged directory can retain the directory tree;
+refreshing an article scopes the navigator to its platform. This accepted native
+behavior is tracked in [Swift-DocC-Render issue 1024](https://github.com/swiftlang/swift-docc-render/issues/1024).
+Do not patch renderer bundles or add a collection-switching script.
+
+An ordinary All Collections link outside the DocC app returns to the directory
+from either state, including a fresh deep link. The shared footer's Documentation
+link also returns there. Native DocC owns all article navigation and rendering.
+
+## Authoring and compatibility
+
+Curate each iOS article once, under Get started, Projects and places, Plan and
+follow work, or Share and sync. Use native `<doc:...>` links within a catalog.
+Use the All Collections directory to move between platforms. The plain return
+link remains reliable on static loads and client-side navigation without
+cross-catalog link resolution or renderer changes. Keep Web short until its functionality is ready.
+
+Old flat article URLs, iOS/Web platform pages, introductory aliases, the former
+`/documentation/linkmap/` root, and `/linkmap/docs/` have direct redirects.
+Preserve these in `build-documentation.py` when changing routes. Legacy redirect
+pages carry the original query and fragment with `location.replace`, with a
+no-JavaScript meta-refresh fallback; this is separate from native DocC navigation. Keep authored
+filenames such as `Apple-Maps.md` stable; its former flat Maps URL redirects to
+`/linkmap/documentation/ios/apple-maps/`.
+
+Check iOS instructions against `/Library/Developer/Projects/LinkMap-core`, which
+is strictly read-only. Write concise task instructions using app labels. Keep
+implementation details, developer reference, Shared Concepts, and Inventory and
+Transaction guidance out of the public guides.
+
+## Verification
+
+Run `PYTHONDONTWRITEBYTECODE=1 python3 scripts/build_search.py` from the parent root to
+refresh site search, then run:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 tests/documentation.py
+```
+
+Also run the parent's `tests/linkmap-integration.py`, `git diff --check`, and a
+second documentation build to verify determinism. Serve the parent repository
+and test the directory, both platform roots, and direct article URLs. Refresh
+an iOS article and verify its focused navigator and All Collections return link.
+Commit catalog/configuration changes, redirects, search, and generated output
+together. Do not edit generated HTML or JSON by hand.

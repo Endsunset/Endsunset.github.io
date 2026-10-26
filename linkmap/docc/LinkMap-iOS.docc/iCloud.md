@@ -18,4 +18,4 @@ A temporary network problem may still let you open locally available information
 
 Manage Projects and their records in LinkMap. Removing the app may leave its data in iCloud. Read the [privacy policy](https://endsunset.github.io/linkmap/privacy-policy/) for storage, sharing, and deletion details.
 
-For the Web App's current status, see <doc:Web-Platform>.
+Choose All Collections above for the Web App's current status.

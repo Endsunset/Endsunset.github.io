@@ -1,6 +1,7 @@
 """Build a static directory enhanced with local, private search."""
 import json
 from html import escape
+from pathlib import Path
 from string import Template
 from site_chrome import render_header, render_footer, render_assets, project_url
 
@@ -15,7 +16,7 @@ def build_search(root):
         article = json.loads(data.read_text())
         path = article.get('identifier', {}).get('url', '')
         if article.get('kind') == 'article' and '/documentation' in path:
-            route = '/documentation' + ('/' + data.stem if data.parent.name == 'documentation' else '')
+            route = '/' + data.relative_to(root / 'linkmap/data').with_suffix('').as_posix()
             entries.append(dict(title=article['metadata']['title'], url='/linkmap' + route + '/', summary='LinkMap documentation'))
     rows = ''.join(f'<li data-search-entry><a href="{escape(e["url"], quote=True)}">{escape(e["title"])}</a><p>{escape(e["summary"])}</p></li>' for e in entries)
     content = f'''<section class="search-page shell"><h1>Search Endsunset</h1><p>Find projects and documentation.</p><form id="site-search-controls" role="search" action="/search/" method="get"><label for="site-search">Search this site</label><div class="site-search-field"><input id="site-search" name="q" type="search" autocomplete="off" placeholder="Search LinkMap, documentation…"><button id="site-search-clear" type="button" aria-label="Clear search" hidden>×</button></div><p id="search-status" role="status"></p></form><ul class="search-results" hidden>{rows}</ul><noscript><p>Enable JavaScript to show search results.</p></noscript></section>'''
@@ -24,3 +25,7 @@ def build_search(root):
     (root / 'search').mkdir(exist_ok=True)
     (root / 'search/index.html').write_text(page)
     print(f'Built search with {len(entries)} destinations.')
+
+
+if __name__ == "__main__":
+    build_search(Path(__file__).resolve().parents[1])
