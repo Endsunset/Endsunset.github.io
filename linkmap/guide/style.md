@@ -67,8 +67,8 @@ DocC and privacy pages with their own generators.
 
 Swift-DocC provides navigation, search, and article layout for the single
 LinkMap documentation library. Author topics in `docc/LinkMap.docc`; do not
-recreate the former website sidebar or article renderer. Curate Essentials,
-the platform handbook branches, Shared Concepts, and Reference with `## Topics`.
+recreate the former website sidebar or article renderer. Use a root platform collection and an iOS task collection with `## Topics`; keep
+the Web page to a brief development status. Follow `docc/README.md` for curation.
 
 Authentication controls appear only in `app/`. Sign-in actions link to
 `app/sign-in/`, preserving its existing white card and Apple's SDK button.

@@ -123,7 +123,6 @@ def main():
             html = html.replace('data-color-scheme="auto"', 'data-color-scheme="light"')
             html = html.replace('/linkmap/favicon.', '/linkmap/documentation/favicon.')
             html = html.replace('/documentation/linkmap/', '/documentation/')
-            html = html.replace('<p>API Collection</p>', '<p>LinkMap Guide</p>')
             html = html.replace(
                 "</head>",
                 '<link rel="stylesheet" href="/linkmap/documentation/doc-theme.css">'

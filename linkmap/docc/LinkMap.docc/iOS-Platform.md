@@ -1,33 +1,43 @@
 # LinkMap for iOS
 
-Set up LinkMap on your device and start organizing places and shared work.
+Keep your places together and plan the work around them.
 
-## Get ready to use LinkMap
+@Metadata {
+    @TitleHeading("User Guide")
+}
 
-Install LinkMap on your device, then open it. Make sure your device is signed in to your Apple Account in Settings and has access to iCloud. LinkMap uses that account for your Projects; you do not need to sign in separately inside the app.
+## Get ready
 
-Use the iOS app to create and manage Projects, add Locations, plan Activities and Routes, and share a Project with collaborators.
+Open LinkMap on a device signed in to your Apple Account with iCloud available. LinkMap uses the account in Settings; there is no separate sign-in inside the app. See <doc:iCloud> if your account is unavailable.
 
-### Create or choose a Project
+The app opens on the map. Tap the Projects button at the upper left to choose a Project. The Console sheet shows the Project or work you have open. Drag the sheet up to see more, or down to reveal the map.
 
-The app opens on the Map. Open Dashboard to choose what you are working on.
+## Start with a few places
 
-1. To start a new Project, choose Dashboard → Add Project and give it a name.
-2. Open Dashboard → Context and select the Project you want to use.
-3. Open Dashboard → Current Project to see and manage its details.
+Create a Project, add the places you need, then plan a visit when you are ready. Follow <doc:Basic-Workflow> for a first example, or choose a topic below for a particular task.
 
-If someone has invited you to a Project, open their invitation or use Dashboard → Scan to scan its QR code. After joining, select the shared Project in Context.
+## Topics
 
-### Add your first places
+### Get started
 
-Use the Map toolbar's Edit Locations action to add or move places. Save to keep your changes or Cancel to discard them. Tap a Location marker and choose Detail to learn more about it.
+- <doc:How-LinkMap-Works>
+- <doc:Basic-Workflow>
 
-You can start with a simple Project map. Add Regions and Layers when you need to organize separate areas or levels. See <doc:Project> and <doc:Map> for more guidance.
+### Projects and places
 
-### Plan your first visit
+- <doc:Project>
+- <doc:Map>
+- <doc:Locations>
+- <doc:Regions-and-Layers>
 
-When you are ready to plan work, create an Activity in your Project. Add a Route using your Locations as Stops, then create an Assignment for the person or team following it.
+### Plan and follow work
 
-In Dashboard → Context, select the Activity and, if needed, an Assignment. Return to the Map to see the route and focus on that team's work. Archive the Activity when the work is over; your Project and its places remain available for another visit.
+- <doc:Activities>
+- <doc:Routes-and-Stops>
+- <doc:Assignments>
 
-Follow <doc:Basic-Workflow> for a guided example, or see <doc:Sharing> to invite collaborators.
+### Share and sync
+
+- <doc:Sharing>
+- <doc:iCloud>
+- <doc:Apple-Maps>

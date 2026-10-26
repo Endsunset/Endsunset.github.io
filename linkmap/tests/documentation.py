@@ -31,31 +31,63 @@ def check_navigation():
     assert index["includedArchiveIdentifiers"] == ["io.github.endsunset.LinkMap"]
     [library] = index["interfaceLanguages"]["swift"]
     assert library["path"] == "/documentation"
-    entries = library["children"]
     expected = {
-        "Essentials": ["How LinkMap Works", "Basic Workflow"],
-        "Concepts": ["Project", "Map", "Activities", "Assignments", "Locations",
-                     "Routes and Stops", "Regions and Layers"],
-        "Platforms": ["LinkMap for iOS", "LinkMap for Web"],
-        "Collaboration": ["Sharing"],
-        "Services": ["iCloud", "Maps"],
+        "Get started": ["How LinkMap Works", "Basic Workflow"],
+        "Projects and places": ["Project", "Map", "Locations", "Regions and Layers"],
+        "Plan and follow work": ["Activities", "Routes and Stops", "Assignments"],
+        "Share and sync": ["Sharing", "iCloud", "Maps"],
     }
+    assert library["title"] == "LinkMap User Guide"
+    assert [(entry["type"], entry["title"]) for entry in library["children"]] == [
+        ("groupMarker", "Choose your platform"),
+        ("collection", "LinkMap for iOS"),
+        ("article", "LinkMap for Web"),
+    ]
+    platforms = children(library)
+    ios = platforms["LinkMap for iOS"]
+    web = platforms["LinkMap for Web"]
+    assert ios["path"] == "/documentation/ios-platform"
+    assert web["path"] == "/documentation/web-platform"
+    assert not children(web)
     groups = {}
-    for entry in entries:
+    for entry in ios["children"]:
         if entry["type"] == "groupMarker":
             group = entry["title"]
             groups[group] = []
         else:
             groups[group].append(entry["title"])
-            assert not children(entry), f"Duplicate nested curation: {entry['title']}"
+            assert not children(entry), f"Unexpected nested curation: {entry['title']}"
     assert list(groups) == list(expected)
     assert groups == expected
-    pages = children(library)
-    assert len(pages) == sum(map(len, expected.values()))
+
+    # Each authored page must have one curated path, including the iOS children.
+    def paths(node):
+        yield node["path"]
+        for child in node.get("children", []):
+            if child.get("path"):
+                yield from paths(child)
+
+    curated = list(paths(library))
+    assert len(curated) == len(set(curated)) == len(list(CATALOG.glob("*.md")))
     landing = json.loads((ROOT / "data" / "documentation.json").read_text())
-    assert [section["title"] for section in landing["topicSections"]] == list(expected)
-    for section in landing["topicSections"]:
-        assert [landing["references"][identifier]["title"] for identifier in section["identifiers"]] == expected[section["title"]]
+    ios_data = json.loads((ROOT / "data" / "documentation" / "ios-platform.json").read_text())
+    web_data = json.loads((ROOT / "data" / "documentation" / "web-platform.json").read_text())
+    assert landing["metadata"]["role"] == "collection"
+    assert ios_data["metadata"]["role"] == "collectionGroup"
+    for collection in (landing, ios_data):
+        assert collection["metadata"]["roleHeading"] == "User Guide"
+    assert [section["title"] for section in landing["topicSections"]] == ["Choose your platform"]
+    assert [landing["references"][identifier]["title"]
+            for identifier in landing["topicSections"][0]["identifiers"]] == list(platforms)
+    assert [section["title"] for section in ios_data["topicSections"]] == list(expected)
+    for section in ios_data["topicSections"]:
+        assert [ios_data["references"][identifier]["title"]
+                for identifier in section["identifiers"]] == expected[section["title"]]
+    for article in children(ios).values():
+        data = json.loads((ROOT / "data" / (article["path"].lstrip("/") + ".json")).read_text())
+        assert data["hierarchy"]["paths"] == [[landing["identifier"]["url"], ios_data["identifier"]["url"]]]
+    assert "still under development" in web_data["abstract"][0]["text"]
+    assert not web_data.get("topicSections")
 
 
 def main():

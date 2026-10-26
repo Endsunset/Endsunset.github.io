@@ -38,20 +38,18 @@ and fragments, and run `git diff --check`.
 
 Documentation source lives in the single `docc/LinkMap.docc` catalog. Run
 `python3 scripts/build-documentation.py` to regenerate the checked-in
-`documentation/` static site. Curate its visible hierarchy with `## Topics`:
-Essentials, Concepts, Platforms, Collaboration, and Services, in that order.
-Essentials contains How LinkMap Works and Basic Workflow. Curate the existing
-concept pages directly under Concepts, with one curated parent per article.
-Keep one getting-started article per platform under Platforms, including
-account access and available actions. Collaboration contains sharing guidance;
-Services explains how LinkMap uses iCloud and map providers, not generic APIs.
-The DocC landing article is served directly at `/linkmap/documentation/`.
-Write the public documentation as a user booklet: explain what readers can do
-in LinkMap and how to do it. Keep implementation details, developer reference,
-Swift symbols, CloudKit and MapKit internals, and `projectZone` out of the
-published library. Leave Inventory and Transaction guidance out for now.
-Preserve useful user instructions. Keep Shared Concepts and its former articles
-out of the published library.
+`documentation/` static site. The root API collection separates LinkMap for iOS
+and LinkMap for Web. Curate all iOS task articles under the iOS collection in
+this order: Get started, Projects and places, Plan and follow work, Share and
+sync. Give each article one curated parent and retain established filenames
+and URLs. The Web page briefly states that the Web App is still under development.
+The DocC landing collection is served directly at `/linkmap/documentation/`.
+Write the public documentation as a user guide: explain what readers can do
+and how to do it, using current app labels, numbered steps, and relevant
+permission and Activity-state requirements. Keep implementation details,
+developer reference, Swift symbols, CloudKit and MapKit internals, and
+`projectZone` out of the published library. Leave Inventory and Transaction
+guidance out for now. Keep Shared Concepts and its former articles out.
 Do not edit generated files directly. The build leaves redirects at the former
 platform roots and at `/linkmap/docs/` for the native app's current link.
 The privacy policy source remains in

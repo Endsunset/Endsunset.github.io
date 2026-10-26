@@ -1,36 +1,18 @@
-# LinkMap Documentation
+# LinkMap User Guide
 
-Learn how to organize places and work in LinkMap on iOS and the web.
+Organize places, plan visits, and work together with LinkMap.
 
-Start with Essentials, explore the core concepts, or choose your platform guide. Learn about sharing under Collaboration and the services LinkMap uses under Services.
+@Metadata {
+    @TitleHeading("User Guide")
+}
+
+Choose a platform to explore the guide. The iOS guide takes you from your first Project to shared work, with instructions for the controls in the app.
+
+LinkMap for Web is still under development. Its platform page includes a brief status update and a link to the Web App.
 
 ## Topics
 
-### Essentials
-
-- <doc:How-LinkMap-Works>
-- <doc:Basic-Workflow>
-
-### Concepts
-
-- <doc:Project>
-- <doc:Map>
-- <doc:Activities>
-- <doc:Assignments>
-- <doc:Locations>
-- <doc:Routes-and-Stops>
-- <doc:Regions-and-Layers>
-
-### Platforms
+### Choose your platform
 
 - <doc:iOS-Platform>
 - <doc:Web-Platform>
-
-### Collaboration
-
-- <doc:Sharing>
-
-### Services
-
-- <doc:iCloud>
-- <doc:Apple-Maps>

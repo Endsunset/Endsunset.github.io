@@ -1,35 +1,35 @@
-# LinkMap documentation library
+# LinkMap user guide
 
-`LinkMap.docc` is the single authored Swift-DocC catalog. Its root page curates
-Essentials, Concepts, Platforms, Collaboration, and Services, in that order.
-Essentials contains How LinkMap Works and Basic Workflow. Concepts directly
-curates the existing Project, Map, and work-planning guides. Platforms contains
-the iOS and web guides; Collaboration contains Sharing. Services explains how
-LinkMap uses iCloud and map providers in user-facing language. The Maps
-guide retains the `Apple-Maps.md` filename and `/documentation/apple-maps/` route
-so existing links continue to work.
-There is no Essentials wrapper article. Each article has one curated parent;
-use inline links for related concepts rather than duplicating navigator entries.
-Keep each child in a parent's `## Topics` section; folders
-and filenames alone do not define the visible navigator hierarchy.
+`LinkMap.docc` is the single authored Swift-DocC catalog. Its root API collection
+separates LinkMap for iOS and LinkMap for Web. The iOS collection curates Get
+started, Projects and places, Plan and follow work, and Share and sync. The Web
+page briefly explains that the Web App is still under development.
 
-Write for people using LinkMap. Use the read-only native repository at
-`/Library/Developer/Projects/LinkMap-core` to check iOS behavior and this
-website project to check web behavior. Keep platform distinctions on the
-platform pages and task instructions in their curated sections. Do not publish
-implementation details, developer reference, Shared Concepts, or Inventory and
-Transaction guidance in this booklet.
+Keep one curated parent per article in `## Topics`; use inline links for related
+reading. Keep existing filenames so published URLs remain stable. In particular,
+Maps retains `Apple-Maps.md` and `/documentation/apple-maps/`.
 
-Run `python3 scripts/build-documentation.py` from the `linkmap/` directory. It
-builds the catalog with warnings treated as errors and the `/linkmap` hosting
-base path, then checks in the static output. The landing article is served
-directly at `/linkmap/documentation/`, with topics beneath it.
-Former `/linkmap/documentation/ios/` and `/linkmap/documentation/web/` roots redirect to their
-getting-started articles, as do the former platform guide subpages. The former
-Essentials wrapper redirects to How LinkMap Works, and `/linkmap/docs/` still leads to
-the library for the native app.
-DocC's shared static assets live at the `linkmap/` project root because DocC's route
-base is `/linkmap`.
+Write for people using LinkMap: introduce the task, state any permission or
+Activity-state requirement, then give numbered steps using the app's labels.
+Use concise explanations, quiet system typography, and DocC's responsive layout,
+in the spirit of Apple's user guides. Keep implementation details, developer
+reference, Shared Concepts, and Inventory and Transaction guidance out.
 
-Run `python3 tests/documentation.py` to validate the hierarchy, article output,
-and local links. For visual verification, serve the parent repository root and open `http://localhost:8000/linkmap/documentation/`.
+Check iOS behavior against `/Library/Developer/Projects/LinkMap-core`. That
+repository is read-only. All guide changes belong in this website repository.
+Do not present unfinished Web App behavior as supported iOS instructions.
+
+From `linkmap/`, run `PYTHONDONTWRITEBYTECODE=1 python3 scripts/build-documentation.py`.
+The build treats warnings as errors and uses the `/linkmap` hosting base path.
+Commit the generated static output with its source. The landing collection is
+served at `/linkmap/documentation/`. Its source heading metadata supplies the
+user-facing User Guide label on collection pages.
+
+Preserve the former platform and introductory redirects, and `/linkmap/docs/`.
+DocC's shared static assets live at the `linkmap/` root. Do not edit generated
+HTML or JSON by hand.
+
+Run `PYTHONDONTWRITEBYTECODE=1 python3 tests/documentation.py` and the parent
+`tests/linkmap-integration.py`, then build again to check determinism. For visual
+verification, serve the parent repository root and open
+`http://localhost:8000/linkmap/documentation/` on wide and narrow viewports.
