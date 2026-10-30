@@ -58,7 +58,7 @@ def check_navigation():
     index = json.loads((ROOT / "index" / "index.json").read_text())
     assert index["includedArchiveIdentifiers"] == ["io.github.endsunset.LinkMap.Web", "io.github.endsunset.LinkMap.iOS"]
     [directory] = index["interfaceLanguages"]["swift"]
-    assert directory["title"] == "LinkMap Documentation"
+    assert directory["title"] == "All Collections"
     assert directory["path"] == "/documentation"
     platforms = children(directory)
     assert list(platforms) == ["LinkMap for iOS", "LinkMap for Web"]

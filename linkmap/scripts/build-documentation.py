@@ -73,6 +73,8 @@ def normalize_json(archive):
         if data_file == archive / "index" / "index.json":
             for nodes in data["interfaceLanguages"].values():
                 [directory] = nodes
+                # Navigator display text is independent of the landing article title.
+                directory["title"] = "All Collections"
                 directory["children"].sort(key=lambda item: order[item["path"]])
             data["includedArchiveIdentifiers"].sort()
         data_file.write_text(json.dumps(data, ensure_ascii=False, sort_keys=True, separators=(",", ":")))

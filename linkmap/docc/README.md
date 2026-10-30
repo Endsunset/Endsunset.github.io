@@ -49,7 +49,7 @@ refreshing an article scopes the navigator to its platform. This accepted native
 behavior is tracked in [Swift-DocC-Render issue 1024](https://github.com/swiftlang/swift-docc-render/issues/1024).
 Do not patch renderer bundles or add a collection-switching script.
 
-The shared footer’s Documentation link returns to the merged directory. The native merged sidebar names its directory LinkMap Documentation. Do not add a separate directory row above the documentation navigation.
+The shared footer’s Documentation link returns to the merged directory. The merged landing article is titled LinkMap Documentation; the native navigator index keeps the directory label All Collections. Do not add a separate directory row above the documentation navigation.
 
 ## Authoring and compatibility
 
