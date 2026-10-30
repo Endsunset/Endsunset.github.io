@@ -24,7 +24,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 scripts/build-documentation.py
 
 The generator copies the common `theme-settings.json` into temporary copies of
 both catalogs, converts them with warnings as errors and the `/linkmap` hosting
-base, then uses native `docc merge` to synthesize All Collections at
+base, then uses native `docc merge` to synthesize LinkMap Documentation at
 `/linkmap/documentation/`. The merged archive supplies the pages, references,
 collection roles, and combined navigator. Canonical iOS articles live below
 `/linkmap/documentation/ios/<article>/`. There is no route-flattening pass.
@@ -49,16 +49,13 @@ refreshing an article scopes the navigator to its platform. This accepted native
 behavior is tracked in [Swift-DocC-Render issue 1024](https://github.com/swiftlang/swift-docc-render/issues/1024).
 Do not patch renderer bundles or add a collection-switching script.
 
-An ordinary All Collections link outside the DocC app returns to the directory
-from either state, including a fresh deep link. The shared footer's Documentation
-link also returns there. Native DocC owns all article navigation and rendering.
+The shared footer’s Documentation link returns to the merged directory. The native merged sidebar names its directory LinkMap Documentation. Do not add a separate directory row above the documentation navigation.
 
 ## Authoring and compatibility
 
 Curate each iOS article once, under Get started, Projects and places, Plan and
 follow work, or Share and sync. Use native `<doc:...>` links within a catalog.
-Use the All Collections directory to move between platforms. The plain return
-link remains reliable on static loads and client-side navigation without
+Use the LinkMap Documentation directory to move between platforms. The footer link remains available on static loads and client-side navigation without
 cross-catalog link resolution or renderer changes. Keep Web short until its functionality is ready.
 
 Old flat article URLs, iOS/Web platform pages, introductory aliases, the former
@@ -92,6 +89,6 @@ PYTHONDONTWRITEBYTECODE=1 python3 tests/documentation.py
 Also run the parent's `tests/linkmap-integration.py`, `git diff --check`, and a
 second documentation build to verify determinism. Serve the parent repository
 and test the directory, both platform roots, and direct article URLs. Refresh
-an iOS article and verify its focused navigator and All Collections return link.
+an iOS article and verify its focused navigator and footer Documentation link.
 Commit catalog/configuration changes, redirects, search, and generated output
 together. Do not edit generated HTML or JSON by hand.

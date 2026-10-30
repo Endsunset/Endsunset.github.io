@@ -80,8 +80,6 @@ def normalize_json(archive):
 
 def add_website_chrome(documentation):
     shutil.copyfile(DOCC / "doc-theme.css", documentation / "doc-theme.css")
-    directory_link = ('<nav class="linkmap-collections" aria-label="Documentation collections">'
-                      '<a href="/linkmap/documentation/">All Collections</a></nav>')
     for page in documentation.rglob("index.html"):
         html = page.read_text()
         if 'var baseUrl = "/linkmap/"' not in html:
@@ -95,7 +93,7 @@ def add_website_chrome(documentation):
         # An ordinary link outside DocC remains available after direct loads,
         # refreshes, and client-side navigation, regardless of sidebar scope.
         html = html.replace('<body data-color-scheme="light">',
-                            '<body data-color-scheme="light">' + render_header(inline=True) + directory_link)
+                            '<body data-color-scheme="light">' + render_header(inline=True))
         html = html.replace('</body>', render_footer() + '</body>')
         page.write_text(html)
 
@@ -121,7 +119,7 @@ def main():
         merged = temporary / "LinkMap.doccarchive"
         subprocess.run(
             ["xcrun", "docc", "merge", *map(str, archives), "--output-path", str(merged),
-             "--synthesized-landing-page-name", "All Collections",
+             "--synthesized-landing-page-name", "LinkMap Documentation",
              "--synthesized-landing-page-kind", "LinkMap User Guide",
              "--synthesized-landing-page-topics-style", "detailedGrid"],
             check=True,

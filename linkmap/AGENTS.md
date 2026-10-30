@@ -43,13 +43,13 @@ route namespaces; the authored headings supply the full platform titles.
 Run `python3 scripts/build-documentation.py` to convert both catalogs, merge
 with native `docc merge`, and regenerate the checked-in static site. Do not
 replace this with nested Collection Groups or a separate documentation framework.
-`/linkmap/documentation/` is DocC's synthesized All Collections directory;
+`/linkmap/documentation/` is DocC's synthesized LinkMap Documentation directory;
 `/linkmap/documentation/ios/` and `/web/` are independent collection roots.
 Curate iOS tasks in this order: Get started, Projects and places, Plan and follow
 work, Share and sync. Web remains a brief under-development collection.
 Keep the renderer native. The installed renderer scopes the sidebar differently
 on client-side entry versus a deep refresh; this is an accepted limitation.
-Retain the ordinary All Collections link in the generated documentation chrome.
+Do not add a separate collection-directory row above the native documentation navigation.
 Do not add a collection-switching script or patch DocC's JavaScript bundles.
 Preserve old flat article/platform URLs with direct redirects in the generator.
 Do not flatten or rewrite the native collection routes, roles, or identifiers.

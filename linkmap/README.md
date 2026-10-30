@@ -117,7 +117,7 @@ Remove personal account details and session tokens from screenshots or logs.
 
 The independent `docc/LinkMap-iOS.docc` and `docc/LinkMap-Web.docc` catalogs each
 have a native technology root. `scripts/build-documentation.py` converts them
-and uses `docc merge` to generate All Collections at `/linkmap/documentation/`.
+and uses `docc merge` to generate LinkMap Documentation at `/linkmap/documentation/`.
 The iOS guide is under `/linkmap/documentation/ios/`; Web remains a brief
 under-development collection under `/linkmap/documentation/web/`. Former flat
 article and platform URLs redirect directly to their new destinations.
@@ -127,7 +127,7 @@ The native LinkMap-core repository is strictly read-only. Follow
 parent `scripts/build_search.py` to refresh nested documentation destinations in search.
 Commit source and generated output together. Preserve DocC's native navigator,
 including its accepted sidebar-scope difference after refreshing a deep article.
-The ordinary All Collections link remains available in both states.
+The shared footer’s Documentation link returns to the merged directory in both states.
 
 ## Internal page URLs
 

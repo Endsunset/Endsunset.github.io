@@ -30,4 +30,4 @@ Keep the app open while resolving an unsaved Stop edit; these drafts do not surv
 
 Manage Projects and their records in LinkMap. Removing the app may leave its data in iCloud. Read the [privacy policy](https://endsunset.github.io/linkmap/privacy-policy/) for storage, sharing, and deletion details.
 
-Choose All Collections above for the Web App's current status.
+Use the Documentation link in the footer for the Web App's current status.

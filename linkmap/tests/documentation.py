@@ -58,7 +58,7 @@ def check_navigation():
     index = json.loads((ROOT / "index" / "index.json").read_text())
     assert index["includedArchiveIdentifiers"] == ["io.github.endsunset.LinkMap.Web", "io.github.endsunset.LinkMap.iOS"]
     [directory] = index["interfaceLanguages"]["swift"]
-    assert directory["title"] == "All Collections"
+    assert directory["title"] == "LinkMap Documentation"
     assert directory["path"] == "/documentation"
     platforms = children(directory)
     assert list(platforms) == ["LinkMap for iOS", "LinkMap for Web"]
@@ -90,7 +90,7 @@ def check_navigation():
     assert list(groups) == list(expected)
     assert groups == expected
     landing = load("/documentation")
-    assert landing["metadata"]["title"] == "All Collections"
+    assert landing["metadata"]["title"] == "LinkMap Documentation"
     assert landing["metadata"]["role"] == "collection"
     assert [landing["references"][identifier]["url"]
             for section in landing["topicSections"] for identifier in section["identifiers"]] == [
@@ -194,8 +194,8 @@ def main():
     for page in generated:
         source = page.read_text()
         assert 'http-equiv="refresh"' not in source, page
-        assert '<a href="/linkmap/documentation/">All Collections</a>' in source, page
-        assert source.count('aria-label="Documentation collections"') == 1, page
+        assert 'linkmap-collections' not in source, page
+        assert 'aria-label="Documentation collections"' not in source, page
         assert 'data-header-position="inline"' in source, page
     for article in ARTICLES:
         assert not any(term in article.read_text().lower() for term in

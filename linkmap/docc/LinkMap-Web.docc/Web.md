@@ -9,4 +9,4 @@ The LinkMap Web App is still under development.
 
 Features and controls may change as development continues. Detailed web instructions will be added as the app becomes ready.
 
-You can [open the Web App](https://endsunset.github.io/linkmap/app/). For help creating Projects, editing places, planning Activities, and sharing work in the iOS app, choose All Collections above and open LinkMap for iOS.
+You can [open the Web App](https://endsunset.github.io/linkmap/app/). For help creating Projects, editing places, planning Activities, and sharing work in the iOS app, use the Documentation link in the footer and open LinkMap for iOS.
