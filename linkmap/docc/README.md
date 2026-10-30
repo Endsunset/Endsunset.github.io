@@ -71,8 +71,14 @@ filenames such as `Apple-Maps.md` stable; its former flat Maps URL redirects to
 
 Check iOS instructions against `/Library/Developer/Projects/LinkMap-core`, which
 is strictly read-only. Write concise task instructions using app labels. Keep
-implementation details, developer reference, Shared Concepts, and Inventory and
-Transaction guidance out of the public guides.
+implementation details, developer reference, and Shared Concepts out of the public
+guides. Cover Items, Supply, transfers, returns, Stop distribution, results,
+reports, and settings/imports with current app labels and permission/state rules.
+
+The user workflows were checked against `Endsunset/LinkMap-core` at
+`b854a5499278852154f40fff7600e72b8f1e6ee6`. Recheck the corresponding views and
+lifecycle/resource workflows when the app changes. The native repository remains
+read-only; no native code or developer reference is published in this site.
 
 ## Verification
 

@@ -8,6 +8,8 @@ Tap Projects at the upper left and choose a Project. Open an Activity, Assignmen
 
 Tap Filter Map Data to choose All, Activity, Assignment, or Route. Options become available as you open the corresponding work.
 
+Project Map provides Location List, Regions and Layers, and Refresh Map Data. With a current Activity, Shortest Path Display changes its displayed paths without changing Stop order. See <doc:Project>.
+
 Drag the Console sheet down when you need more room to explore the map, and up to read its details.
 
 ## Find a place
@@ -29,3 +31,5 @@ From your Project, tap More, then Edit Map. Use Add to create a Location or Regi
 Tap Done in an editor to keep that record's changes in the editing session. When you have finished all your changes, tap Save in the map toolbar. Cancel in that toolbar discards the session. If saving fails, your edits remain available while you resolve the problem and try again.
 
 See <doc:Regions-and-Layers> to organize areas and levels.
+
+An existing Location's Edit Area control lets you draw its responsibility area. See <doc:Locations> for boundary editing and relocation. Project map edits require Project edit permission even when you can edit an Activity.

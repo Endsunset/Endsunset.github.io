@@ -58,7 +58,10 @@ routes from render-data paths, including nested collection directories.
 Write a user guide using current app labels, numbered steps, and relevant
 permission and Activity-state requirements. Keep implementation details,
 developer reference, Swift symbols, CloudKit and MapKit internals, `projectZone`,
-Shared Concepts, and Inventory and Transaction guidance out of the guide.
+and Shared Concepts out of the guide. Include user-facing Items, Item transfers,
+Supply, returns, Stop distribution, results, reports, and settings/import guidance.
+Explain current permissions, Activity-state requirements, and save/recovery behavior
+without exposing persistence implementation details.
 Edit catalog sources, shared `docc/theme-settings.json`, `docc/doc-theme.css`,
 or the generator; never hand-edit generated HTML or JSON. Commit generated
 output with source. Verify native collection metadata, deep static routes,

@@ -30,6 +30,19 @@ Changes to an existing Location can affect historical activity logs. Check that 
 
 Cancel during relocation restores its previous position. Cancel in the map toolbar discards the whole map editing session.
 
+## Draw a Location's area
+
+An area shows the space associated with a Location, such as its responsibility or delivery area. You need Project edit permission.
+
+1. Open the Location while editing the Project map.
+2. Tap Edit Area to work on its boundary on the map.
+3. Tap the map to add boundary vertices. Review the shape as you add them.
+4. Use Clear if you need to remove the draft boundary and redraw it.
+5. Tap Done in the Location editor and review Apply Changes if it appears.
+6. Tap Save in the map toolbar when the map changes are ready.
+
+Cancel discards the map editing session. Review existing Location changes carefully because they can affect historical activity views.
+
 ## Delete a Location
 
 Open the Location while editing the map, tap Delete Location, and confirm. Tap Save in the map toolbar when you are ready to save the map changes.

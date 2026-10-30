@@ -1,6 +1,6 @@
 # LinkMap for iOS
 
-Keep your places together and plan the work around them.
+Keep your places together, plan team work, and follow service and Item deliveries.
 
 @Metadata {
     @TechnologyRoot
@@ -30,15 +30,19 @@ Create a Project, add the places you need, then plan a visit when you are ready.
 - <doc:Map>
 - <doc:Locations>
 - <doc:Regions-and-Layers>
+- <doc:Items>
 
 ### Plan and follow work
 
 - <doc:Activities>
 - <doc:Routes-and-Stops>
 - <doc:Assignments>
+- <doc:Item-Transfers>
+- <doc:Results-and-Reports>
 
 ### Share and sync
 
 - <doc:Sharing>
 - <doc:iCloud>
 - <doc:Apple-Maps>
+- <doc:Settings-and-Imports>

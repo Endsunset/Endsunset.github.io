@@ -25,6 +25,17 @@ Available Locations appear red, selected Locations blue, and unavailable Locatio
 
 You can also assign a Location to a Region and Layer in its Location editor. See <doc:Locations>.
 
+## Change a Region or Layer
+
+You need permission to edit the Project.
+
+1. Open Edit Map and tap the Region marker to open its editor.
+2. Change the Region name or use Select Locations to adjust its places.
+3. Open a Layer to change its name, Level, or selected Locations. Keep its Level unique and nonzero within the Region.
+4. Tap Done in each editor, review Apply Changes for existing records, then Save in the map toolbar.
+
+Locations unavailable for that Region or Layer remain grey. Moving a Location to another Region can require choosing a different Layer as well. Cancel in the map toolbar discards the editing session.
+
 ## Show a Layer on the map
 
 Move the center of the map into a Layer's area to show the Layer selector. Choose a Layer to see that level, or choose Map to return to the base map. A Layer's outline comes from its Locations.

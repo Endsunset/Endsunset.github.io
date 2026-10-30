@@ -23,7 +23,9 @@ for (const [query, count] of [['', 0], ['linkmap', 2], [' LINKMAP documentation 
   input.value = 'changed query'; input.events.input(); assert.equal(clear.hidden, false);
   clear.events.click(); assert.equal(input.value, ''); assert.equal(clear.hidden, true); assert.equal(input.focused, true);
 }
-const header = readFileSync('partials/header.html', 'utf8');
+// The search form lives in the shared header's expansion partial.
+const header = readFileSync('partials/header.html', 'utf8')
+  .replace('$expansion', readFileSync('partials/header-expansion.html', 'utf8'));
 const searchPage = readFileSync('search/index.html', 'utf8');
 for (const html of [header, searchPage]) {
   assert.match(html, /role="search"[^>]*action="\/search\/" method="get"/);

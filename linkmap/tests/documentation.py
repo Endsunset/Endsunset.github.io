@@ -15,7 +15,8 @@ ARTICLES = [article for catalog in CATALOGS for article in catalog.glob("*.md")]
 IOS_ARTICLES = {
     "how-linkmap-works", "basic-workflow", "project", "map", "locations",
     "regions-and-layers", "activities", "routes-and-stops", "assignments",
-    "sharing", "icloud", "apple-maps",
+    "sharing", "icloud", "apple-maps", "items", "item-transfers",
+    "results-and-reports", "settings-and-imports",
 }
 
 
@@ -74,9 +75,9 @@ def check_navigation():
     assert not children(web)
     expected = {
         "Get started": ["How LinkMap Works", "Basic Workflow"],
-        "Projects and places": ["Project", "Map", "Locations", "Regions and Layers"],
-        "Plan and follow work": ["Activities", "Routes and Stops", "Assignments"],
-        "Share and sync": ["Sharing", "iCloud", "Maps"],
+        "Projects and places": ["Project", "Map", "Locations", "Regions and Layers", "Items"],
+        "Plan and follow work": ["Activities", "Routes and Stops", "Assignments", "Item Transfers", "Results and Reports"],
+        "Share and sync": ["Sharing", "iCloud", "Maps", "Settings and Imports"],
     }
     groups = {}
     for entry in ios["children"]:

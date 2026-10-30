@@ -1,6 +1,6 @@
 # Basic Workflow
 
-Create a small Project and plan your first visit in LinkMap for iOS.
+Create a small Project, plan a visit, and record service and deliveries in LinkMap for iOS.
 
 ## Create a Project and add places
 
@@ -26,8 +26,29 @@ You can add more Routes and Assignments before starting. See <doc:Activities> to
 
 ## Start and follow the work
 
-The Project owner opens the Activity's More menu, taps Start, and confirms. Starting locks the plan and renews Activity sharing. If you are working with others, send the new Activity invitation after starting; see <doc:Sharing>.
+The Project owner opens the Activity's More menu, taps Start, and confirms. Starting locks the plan and revokes existing Activity sharing. If you are working with others, use Start Sharing to create and send a new Activity invitation after starting; see <doc:Sharing>.
 
 In the active Activity, open Assignments, choose your Assignment, then open Routes and choose a Route. The map follows the work you open in the Console.
 
-When the work is finished, save any Route work. The owner can tap More, then End Activity, and confirm End. Ending preserves the history and removes existing collaborators' access to the Activity. It cannot be undone.
+## Add and deliver Items
+
+If your visit uses resources:
+
+1. Open Project → Items → Add Item. Enter a clear name, then Save and confirm Save Anyway after reviewing the permanent name. See <doc:Items>.
+2. Open the active Activity → Record Item Transfers → New Record.
+3. Select the Item, choose Supply, enter the quantity received, and tap Add.
+4. Add a Transfer row for the Item, select your Assignment, and enter the quantity it receives.
+5. Tap Review, check From, To, and quantities, then Save. See <doc:Item-Transfers>.
+6. Open Assignment → Routes and choose the Route. At a Stop, tap its Served number and enter the change, then Done. Expand Item Quantities to inspect or adjust deliveries. Wait for the saved totals. See <doc:Routes-and-Stops>.
+
+You can record Served even when the visit has no Items. Served is a change to the existing count, so entering 2 at a saved count of 3 records a total of 5.
+
+## Finish and review
+
+1. Finish Route edits and wait for automatic save confirmation.
+2. Check remaining Resources and record any needed returns from Assignments.
+3. Open an Assignment's Preview Report to copy or share its saved work.
+4. The owner opens the Activity's More menu, taps End Activity, and confirms End.
+5. Open the Ended Activity to review its results and graphs; see <doc:Results-and-Reports>.
+
+Ending preserves the history and revokes current Activity sharing. It cannot be undone. The owner can share the ended history again with view-only permissions.
