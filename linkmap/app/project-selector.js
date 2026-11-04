@@ -1,28 +1,80 @@
 export function createProjectSelector(onSelect, onRetry) {
-  const select = document.getElementById("project-select");
+  const list = document.getElementById("project-list");
+  const filter = document.getElementById("project-filter");
   const status = document.getElementById("project-status");
   const retry = document.getElementById("project-retry");
   const signIn = document.getElementById("project-sign-in");
-  select.addEventListener("change", () => onSelect(select.value));
+  const openProject = document.getElementById("project-console");
+  const toggle = document.getElementById("projects-toggle");
+  const panel = document.getElementById("projects-panel");
+  let projects = [], selectedProject;
+
+  function collapse() {
+    toggle.setAttribute("aria-expanded", "false");
+    panel.classList.remove("is-expanded");
+  }
+
+  function renderList() {
+    const focusedProjectID = document.activeElement?.dataset?.projectId;
+    const query = filter.value.trim().toLocaleLowerCase();
+    const visible = projects.filter(project => (project.name || "New Project").toLocaleLowerCase().includes(query));
+    const rows = visible.map(project => {
+      const row = document.createElement("li");
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "project-choice";
+      button.textContent = project.name || "New Project";
+      button.dataset.projectId = project.id;
+      if (project.id === selectedProject?.id) button.setAttribute("aria-current", "true");
+      if (project.databaseScope === "shared") {
+        const shared = document.createElement("span");
+        shared.className = "project-sharing";
+        shared.textContent = "Shared";
+        button.append(shared);
+      }
+      button.addEventListener("click", () => {
+        onSelect(project.id);
+        collapse();
+        if (window.matchMedia("(max-width: 760px)").matches) toggle.focus();
+      });
+      row.append(button);
+      return row;
+    });
+    if (projects.length && !visible.length) {
+      const empty = document.createElement("li");
+      empty.className = "inspector-status";
+      empty.textContent = "No matching projects.";
+      rows.push(empty);
+    }
+    list.replaceChildren(...rows);
+    if (focusedProjectID) {
+      [...list.querySelectorAll("button")].find(button => button.dataset.projectId === focusedProjectID)?.focus();
+    }
+  }
+
+  filter.addEventListener("input", renderList);
+  filter.addEventListener("keydown", event => {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      list.querySelector("button")?.focus();
+    }
+    if (event.key === "Escape") { filter.value = ""; renderList(); }
+  });
+  toggle.addEventListener("click", () => {
+    const expanded = toggle.getAttribute("aria-expanded") !== "true";
+    toggle.setAttribute("aria-expanded", String(expanded));
+    panel.classList.toggle("is-expanded", expanded);
+    if (expanded) filter.focus();
+  });
   retry.addEventListener("click", onRetry);
 
   return {
-    render({ projects, selectedProject, message, busy = false, retryable = false, signedOut = false }) {
-      const options = projects.map(project => {
-        const option = document.createElement("option");
-        option.value = project.id;
-        option.textContent = (project.name || "New Project") + (project.databaseScope === "shared" ? " · Shared" : "");
-        return option;
-      });
-      if (!options.length) {
-        const placeholder = document.createElement("option");
-        placeholder.textContent = busy ? "Loading projects…" : "No projects available";
-        placeholder.value = "";
-        options.push(placeholder);
-      }
-      select.replaceChildren(...options);
-      select.value = selectedProject?.id || "";
-      select.disabled = !projects.length;
+    render({ projects: nextProjects, selectedProject: nextSelected, message, busy = false, retryable = false, signedOut = false }) {
+      projects = nextProjects;
+      selectedProject = nextSelected;
+      filter.disabled = !projects.length;
+      openProject.disabled = !selectedProject;
+      renderList();
       status.textContent = message;
       status.setAttribute("aria-busy", String(busy));
       retry.hidden = !retryable;

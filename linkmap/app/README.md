@@ -1,98 +1,104 @@
-# Map page implementation
+# Map viewing
 
-`index.html` is the single map page. Native source was inspected read-only in
-`LinkMap-core` (ProjectModel, LocationModel, CKUtility+Project/+Location/+Share/
-+RecordSupport, MapView, MapViewModel, MapViewModelComponents, MapContentView,
-LocationMarker, MapUtility+Geometry and RecordNameFallback).
+`index.html` is the LinkMap web map. The native `Endsunset/LinkMap-core` repository
+was inspected read-only: map content/view-model components, Location markers,
+search, Location/Region/Layer/Item detail consoles, record models and CloudKit
+conversion/query helpers. Changes belong to this web app only.
 
-- `app.js` owns the only `projects`, `selectedProject`, and `locations` state.
-  It coordinates authentication, initial selection, loading, retry and rendering.
-  Request versions invalidate responses after a switch, sign-out or auth retry.
-- `cloudkit.js` reuses `LinkMapAuth.container`, selects private/shared databases,
-  enumerates zones and handles query pagination, response errors and timeouts.
-- `project.js` loads private `projectZone-` zones and all accepted shared zones,
-  queries `Project`, converts `name`, and retains the source database and complete
-  zone ID (including owner). As in native code, record-name UUIDs are logical IDs:
-  later shared discoveries replace duplicates. Names sort naturally; the first
-  project is initially selected.
-- `location.js` queries `Location.project EQUALS REFERENCE(project.recordName)`
-  in the selected project's database and zone. It converts `name`, `detail`,
-  `latitude`, `longitude` and preserves the original record.
-- `project-selector.js` renders an accessible native select and loading/empty/error
-  status. It reports selection to the coordinator without owning project state.
-- `map.js` owns one MapKit instance and its Location annotations. It removes old
-  annotations before replacements, fits valid Locations, and retains the existing
-  SDK/load/user-location error reporting. Late SDK initialization uses current
-  page state. The `full-map` and `services` libraries supply map controls, annotations, search and place cards.
-  Search/coordinate selections use a separate marker; project refreshes preserve its viewport.
-- `place-search.js` owns debounced autocomplete, full search, cancellation and keyboard-accessible results.
-- `place-details.js` replaces and destroys Apple's native PlaceDetail card on selection changes.
-- `coordinates.js` validates decimal latitude/longitude pairs, displays them and copies them
-  with a manual fallback when clipboard access is unavailable. Comma or whitespace separators
-  are accepted; latitude comes first. Custom coordinates clear the previous place card.
-- Search and coordinate inspection work independently of iCloud sign-in.
-- `app.css` styles the persistent white/red toolbar above the map canvas.
-- `../cloudkit-config.js` selects `development` for the existing shared authentication
-  setup, without changing the container, public API token or auth behavior.
+## Viewing behavior
 
-## Scope and native differences
+- The project sidebar lists private and accepted shared projects, with project-name
+  search, active selection, Refresh map data, retry and sign-in states. Projects sort by creation
+  date descending, then natural name. Shared discoveries replace duplicate IDs.
+- Project, Locations, Regions, Layers and Items open a modeless Console sheet.
+  Back returns through related records. Selecting another marker replaces its
+  detail, and the map remains interactive. On mobile, search panels give their
+  space to the map while a record Console is open.
+- Location details show the saved name, Region/Layer context, About description,
+  coordinates, saved area vertex count, and Apple Maps Directions. Records without
+  valid coordinates remain available in lists and search.
+- Location markers open the Console and show a level accessory for nonzero Layers.
+  Above/below arrows compare that level to the selected Layer's level.
+- Layer outlines are convex hulls of their Locations' saved vertices, falling back
+  to each Location point when it has no saved area. The hull uses Mercator geometry
+  and cuts the largest longitude gap to handle areas crossing the antimeridian.
+  Two points draw a line; three or more draw a polygon. Inspecting a Location also
+  displays its saved area, without modifying its vertices.
+- As in native project viewing, focusing a Region alone keeps all Locations.
+  Selecting a Layer with a Region shows Locations whose own Region matches it,
+  including other levels and unlayered Locations. The focused Region's selector
+  orders Layers by descending level with Map (Level 0) between positive and negative
+  levels. Returning to Map clears the Layer while retaining Region focus.
+  Show all resets the context and fits the project map.
+- Moving the map center into a Layer outline focuses its Region. A selected Layer
+  retains its context until another Layer or Map is chosen.
+- Search Maps uses Apple autocomplete; choosing a suggestion opens its first valid
+  resolved place, as native search does. Submitting text offers a list of results.
+  Map features and search markers use MapKit's place selection callout. Selecting a
+  map feature looks up its Place for the inspector, with stale lookups discarded.
+- Project record search matches names, Location descriptions and Region/Layer
+  context, and opens the same Console views. Results support keyboard navigation.
+- Apple search, PlaceDetail and decimal coordinate inspection work without iCloud
+  sign-in. Project switches preserve an independent selected Apple place.
 
-With no selected assignment or region/layer context, native
-`displayedProjectLocations` includes every project Location. The web map follows
-that basic view. Location has no standalone type/icon field. Native layer-level
-badges, selected-area `vertices` overlays and editing/activity flows are outside
-this implementation; web markers use the site red accent and a name/detail callout.
-Empty names use native `New Project` / `New Location` display fallbacks.
+There are no record editing, creation, deletion, relocation or vertex-drawing
+controls. Vertices are rendered from saved records only. Activity, Assignment,
+Route and inventory-transaction workflows remain outside this map-viewing scope.
 
-Missing, nonnumeric, nonfinite and out-of-range coordinates are skipped and counted
-in the status, rather than adopting native model defaults of zero for absent fields.
-An explicit valid `(0, 0)` remains visible. Empty projects keep the existing viewport.
-Query errors are reported with the existing CloudKit notification and a local retry;
-they are not presented as empty data. Pagination fetches every batch for both record
-types. The native helper currently consumes only the first query batch.
+## Data and modules
 
-The existing Development schema must allow Project queries and querying the
-Location `project` reference, as required by the native queries. This implementation
-only reads CloudKit; it does not create zones, records, indexes or shares.
+`app.js` owns project selection, all loaded collections, map context and request
+versions. Switching projects, signing out or retrying invalidates old responses
+and clears project graphics and Console details. Collections publish together;
+a failed collection produces a retry state instead of partial project data.
 
-SDK references: [CloudKit performQuery](https://developer.apple.com/documentation/cloudkitjs/cloudkit.database/performquery),
-[MapKit libraries](https://developer.apple.com/documentation/mapkitjs/mapkitinitializationoptions/libraries),
-[MapKit showItems](https://developer.apple.com/documentation/mapkitjs/map/showitems).
+`cloudkit.js` reuses `LinkMapAuth.container`, enumerates private `projectZone-`
+zones and all accepted shared zones, and preserves the selected database and full
+zone owner when querying. Every collection uses pagination and the direct
+`project EQUALS REFERENCE(project.recordName)` predicate. No records, zones,
+indexes or shares are written.
+
+`records.js` and `location.js` normalize Location, Region, Layer and Item records.
+The Location description field is `description`; optional `region`/`layer` fields
+are references. `vertices` is the native JSONEncoder coordinate array in CloudKit
+BYTES (base64). Malformed payloads are ignored rather than joining damaged areas.
+Missing, nonnumeric, nonfinite or out-of-range coordinates are excluded from map
+markers and counted in the status. Explicit `(0, 0)` remains valid.
+
+`map-view.js` holds pure visibility and geometry functions. `map.js` owns one
+MapKit instance and replaces project annotations/overlays without rebuilding it.
+`record-console.js` handles read-only navigation; `project-selector.js` renders the
+sidebar. `place-search.js`, `place-details.js` and `coordinates.js` handle Apple's
+services and the independent coordinate selection.
+
+The existing authentication container, public origin-restricted MapKit token and
+CloudKit Development configuration are unchanged. The Development schema must
+permit queries for the four collection types and their `project` references.
 
 ## Verification
 
-Run with JavaScriptCore (`jsc`, or the macOS framework helper at
-`/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Helpers/jsc`):
+From `linkmap/`, run:
 
 ```sh
-jsc tests/place-search.js
-jsc tests/project-map.js
-jsc tests/cloudkit-auth.js
-jsc tests/error-notifications.js
+node tests/run.mjs
+python3 tests/browser-map.py
 git diff --check
 ```
 
-The tests use SDK doubles and no Apple credentials. They cover private/shared
-context, pagination, deduplication, direct references, invalid coordinates, query
-failures, delayed map startup, rapid switches, sign-out races, empty states,
-annotation replacement, selector safety and existing auth/error handling.
+The Node suites require no dependencies or Apple credentials. They cover queries,
+pagination, private/shared context, schema conversion, malformed coordinates and
+vertices, geometry, map accessories, stale responses, project switching, search,
+sidebar selection, authentication and error handling. The browser test requires
+Python Playwright and Chromium; it serves the site locally with SDK doubles and
+checks desktop/mobile viewing, Console navigation, search, overlays and races.
 
-Live acceptance requires an authenticated Development account with private and
-accepted shared projects on the token's allowed web origin. Verify both project
-types, switch quickly while loading, and sign out during a query. Confirm the
-correct Location titles/details appear and previous annotations disappear.
+Live Apple acceptance still requires the token's allowed origin and a signed-in
+Development account with private and accepted shared projects. Confirm actual
+map tiles, place callouts, saved areas, Layer levels and shared-zone records there.
+SDK doubles cannot verify remote permissions, schema indexes or Apple's rendering.
 
-Search API references: [Search](https://developer.apple.com/documentation/mapkitjs/search),
-[PlaceDetail](https://developer.apple.com/documentation/mapkitjs/placedetail).
-Live search acceptance: type a place name, choose a suggestion and result, verify the
-marker, center, place card and coordinate pair. Copy and paste that pair, try `0, 0`
-and an invalid latitude, and check keyboard navigation and a narrow viewport.
+## Routes
 
-## Session navigation
-
-`/linkmap/` is the product homepage; its Open web app action opens `/linkmap/app/`.
-Signed-out app users choose `sign-in/`; successful or
-restored authentication returns to the app. The toolbar's Account link opens
-`account/` for identity, session retry, and Apple's sign-out control. Authentication
-is loaded only by app pages. The app, sign-in, and account pages do not use the
-shared Endsunset website header or footer.
+`/linkmap/` stays the product homepage. Open web app leads to `/linkmap/app/`;
+sign-in and account management stay in `app/sign-in/` and `app/account/`.
+App pages omit the shared Endsunset website header and footer.

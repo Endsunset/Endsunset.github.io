@@ -17,22 +17,49 @@
 </head>
 <body class="map-page">
   <main class="map-workspace" aria-label="LinkMap map">
-    <section class="project-toolbar" aria-label="Project selection">
-      <div class="project-field">
-        <label for="project-select">Project</label>
-        <select id="project-select" aria-describedby="project-status" disabled>
-          <option value="">Loading projects…</option>
-        </select>
+    <aside class="project-sidebar" aria-label="Projects">
+      <div class="project-sidebar-heading">
+        <a class="app-brand" href="../">LinkMap</a>
+        <button id="projects-toggle" class="button button-small button-outline" type="button" aria-expanded="false" aria-controls="projects-panel">Projects</button>
       </div>
-      <p id="project-status" role="status" aria-live="polite">Connecting to iCloud…</p>
-      <button id="project-retry" class="button button-small button-outline" type="button" hidden>Try again</button>
-      <a id="project-sign-in" class="button button-small button-outline" href="sign-in/" hidden>Sign in</a>
-      <a class="button button-small button-outline" href="account/" data-account-link hidden>Account</a>
-    </section>
+      <div id="projects-panel" class="projects-panel">
+        <h1>Projects</h1>
+        <label for="project-filter">Find a project</label>
+        <input id="project-filter" type="search" placeholder="Project name" autocomplete="off" disabled>
+        <nav aria-label="Choose a project">
+          <ul id="project-list" class="project-list" aria-describedby="project-status"></ul>
+        </nav>
+        <p id="project-status" role="status" aria-live="polite">Connecting to iCloud…</p>
+        <div class="sidebar-actions">
+          <button id="project-console" class="button button-small button-outline" type="button" disabled>Open project</button>
+          <button id="project-refresh" class="button button-small button-outline" type="button" disabled>Refresh map data</button>
+          <button id="project-retry" class="button button-small button-outline" type="button" hidden>Try again</button>
+          <a id="project-sign-in" class="button button-small button-outline" href="sign-in/" hidden>Sign in</a>
+          <a class="button button-small button-outline" href="account/" data-account-link hidden>Account</a>
+        </div>
+      </div>
+    </aside>
+    <div class="map-stage">
+      <header class="project-toolbar" aria-label="Project map controls">
+        <div class="map-scope">
+          <p id="map-context" aria-live="polite">Project map</p>
+          <button id="map-show-all" class="button button-small button-outline" type="button" disabled>Show all</button>
+        </div>
+        <nav class="map-record-navigation" aria-label="Project records">
+          <button id="locations-console" class="button button-small button-outline" type="button" disabled>Locations</button>
+          <button id="regions-console" class="button button-small button-outline" type="button" disabled>Regions</button>
+          <button id="layers-console" class="button button-small button-outline" type="button" disabled>Layers</button>
+          <button id="items-console" class="button button-small button-outline" type="button" disabled>Items</button>
+        </nav>
+        <div class="layer-field">
+          <label for="layer-select">Layer</label>
+          <select id="layer-select" disabled><option value="">Map · Level 0</option></select>
+        </div>
+      </header>
     <div class="map-explorer">
       <aside class="map-inspector" aria-label="Search and inspect places">
         <section aria-labelledby="search-heading">
-          <h1 id="search-heading">Explore the map</h1>
+          <h2 id="search-heading">Search Maps</h2>
           <form id="place-search-form" role="search">
             <label for="place-query">Search places</label>
             <div class="map-input-row">
@@ -42,6 +69,13 @@
           </form>
           <p id="search-status" class="inspector-status" role="status">Waiting for Apple Maps…</p>
           <ul id="place-results" class="place-results" aria-label="Places" hidden></ul>
+        </section>
+        <section aria-labelledby="record-search-heading">
+          <h2 id="record-search-heading">Search this project</h2>
+          <label for="record-query">Locations, Regions, Layers and Items</label>
+          <input id="record-query" type="search" placeholder="Name or Location details" autocomplete="off" aria-describedby="record-search-status" disabled>
+          <p id="record-search-status" class="inspector-status" role="status">Choose a project to search its records.</p>
+          <ul id="record-results" class="place-results" aria-label="Project records" hidden></ul>
         </section>
         <section aria-labelledby="coordinate-heading">
           <h2 id="coordinate-heading">Coordinates</h2>
@@ -67,7 +101,16 @@
       <noscript><p class="map-notice">Enable JavaScript to use the interactive map.</p></noscript>
       </div>
     </div>
+    </div>
   </main>
+  <dialog id="record-console" class="record-console" aria-labelledby="console-title" aria-modal="false">
+    <header class="console-header">
+      <button id="console-back" class="button button-small button-outline" type="button" hidden>Back</button>
+      <h2 id="console-title" class="console-title">Project</h2>
+      <button id="console-close" class="button button-small button-outline" type="button" aria-label="Close console">Close</button>
+    </header>
+    <div id="console-content" class="console-content"></div>
+  </dialog>
   <script src="session.js" defer></script>
   <script src="app.js" type="module"></script>
 </body>
