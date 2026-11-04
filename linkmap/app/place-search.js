@@ -11,6 +11,13 @@ export function createPlaceSearch(onSelect, getRegion) {
     results.hidden = true;
     status.textContent = 'Search for a place or address.';
   }
+  function choose(item) {
+    cancel();
+    input.value = item.name || item.formattedAddress || '';
+    onSelect(item);
+    status.textContent = `${item.name || 'Place'} selected. Details and coordinates updated.`;
+    input.focus();
+  }
   function render(items, suggestions) {
     results.replaceChildren();
     results.hidden = !items.length;
@@ -24,20 +31,16 @@ export function createPlaceSearch(onSelect, getRegion) {
       button.addEventListener('click', () => {
         if (suggestions) {
           input.value = item.displayLines.join(', ');
-          request(item, false);
+          request(item, false, true);
         } else {
-          cancel();
-          input.value = item.name || item.formattedAddress || '';
-          onSelect(item);
-          status.textContent = `${item.name || 'Place'} selected. Details and coordinates updated.`;
-          input.focus();
+          choose(item);
         }
       });
       row.append(button);
       results.append(row);
     }
   }
-  async function request(query, suggestions) {
+  async function request(query, suggestions, selectFirst = false) {
     cancel();
     if (!service || (typeof query === 'string' && !query.trim())) return;
     const current = version;
@@ -50,6 +53,8 @@ export function createPlaceSearch(onSelect, getRegion) {
       const items = suggestions ? response.results : response.places.filter(place =>
         place.coordinate && Number.isFinite(place.coordinate.latitude) && Number.isFinite(place.coordinate.longitude)
         && Math.abs(place.coordinate.latitude) <= 90 && Math.abs(place.coordinate.longitude) <= 180);
+      // Native Search Maps opens the first resolved place directly from a suggestion.
+      if (selectFirst && items.length) { choose(items[0]); return; }
       render(items, suggestions);
       status.textContent = items.length
         ? `${items.length} ${suggestions ? 'suggestions' : 'results'}. Choose a place${suggestions ? ' to search' : ' to view details'}.`

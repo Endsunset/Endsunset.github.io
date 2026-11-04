@@ -58,6 +58,9 @@ const flush = async () => { for (let i = 0; i < 10; i++) await Promise.resolve()
   assert(requests[2].query.displayLines[0] === 'New place', 'suggestion object passed to search');
   const place = {name: '<b>Place</b>', coordinate: {latitude: 0, longitude: 0}, formattedAddress: 'Address'};
   requests[2].resolve({ places: [place, {coordinate: {latitude: 100, longitude: 1}}] }); await flush();
+  assert(selectedPlace === place && nodes['place-results'].hidden, 'suggestion opens first resolved place directly like native Search Maps');
+  nodes['place-query'].value = 'places'; nodes['place-search-form'].fire('submit');
+  requests[3].resolve({ places: [place, {coordinate: {latitude: 100, longitude: 1}}] }); await flush();
   assert(nodes['place-results'].children.length === 1, 'invalid result coordinates excluded');
   nodes['place-results'].querySelector().fire('click');
   assert(selectedPlace === place && nodes['place-results'].hidden, 'result selection returns full place and closes list');
@@ -66,10 +69,10 @@ const flush = async () => { for (let i = 0; i < 10; i++) await Promise.resolve()
   details.show(null);
   assert(destroyed === 2 && nodes['place-detail'].hidden, 'coordinate selection clears place card');
   nodes['place-query'].value = 'error'; nodes['place-search-form'].fire('submit');
-  requests[3].reject(Error('offline')); await flush();
+  requests[4].reject(Error('offline')); await flush();
   assert(notices === 1 && nodes['search-status'].textContent.includes('Try'), 'search error supports retry');
   nodes['place-search-form'].fire('submit'); search.cancel();
-  requests[4].resolve({places: [place]}); await flush();
+  requests[5].resolve({places: [place]}); await flush();
   assert(nodes['place-results'].hidden, 'canceled search cannot replace coordinate selection');
   coordinateUI.show(place.coordinate);
   let copied;

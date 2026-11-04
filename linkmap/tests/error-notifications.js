@@ -59,7 +59,7 @@ document.getElementById = () => loading;
 document.head = { append(value) { script = value; } };
 globalThis.getComputedStyle = () => ({ getPropertyValue() { return '#b4232c'; } });
 window.mapkit = { addEventListener(type, fn) { mapEvents[type] = fn; }, FeatureVisibility: { Visible: 1 }, Map: class { addEventListener(type, fn) { locationEvents[type] = fn; } } };
-eval(readFile('app/map.js').replace('export function', 'function') + '\ninitializeMap(() => {});');
+eval(readFile('app/map.js').replace(/^import .*;\n/gm, '').replace('export function', 'function') + '\ninitializeMap(() => {});');
 window.initMapKit();
 assert(loading.hidden && reports.length === 0, 'successful map stays clear');
 for (const type of ['error', 'load-error']) {
