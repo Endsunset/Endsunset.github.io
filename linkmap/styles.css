@@ -101,6 +101,10 @@ h1 em { color: var(--accent); font-style: normal; }
 .download-intro > p:not(.eyebrow) { max-width: 580px; }
 .download-intro > p { margin-block: 24px; }
 .download-page p, .download-steps { line-height: 1.7; }
+.download-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
+.download-app-store { flex: 0 0 auto; }
+.download-app-store img { display: block; width: 246px; height: 82px; object-fit: contain; }
+.download-actions .button { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; }
 .download-note { color: var(--muted); font-size: .9375rem; }
 .download-details { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
 .download-details section { border-top: 1px solid var(--line); padding-top: 24px; }
