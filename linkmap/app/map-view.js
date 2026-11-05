@@ -44,6 +44,12 @@ export function convexHull(coordinates) {
 }
 
 export function visibleLocations(records, context = {}) {
+  if (context.groundOnly) {
+    return records.locations.filter(location => {
+      const layer = records.layers?.find(item => item.id === location.layerID);
+      return !layer || layer.level === 0;
+    });
+  }
   const layer = records.layers?.find(item => item.id === context.layerID);
   return layer?.regionID
     ? records.locations.filter(location => location.regionID === layer.regionID)

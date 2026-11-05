@@ -34,6 +34,11 @@ export function createSidebar(onChange = () => {}) {
       button.focus();
     });
   }
+  document.getElementById("search-close").addEventListener("click", () => {
+    active = null;
+    render();
+    buttons.search.focus();
+  });
   sidebar.addEventListener("keydown", event => {
     if (event.key !== "Escape" || !active) return;
     event.preventDefault();

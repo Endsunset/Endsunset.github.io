@@ -7,47 +7,35 @@ conversion/query helpers. Changes belong to this web app only.
 
 ## Viewing behavior
 
-- A persistent navigation rail has Search and Projects buttons. They open one
-  sidebar panel at a time; choosing the active button again closes that panel.
+- A persistent sidebar stacks LinkMap, Search and Project. The two buttons open one
+  floating panel over the map at a time; choosing the active button again closes that panel.
   Search opens by default on desktop. Mobile starts with both panels closed to
   leave the map visible, and choosing a Project closes its panel.
 - The project sidebar lists private and accepted shared projects, with project-name
   search, active selection, Refresh map data, retry and sign-in states. Projects sort by creation
   date descending, then natural name. Shared discoveries replace duplicate IDs.
 - Project, Locations, Regions, Layers and Items open a modeless detail panel beside
-  the sidebar and map. At narrower desktop widths, details take the sidebar's
+  the sidebar, over the map. At narrower desktop widths, details take the sidebar's
   space; on mobile they use a bottom sheet.
   Back returns through related records. Selecting another marker replaces its
   detail, and the map remains interactive. On mobile, search panels give their
   space to the map while a record Console is open.
 - Location details show the saved name, Project, Region/Layer context, About description,
   latitude and longitude, saved area vertex count, and Apple Maps Directions. Records without
-  valid coordinates remain available in lists and search.
-- Location markers open the Console and show a level accessory for nonzero Layers.
-  Above/below arrows compare that level to the selected Layer's level.
-- Layer outlines are convex hulls of their Locations' saved vertices, falling back
-  to each Location point when it has no saved area. The hull uses Mercator geometry
-  and cuts the largest longitude gap to handle areas crossing the antimeridian.
-  Two points draw a line; three or more draw a polygon. Inspecting a Location also
-  displays its saved area, without modifying its vertices. Outlines follow the
-  Layers referenced by displayed Locations; the selected Layer draws last.
-- As in native project viewing, focusing a Region alone keeps all Locations.
-  Selecting a Layer with a Region shows Locations whose own Region matches it,
-  including other levels and unlayered Locations. The focused Region's selector
-  orders Layers by descending level with Map (Level 0) between positive and negative
-  levels. Returning to Map clears the Layer while retaining Region focus.
-  Show all resets the context and fits the project map.
-- Moving the map center into a Layer outline focuses its Region. A selected Layer
-  retains its context until another Layer or Map is chosen.
+  valid coordinates remain available in Project lists.
+- The map stays at ground level (0), displaying unlayered and level-zero Locations
+  and their saved outlines. Higher and lower levels remain available as read-only
+  records in Project details, but inspecting them does not switch the map level.
+  The bottom Layer/Map-level toolbar is removed.
 - Search Maps uses Apple autocomplete; choosing a suggestion opens its first valid
   resolved place, as native search does. Submitting text offers a list of results.
   Map features and search markers use MapKit's place selection callout. Selecting a
   map feature looks up its Place for the inspector, with stale lookups discarded.
-- Project record search matches names, Location descriptions and Region/Layer
-  context, and opens the same Console views. Results support keyboard navigation.
-- Apple search, PlaceDetail and decimal coordinate inspection work without iCloud
-  sign-in. Project switches preserve an independent selected Apple place.
-  Selecting an Apple map item reveals Search and dismisses project details.
+- Search contains only Apple place search and selected place details. Project-record
+  search and coordinate entry/copy controls are removed.
+- Apple search and PlaceDetail work without iCloud sign-in. Project switches preserve
+  an independent selected Apple place. Selecting an Apple map item reveals Search
+  and dismisses project details.
 
 There are no record editing, creation, deletion, relocation or vertex-drawing
 controls. Vertices are rendered from saved records only. Activity, Assignment,
@@ -77,8 +65,7 @@ markers and counted in the status. Explicit `(0, 0)` remains valid.
 MapKit instance and replaces project annotations/overlays without rebuilding it.
 `record-console.js` handles read-only detail navigation; `project-selector.js` renders the
 project list. `sidebar.js` owns the Search/Projects panels and responsive navigation.
-`place-search.js`, `place-details.js` and `coordinates.js` handle Apple's
-services and the independent coordinate selection.
+`place-search.js` and `place-details.js` handle Apple place services.
 
 The existing authentication container and public origin-restricted MapKit token are
 unchanged. CloudKit uses the Production environment. The Production schema must

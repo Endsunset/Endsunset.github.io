@@ -18,13 +18,13 @@
 <body class="map-page">
   <main class="map-workspace" aria-label="LinkMap map">
     <nav class="app-rail" aria-label="Map navigation">
-      <a class="app-brand" href="../" aria-label="LinkMap home"><span class="brand-mark" aria-hidden="true">L<span>m</span></span><span class="brand-name">LinkMap</span></a>
+      <a class="app-brand" href="../" aria-label="LinkMap home"><span class="brand-name">LinkMap</span></a>
       <div class="sidebar-navigation">
         <button id="search-toggle" class="sidebar-tab" type="button" aria-expanded="true" aria-controls="search-panel">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span>
         </button>
         <button id="projects-toggle" class="sidebar-tab" type="button" aria-expanded="false" aria-controls="projects-panel">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V4h7l2 3h9v13H3Z"/><path d="M3 7h9"/></svg><span>Projects</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V4h7l2 3h9v13H3Z"/><path d="M3 7h9"/></svg><span>Project</span>
         </button>
       </div>
       <a class="rail-help" href="../documentation/web/" aria-label="LinkMap Web help"><span aria-hidden="true">?</span><span>Help</span></a>
@@ -32,14 +32,14 @@
 
     <aside id="app-sidebar" class="project-sidebar" aria-label="Map sidebar">
       <div id="search-panel" class="sidebar-panel map-inspector">
-        <header class="sidebar-heading"><p class="panel-eyebrow">Explore</p><h1>Search</h1><p>Find a place or a project location.</p></header>
+        <header class="search-heading"><h1 class="visually-hidden">Search</h1><button id="search-close" class="icon-button" type="button" aria-label="Close search">×</button></header>
         <section aria-labelledby="search-heading">
-          <h2 id="search-heading">Search Maps</h2>
+          <h2 id="search-heading" class="visually-hidden">Search Maps</h2>
           <form id="place-search-form" role="search">
             <label class="visually-hidden" for="place-query">Search places</label>
             <div class="map-input-row">
-              <input id="place-query" type="search" placeholder="Place or address" autocomplete="off" aria-describedby="search-status" disabled>
-              <button id="place-search-submit" class="button button-small button-outline" disabled>Search</button>
+              <input id="place-query" type="search" placeholder="Search Maps" autocomplete="off" aria-describedby="search-status" disabled>
+              <button id="place-search-submit" class="search-submit" aria-label="Search Maps" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
             </div>
           </form>
           <p id="search-status" class="inspector-status" role="status">Waiting for Apple Maps…</p>
@@ -50,25 +50,7 @@
           <p id="place-summary" class="inspector-status" role="status">Select a place to see its details.</p>
           <div id="place-detail" hidden></div>
         </section>
-        <section aria-labelledby="record-search-heading">
-          <h2 id="record-search-heading">Search this project</h2>
-          <label class="visually-hidden" for="record-query">Locations, Regions, Layers and Items</label>
-          <input id="record-query" type="search" placeholder="Name or Location details" autocomplete="off" aria-describedby="record-search-status" disabled>
-          <p id="record-search-status" class="inspector-status" role="status">Choose a project to search its records.</p>
-          <ul id="record-results" class="place-results" aria-label="Project records" hidden></ul>
-        </section>
-        <section aria-labelledby="coordinate-heading">
-          <h2 id="coordinate-heading">Coordinates</h2>
-          <form id="coordinate-form">
-            <label for="coordinate-input">Latitude, longitude</label>
-            <input id="coordinate-input" type="text" placeholder="37.3349, -122.0090" autocomplete="off" spellcheck="false" aria-describedby="coordinate-status" disabled>
-            <div class="map-input-row inspector-actions">
-              <button id="coordinate-show" class="button button-small button-outline" disabled>Show on map</button>
-              <button id="coordinate-copy" class="button button-small button-outline" type="button" disabled>Copy</button>
-            </div>
-          </form>
-          <p id="coordinate-status" class="inspector-status" role="status">Enter or paste a decimal coordinate pair.</p>
-        </section>
+
       </div>
 
       <div id="projects-panel" class="sidebar-panel projects-panel" hidden>
@@ -116,10 +98,7 @@
         <div id="map-loading" class="map-notice" role="status">Loading Apple Maps…</div>
         <noscript><p class="map-notice">Enable JavaScript to use the interactive map.</p></noscript>
       </div>
-      <header class="project-toolbar" aria-label="Project map controls">
-        <div class="map-scope"><p id="map-context" aria-live="polite">Project map</p><button id="map-show-all" class="button button-small button-outline" type="button" disabled>Show all</button></div>
-        <div class="layer-field"><label for="layer-select">Layer</label><select id="layer-select" disabled><option value="">Map · Level 0</option></select></div>
-      </header>
+
     </div>
   </main>
   <script src="session.js" defer></script>

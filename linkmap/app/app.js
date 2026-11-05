@@ -1,10 +1,8 @@
 import { loadProjects } from "./project.js";
 import { loadProjectRecords } from "./records.js";
-import { visibleLocations } from "./map-view.js";
 import { initializeMap } from "./map.js";
 import { createPlaceSearch } from "./place-search.js";
 import { createPlaceDetails } from "./place-details.js";
-import { createCoordinates } from "./coordinates.js";
 import { createProjectSelector } from "./project-selector.js";
 import { createRecordConsole, recordLabel } from "./record-console.js";
 import { createSidebar } from "./sidebar.js";
@@ -33,15 +31,9 @@ const selector = createProjectSelector(id => {
   else refreshProjects();
 });
 const details = createPlaceDetails();
-const coordinates = createCoordinates(coordinate => {
-  search.cancel();
-  map.showSelection(coordinate);
-  details.show(null);
-});
 const search = createPlaceSearch(place => {
   revealPlace();
   map.showSelection(place.coordinate, place);
-  coordinates.show(place.coordinate);
   details.show(place);
 }, () => map.region);
 const consoleView = createRecordConsole({
@@ -57,18 +49,15 @@ const consoleView = createRecordConsole({
 const map = initializeMap(() => {
   renderMap(true);
   search.ready();
-  coordinates.ready();
 }, location => {
   inspectLocation(location, false);
   consoleView.open("Location", location);
 }, regionID => {
   if (state.context.layerID || state.context.regionID === regionID) return;
   state.context.regionID = regionID;
-  renderContext();
 });
 map.setPlaceSelectionHandler(place => {
   revealPlace();
-  if (place.coordinate) coordinates.show(place.coordinate);
   details.show(place);
 });
 
@@ -77,114 +66,25 @@ function revealPlace() {
   sidebar.show("search");
 }
 
-const query = document.getElementById("record-query");
-const results = document.getElementById("record-results");
-const searchStatus = document.getElementById("record-search-status");
-const layerPicker = document.getElementById("layer-select");
 for (const [id, kind] of [["project-console", "Project"], ["locations-console", "Locations"], ["regions-console", "Regions"], ["layers-console", "Layers"], ["items-console", "Items"]]) {
   document.getElementById(id).addEventListener("click", () => consoleView.open(kind, kind === "Project" ? state.selectedProject : null));
 }
-layerPicker.addEventListener("change", () => selectLayer(state.records.layers.find(layer => layer.id === layerPicker.value) || null, state.context.regionID));
-document.getElementById("map-show-all").addEventListener("click", () => {
-  state.context = emptyContext();
-  renderMap(false);
-  map.showAll();
-});
 document.getElementById("project-refresh").addEventListener("click", () => {
   if (state.selectedProject) selectProject(state.selectedProject);
 });
-query.addEventListener("input", renderRecordSearch);
-query.addEventListener("keydown", event => {
-  if (event.key === "ArrowDown") { event.preventDefault(); results.querySelector("button")?.focus(); }
-  if (event.key === "Escape") { query.value = ""; renderRecordSearch(); }
-});
-results.addEventListener("keydown", event => {
-  const buttons = [...results.querySelectorAll("button")];
-  const index = buttons.indexOf(document.activeElement);
-  if (["ArrowDown", "ArrowUp"].includes(event.key)) {
-    event.preventDefault();
-    buttons[(index + (event.key === "ArrowDown" ? 1 : buttons.length - 1)) % buttons.length]?.focus();
-  }
-  if (event.key === "Escape") { query.value = ""; renderRecordSearch(); query.focus(); }
-});
-
 function inspectLocation(location, focus = true) {
-  state.context = { regionID: location.regionID, layerID: location.layerID, locationAreaID: location.id };
+  state.context = { regionID: location.regionID, layerID: null, locationAreaID: location.id };
   renderMap(false);
-  if (location.coordinate) {
-    coordinates.show(location.coordinate);
-    if (focus) map.focusLocation(location);
-  }
+  if (location.coordinate && focus) map.focusLocation(location);
 }
 
 function selectLayer(layer, regionID = null) {
-  state.context = { regionID: layer?.regionID || regionID, layerID: layer?.id || null, locationAreaID: null };
+  state.context = { regionID: layer?.regionID || regionID, layerID: null, locationAreaID: null };
   renderMap(false);
 }
 
-function renderContext() {
-  const region = state.records.regions.find(value => value.id === state.context.regionID);
-  const layer = state.records.layers.find(value => value.id === state.context.layerID);
-  document.getElementById("map-context").textContent = [region ? recordLabel(region) : state.selectedProject && recordLabel(state.selectedProject), layer ? `${recordLabel(layer)} · Level ${layer.level}` : "Map · Level 0"].filter(Boolean).join(" · ");
-  const layers = state.records.layers.filter(value => value.regionID === state.context.regionID)
-    .sort((a, b) => b.level - a.level || recordLabel(a).localeCompare(recordLabel(b), undefined, { numeric: true }));
-  const options = [];
-  let baseAdded = false;
-  function addOption(value, label) {
-    const option = document.createElement("option");
-    option.value = value;
-    option.textContent = label;
-    options.push(option);
-  }
-  for (const value of layers) {
-    if (!baseAdded && value.level <= 0) { addOption("", "Map · Level 0"); baseAdded = true; }
-    addOption(value.id, `${recordLabel(value)} · Level ${value.level}`);
-  }
-  if (!baseAdded) addOption("", "Map · Level 0");
-  layerPicker.replaceChildren(...options);
-  layerPicker.value = layer?.id || "";
-  layerPicker.disabled = !loaded || !layers.length;
-  document.getElementById("map-show-all").disabled = !loaded;
-}
-
 function renderMap(fit) {
-  map.setRecords(state.records, state.context, { fit });
-  renderContext();
-}
-
-function renderRecordSearch() {
-  results.replaceChildren();
-  const normalize = value => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
-  const words = normalize(query.value.trim()).split(/\s+/).filter(Boolean);
-  if (!words.length || !loaded) {
-    results.hidden = true;
-    searchStatus.textContent = loaded ? "Search Locations, Regions, Layers, and Items in this project." : "Choose a project to search its records.";
-    return;
-  }
-  const records = Object.values(state.records).flat().filter(record => {
-    const region = state.records.regions.find(value => value.id === record.regionID);
-    const layer = state.records.layers.find(value => value.id === record.layerID);
-    const text = normalize([recordLabel(record), record.detail, record.type, region?.name, layer?.name, record.type === "Layer" ? record.level : ""].filter(value => value !== undefined).join(" "));
-    return words.every(word => text.includes(word));
-  });
-  for (const record of records.slice(0, 100)) {
-    const row = document.createElement("li");
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "place-result";
-    button.textContent = `${recordLabel(record)} · ${record.type}`;
-    button.addEventListener("click", () => {
-      if (record.type === "Location") inspectLocation(record);
-      else if (record.type === "Region") { state.context = { regionID: record.id, layerID: null, locationAreaID: null }; renderMap(false); }
-      else if (record.type === "Layer") selectLayer(record);
-      consoleView.open(record.type, record);
-    });
-    row.append(button);
-    results.append(row);
-  }
-  results.hidden = !records.length;
-  searchStatus.textContent = records.length > 100 ? `${records.length} matches. Showing the first 100; refine your search.`
-    : records.length ? `${records.length} matching record${records.length === 1 ? "" : "s"}.` : "No matching records. Try another name or detail.";
+  map.setRecords(state.records, { ...state.context, layerID: null, groundOnly: true }, { fit });
 }
 
 function render(message, options = {}) {
@@ -192,16 +92,12 @@ function render(message, options = {}) {
   for (const id of ["project-console", "project-refresh", "locations-console", "regions-console", "layers-console", "items-console"]) {
     document.getElementById(id).disabled = !loaded;
   }
-  query.disabled = !loaded;
-  renderContext();
-  renderRecordSearch();
 }
 
 function clearRecords() {
   loaded = false;
   state.records = emptyRecords();
   state.context = emptyContext();
-  query.value = "";
   map.clearLocations();
   consoleView.close();
   errorNotice?.dismiss();
@@ -218,7 +114,7 @@ async function selectProject(project) {
     state.records = records;
     loaded = true;
     renderMap(true);
-    const visible = visibleLocations(records, state.context).filter(location => location.coordinate).length;
+    const visible = records.locations.filter(location => location.coordinate).length;
     const skipped = records.locations.length - visible;
     render(`${visible} Location${visible === 1 ? "" : "s"} · ${records.regions.length} Regions · ${records.layers.length} Layers${skipped ? ` · ${skipped} without valid coordinates` : ""}`);
   } catch (error) {

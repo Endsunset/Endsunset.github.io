@@ -14,6 +14,8 @@ const records = {
     {id: 'd', coordinate: point(10, 10), regionID: 'r2', layerID: 'l3', vertices: []},
   ], items: [],
 };
+assert(geometry.visibleLocations(records, {groundOnly: true}).map(location => location.id).join(',') === 'c', 'ground-only mode excludes positive and negative levels');
+assert(geometry.layerBoundaries(records, {groundOnly: true}).length === 0, 'ground-only mode excludes elevated boundaries');
 assert(geometry.visibleLocations(records, {regionID: 'r1'}).length === 4, 'focused region alone keeps all locations');
 assert(geometry.visibleLocations(records, {layerID: 'l1'}).length === 3, 'selected layer filters by location region, retaining other levels and unlayered places');
 assert(geometry.visibleLocations(records, {layerID: 'missing'}).length === 4, 'unknown layer falls back to ordinary scope');
