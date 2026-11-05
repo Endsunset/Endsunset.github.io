@@ -5,6 +5,15 @@ export function createSidebar(onChange = () => {}) {
   const buttons = { search: document.getElementById("search-toggle"), projects: document.getElementById("projects-toggle") };
   const panels = { search: document.getElementById("search-panel"), projects: document.getElementById("projects-panel") };
   const sidebar = document.getElementById("app-sidebar");
+  const workspace = document.querySelector(".map-workspace");
+  const railToggle = document.getElementById("rail-toggle");
+  railToggle.addEventListener("click", () => {
+    const collapsed = workspace.classList.toggle("rail-collapsed");
+    railToggle.setAttribute("aria-expanded", String(!collapsed));
+    const label = collapsed ? "Expand sidebar" : "Collapse sidebar";
+    railToggle.setAttribute("aria-label", label);
+    railToggle.title = label;
+  });
   let active = mobile.matches ? null : "search";
   let detailsOpen = false;
 
