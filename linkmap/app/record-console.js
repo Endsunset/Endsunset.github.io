@@ -9,13 +9,14 @@ function node(tag, text, className) {
   return element;
 }
 
-// A modeless sheet leaves the map usable, like the native Console.
-export function createRecordConsole({ getState, onLocation, onRegion, onLayer }) {
+// A modeless side panel leaves the map usable, like the native Console.
+export function createRecordConsole({ getState, onLocation, onRegion, onLayer, onVisibilityChange = () => {} }) {
   const dialog = document.getElementById("record-console");
   const title = document.getElementById("console-title");
   const content = document.getElementById("console-content");
   const back = document.getElementById("console-back");
   const close = document.getElementById("console-close");
+  const kindLabel = document.getElementById("console-kind");
   let history = [];
   let returnFocus;
 
@@ -44,6 +45,7 @@ export function createRecordConsole({ getState, onLocation, onRegion, onLayer })
   function navigate(kind, record = null, members = null) {
     history.push({ kind, record, members });
     render();
+    title.focus();
   }
 
   function inspect(record) {
@@ -59,6 +61,7 @@ export function createRecordConsole({ getState, onLocation, onRegion, onLayer })
     if (!view || !project) return;
     const { kind, record } = view;
     title.textContent = record ? recordLabel(record) : kind;
+    kindLabel.textContent = kind;
     back.hidden = history.length < 2;
     content.replaceChildren();
 
@@ -82,13 +85,15 @@ export function createRecordConsole({ getState, onLocation, onRegion, onLayer })
         directions.target = "_blank";
         directions.rel = "noopener noreferrer";
         actions.append(directions);
-        fields([["Coordinates", pair], ["Area vertices", record.vertices.length]]);
       } else {
         content.append(node("p", "This Location has no valid map coordinate.", "inspector-status"));
-        fields([["Area vertices", record.vertices.length]]);
       }
       content.append(actions);
       if (record.detail) content.append(node("h3", "About"), node("p", record.detail, "record-description"));
+      content.append(node("h3", "Location details"));
+      fields([["Project", recordLabel(project)],
+        ...(record.coordinate ? [["Latitude", record.coordinate.latitude], ["Longitude", record.coordinate.longitude]] : []),
+        ["Area vertices", record.vertices.length]]);
       if (region) content.append(button(`Region · ${recordLabel(region)}`, () => inspect(region)));
       if (layer) content.append(button(`Layer · ${recordLabel(layer)}`, () => inspect(layer)));
     } else if (kind === "Region") {
@@ -118,14 +123,18 @@ export function createRecordConsole({ getState, onLocation, onRegion, onLayer })
     content.scrollTop = 0;
   }
 
-  function dismiss() {
+  function dismiss({ restoreFocus = true } = {}) {
     if (!dialog.open) return;
     dialog.close();
     history = [];
-    if (returnFocus?.isConnected) returnFocus.focus();
+    onVisibilityChange(false);
+    if (restoreFocus) {
+      if (returnFocus?.isConnected && returnFocus.getClientRects().length) returnFocus.focus();
+      else document.getElementById("search-toggle").focus();
+    }
   }
-  close.addEventListener("click", dismiss);
-  back.addEventListener("click", () => { history.pop(); render(); });
+  close.addEventListener("click", () => dismiss());
+  back.addEventListener("click", () => { history.pop(); render(); title.focus(); });
   dialog.addEventListener("keydown", event => {
     if (event.key === "Escape") { event.preventDefault(); dismiss(); }
   });
@@ -135,6 +144,7 @@ export function createRecordConsole({ getState, onLocation, onRegion, onLayer })
       history = [{ kind, record }];
       render();
       if (!dialog.open) dialog.show();
+      onVisibilityChange(true);
       close.focus();
     },
     close: dismiss,

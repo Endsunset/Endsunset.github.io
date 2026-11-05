@@ -5,14 +5,7 @@ export function createProjectSelector(onSelect, onRetry) {
   const retry = document.getElementById("project-retry");
   const signIn = document.getElementById("project-sign-in");
   const openProject = document.getElementById("project-console");
-  const toggle = document.getElementById("projects-toggle");
-  const panel = document.getElementById("projects-panel");
   let projects = [], selectedProject;
-
-  function collapse() {
-    toggle.setAttribute("aria-expanded", "false");
-    panel.classList.remove("is-expanded");
-  }
 
   function renderList() {
     const focusedProjectID = document.activeElement?.dataset?.projectId;
@@ -34,8 +27,6 @@ export function createProjectSelector(onSelect, onRetry) {
       }
       button.addEventListener("click", () => {
         onSelect(project.id);
-        collapse();
-        if (window.matchMedia("(max-width: 760px)").matches) toggle.focus();
       });
       row.append(button);
       return row;
@@ -59,12 +50,6 @@ export function createProjectSelector(onSelect, onRetry) {
       list.querySelector("button")?.focus();
     }
     if (event.key === "Escape") { filter.value = ""; renderList(); }
-  });
-  toggle.addEventListener("click", () => {
-    const expanded = toggle.getAttribute("aria-expanded") !== "true";
-    toggle.setAttribute("aria-expanded", String(expanded));
-    panel.classList.toggle("is-expanded", expanded);
-    if (expanded) filter.focus();
   });
   retry.addEventListener("click", onRetry);
 

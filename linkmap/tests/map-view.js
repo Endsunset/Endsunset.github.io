@@ -22,6 +22,15 @@ assert(geometry.convexHull([point(0, 0), point(0, 1), point(0, 2)]).length === 2
 assert(geometry.convexHull([point(100, 0), point(0, 0)]).length === 1, 'invalid coordinates cannot corrupt hull');
 assert(geometry.layerBoundaries(records).length === 1, 'layers without two distinct boundary points have no outline');
 assert(geometry.layerBoundaries(records)[0].vertices.length === 4, 'saved vertices define layer boundary before location point');
+const outlined = { ...records, locations: records.locations.map(location => location.id === 'b'
+  ? {...location, vertices: [point(0, 0), point(0, 2), point(2, 0)]}
+  : location.id === 'd' ? {...location, vertices: [point(10, 10), point(10, 12), point(12, 10)]} : location) };
+assert(geometry.layerBoundaries(outlined).length === 3, 'Map context keeps every referenced Layer outline');
+const scopedBoundaries = geometry.layerBoundaries(outlined, {layerID: 'l1'});
+assert(scopedBoundaries.length === 2 && !scopedBoundaries.some(boundary => boundary.layer.id === 'l3'),
+  'selected Layer hides outlines outside the displayed Location region');
+assert(scopedBoundaries.at(-1).layer.id === 'l1' && scopedBoundaries.at(-1).selected,
+  'selected Layer draws last so overlapping outlines cannot cover its highlight');
 assert(geometry.regionAtCoordinate(records, point(1, 1)) === 'r1', 'map center identifies enclosing layer region');
 assert(geometry.regionAtCoordinate(records, point(5, 5)) === null, 'outside center has no focused region');
 const crossing = { ...records, layers: [{id: 'date', regionID: 'cross'}], locations: [{layerID: 'date', vertices: [point(-1, 179), point(-1, -179), point(1, -179), point(1, 179)]}] };
@@ -92,6 +101,8 @@ map.focusLocation(records.locations[0]);
 assert(centered.latitude === 0 && centered.longitude === 0, 'Location focus accepts explicit zero coordinates');
 map.showAll();
 assert(fitted.length === 5, 'show all fits project markers and layer outlines');
+map.setRecords(outlined, {layerID: 'l1', locationAreaID: 'd'}, {fit: false});
+assert(overlays.length === 2, 'hidden Location area cannot remain visible outside selected Layer region');
 map.clearLocations();
 assert(overlays.length === 0 && annotations.length === 1, 'sign-out clears every project graphic');
 (async () => {

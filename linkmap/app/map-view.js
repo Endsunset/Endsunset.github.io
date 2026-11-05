@@ -51,12 +51,15 @@ export function visibleLocations(records, context = {}) {
 }
 
 export function layerBoundaries(records, context = {}) {
-  return (records.layers || []).map(layer => ({
+  const visibleLayerIDs = new Set(visibleLocations(records, context).map(location => location.layerID));
+  return (records.layers || []).filter(layer => visibleLayerIDs.has(layer.id)).map(layer => ({
     layer,
     selected: layer.id === context.layerID,
     vertices: convexHull(records.locations.filter(location => location.layerID === layer.id)
       .flatMap(location => location.vertices?.length ? location.vertices : valid(location.coordinate) ? [location.coordinate] : [])),
-  })).filter(boundary => boundary.vertices.length >= 2);
+  })).filter(boundary => boundary.vertices.length >= 2)
+    // Draw the active Layer after the quiet outlines so its edge stays visible.
+    .sort((a, b) => Number(a.selected) - Number(b.selected));
 }
 
 export function regionAtCoordinate(records, coordinate) {

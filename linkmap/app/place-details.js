@@ -1,6 +1,7 @@
 export function createPlaceDetails() {
   const container = document.getElementById('place-detail');
   const summary = document.getElementById('place-summary');
+  const section = document.getElementById('place-section');
   let detail;
   return {
     show(place) {
@@ -8,6 +9,7 @@ export function createPlaceDetails() {
       detail = null;
       container.replaceChildren();
       container.hidden = !place;
+      section.hidden = !place;
       summary.textContent = place
         ? [place.name, place.formattedAddress].filter(Boolean).join(' · ')
         : 'Custom coordinate selected. Search for a place to see its details.';

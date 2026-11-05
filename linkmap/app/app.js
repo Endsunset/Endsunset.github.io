@@ -7,6 +7,7 @@ import { createPlaceDetails } from "./place-details.js";
 import { createCoordinates } from "./coordinates.js";
 import { createProjectSelector } from "./project-selector.js";
 import { createRecordConsole, recordLabel } from "./record-console.js";
+import { createSidebar } from "./sidebar.js";
 
 const emptyRecords = () => ({ locations: [], regions: [], layers: [], items: [] });
 const emptyContext = () => ({ regionID: null, layerID: null, locationAreaID: null });
@@ -15,9 +16,17 @@ const state = { projects: [], selectedProject: null, records: emptyRecords(), co
 let requestVersion = 0;
 let loaded = false;
 let errorNotice;
+const sidebar = createSidebar(() => {
+  const wasOpen = document.getElementById("record-console").open;
+  consoleView.close({ restoreFocus: false });
+  return wasOpen;
+});
 const selector = createProjectSelector(id => {
   const project = state.projects.find(project => project.id === id);
-  if (project) selectProject(project);
+  if (project) {
+    selectProject(project);
+    sidebar.projectSelected();
+  }
 }, () => {
   if (window.LinkMapAuth.current.state !== "signed-in") window.LinkMapAuth.retry();
   else if (state.selectedProject) selectProject(state.selectedProject);
@@ -30,6 +39,7 @@ const coordinates = createCoordinates(coordinate => {
   details.show(null);
 });
 const search = createPlaceSearch(place => {
+  revealPlace();
   map.showSelection(place.coordinate, place);
   coordinates.show(place.coordinate);
   details.show(place);
@@ -42,6 +52,7 @@ const consoleView = createRecordConsole({
     renderMap(false);
   },
   onLayer: selectLayer,
+  onVisibilityChange: open => sidebar.setDetailsOpen(open),
 });
 const map = initializeMap(() => {
   renderMap(true);
@@ -56,9 +67,15 @@ const map = initializeMap(() => {
   renderContext();
 });
 map.setPlaceSelectionHandler(place => {
+  revealPlace();
   if (place.coordinate) coordinates.show(place.coordinate);
   details.show(place);
 });
+
+function revealPlace() {
+  consoleView.close({ restoreFocus: false });
+  sidebar.show("search");
+}
 
 const query = document.getElementById("record-query");
 const results = document.getElementById("record-results");
@@ -108,7 +125,7 @@ function selectLayer(layer, regionID = null) {
 function renderContext() {
   const region = state.records.regions.find(value => value.id === state.context.regionID);
   const layer = state.records.layers.find(value => value.id === state.context.layerID);
-  document.getElementById("map-context").textContent = [region && recordLabel(region), layer ? `${recordLabel(layer)} · Level ${layer.level}` : "Map · Level 0"].filter(Boolean).join(" · ");
+  document.getElementById("map-context").textContent = [region ? recordLabel(region) : state.selectedProject && recordLabel(state.selectedProject), layer ? `${recordLabel(layer)} · Level ${layer.level}` : "Map · Level 0"].filter(Boolean).join(" · ");
   const layers = state.records.layers.filter(value => value.regionID === state.context.regionID)
     .sort((a, b) => b.level - a.level || recordLabel(a).localeCompare(recordLabel(b), undefined, { numeric: true }));
   const options = [];

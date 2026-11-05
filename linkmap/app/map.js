@@ -139,7 +139,8 @@ export function initializeMap(onReady, onSelectLocation = () => {}, onFocusRegio
     clearGraphics();
     const sdk = window.mapkit;
     const selectedLevel = records.layers.find(layer => layer.id === context.layerID)?.level || 0;
-    annotations = visibleLocations(records, context).filter(location => location.coordinate).map(location => {
+    const locations = visibleLocations(records, context);
+    annotations = locations.filter(location => location.coordinate).map(location => {
       const layer = records.layers.find(layer => layer.id === location.layerID);
       const region = records.regions.find(region => region.id === location.regionID);
       const level = layer?.level || 0;
@@ -157,7 +158,7 @@ export function initializeMap(onReady, onSelectLocation = () => {}, onFocusRegio
     for (const boundary of layerBoundaries(records, context)) {
       overlays.push(makeOverlay(boundary.vertices, boundary.selected));
     }
-    const selectedLocation = records.locations.find(location => location.id === context.locationAreaID);
+    const selectedLocation = locations.find(location => location.id === context.locationAreaID);
     if (selectedLocation?.vertices?.length >= 2) overlays.push(makeOverlay(selectedLocation.vertices, true, true));
     if (annotations.length) map.addAnnotations(annotations);
     if (overlays.length) map.addOverlays(overlays);

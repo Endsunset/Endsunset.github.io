@@ -78,7 +78,7 @@ const empty = () => ({ locations: [], regions: [], layers: [], items: [] });
     setRecords(records, context) { mapRecords = records; mapContext = context; },
     setPlaceSelectionHandler() {}, showAll() {}, focusLocation(location) { focused = location; },
   };
-  new Function('loadProjects', 'loadProjectRecords', 'visibleLocations', 'initializeMap', 'createProjectSelector', 'createPlaceSearch', 'createPlaceDetails', 'createCoordinates', 'createRecordConsole', 'recordLabel', moduleSource('app/app.js'))(
+  new Function('loadProjects', 'loadProjectRecords', 'visibleLocations', 'initializeMap', 'createProjectSelector', 'createPlaceSearch', 'createPlaceDetails', 'createCoordinates', 'createRecordConsole', 'recordLabel', 'createSidebar', moduleSource('app/app.js'))(
     () => { const request = defer(); projectLoads.push(request); return request.promise; },
     project => { const request = defer(); pending.push({ project, ...request }); return request.promise; },
     geometry.visibleLocations,
@@ -86,7 +86,8 @@ const empty = () => ({ locations: [], regions: [], layers: [], items: [] });
     select => { onSelect = select; return { render(value) { view = value; } }; },
     () => ({ ready() {}, cancel() {} }), () => ({ show() {} }), () => ({ ready() {}, show() {} }),
     () => ({ open(kind, record) { opened = {kind,record}; }, close() { closes++; } }),
-    record => record.name || `New ${record.type || 'Project'}`
+    record => record.name || `New ${record.type || 'Project'}`,
+    () => ({ show() {}, projectSelected() {}, setDetailsOpen() {} })
   );
   assert(view.busy, 'project loading visible');
   projectLoads[0].resolve(projects); await flush();
