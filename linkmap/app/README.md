@@ -80,8 +80,8 @@ project list. `sidebar.js` owns the Search/Projects panels and responsive naviga
 `place-search.js`, `place-details.js` and `coordinates.js` handle Apple's
 services and the independent coordinate selection.
 
-The existing authentication container, public origin-restricted MapKit token and
-CloudKit Development configuration are unchanged. The Development schema must
+The existing authentication container and public origin-restricted MapKit token are
+unchanged. CloudKit uses the Production environment. The Production schema must
 permit queries for the four collection types and their `project` references.
 
 ## Verification
@@ -102,7 +102,7 @@ Python Playwright and Chromium; it serves the site locally with SDK doubles and
 checks desktop/mobile viewing, Console navigation, search, overlays and races.
 
 Live Apple acceptance still requires the token's allowed origin and a signed-in
-Development account with private and accepted shared projects. Confirm actual
+Production account with private and accepted shared projects. Confirm actual
 map tiles, place callouts, saved areas, Layer levels and shared-zone records there.
 SDK doubles cannot verify remote permissions, schema indexes or Apple's rendering.
 
