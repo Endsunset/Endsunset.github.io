@@ -36,7 +36,7 @@ button { font: inherit; }
 .button-primary { background: var(--surface); border: 1px solid var(--accent); border-inline-end-width: 4px; color: var(--accent); padding: 17px 21px; }
 .button-primary span { color: var(--accent); font-size: 1.3rem; margin-left: 18px; }
 
-.hero { display: grid; gap: 5vw; grid-template-columns: minmax(0, 1fr) minmax(360px, .85fr); margin: 8vh auto 14vh; max-width: 1280px; padding: 0 5vw; }
+.hero { display: grid; gap: 5vw; grid-template-columns: minmax(0, 1fr) minmax(360px, .85fr); margin: 0 auto; min-height: 90vh; min-height: 90svh; align-items: center; max-width: 1280px; padding: 48px 5vw; }
 .hero-copy { align-self: center; max-width: 650px; }
 .eyebrow { align-items: center; color: var(--accent); display: flex; font-size: .875rem; font-weight: 700; letter-spacing: .13em; margin: 0 0 24px; text-transform: uppercase; }
 .eyebrow-line { background: var(--accent); display: inline-block; height: 1px; margin-right: 12px; width: 30px; }
@@ -67,14 +67,14 @@ h1 em { color: var(--accent); font-style: normal; }
 .release-preview, .product-story { margin-inline: auto; max-width: 1280px; padding-inline: 5vw; }
 .release-preview { padding-bottom: 56px; }
 .release-preview p { color: var(--muted); max-width: 760px; margin: 18px 0 0; }
-.product-story { border-top: 1px solid var(--line); padding-block: 80px 96px; }
-.story-heading { max-width: 650px; margin-bottom: 64px; }
+.product-story { border-top: 1px solid var(--line); padding-block: 0 48px; }
+.story-heading { display: flex; flex-direction: column; justify-content: center; min-height: 35vh; min-height: 35svh; max-width: 650px; padding-block: 40px; }
 .story-heading-right { margin-left: auto; text-align: right; }
 .story-heading-right .eyebrow { justify-content: flex-end; }
 .story-heading h2 { font-size: clamp(2.3rem, 5vw, 4.4rem); letter-spacing: -.05em; line-height: 1.06; }
 .story-heading > p:last-child { color: var(--muted); font-size: 1.08rem; margin: 24px 0 0; }
-.story-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
-.story-row + .story-row { margin-top: 80px; }
+.story-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: center; min-height: 90vh; min-height: 90svh; padding-block: 48px; }
+
 .story-row-reverse .story-visual { grid-column: 2; grid-row: 1; }
 .story-row-reverse .story-copy { grid-column: 1; grid-row: 1; }
 .story-copy h3 { font-size: clamp(1.7rem, 3vw, 2.5rem); letter-spacing: -.035em; line-height: 1.15; }
@@ -89,17 +89,26 @@ h1 em { color: var(--accent); font-style: normal; }
 .story-visual figcaption { color: var(--muted); font-size: .875rem; margin-top: 12px; }
 .story-links { color: var(--muted); margin: 48px 0 0; }
 .story-links a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-.get-started .story-heading { margin-bottom: 32px; }
+.get-started { padding-block: 64px 96px; }
+.get-started .story-heading { min-height: 0; padding: 0; margin-bottom: 32px; }
+
+/* Visible by default; only the observer can opt offscreen elements into a reveal. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-pending { opacity: 0; transform: translateY(24px); }
+  .reveal-ready { transition: opacity 600ms ease, transform 600ms ease; }
+  .story-copy.reveal-ready { transition-delay: 120ms; }
+  .reveal-ready:focus-within { opacity: 1; transform: none; transition: none; }
+}
 
 @media (max-width: 760px) {
-  .hero { display: block; margin-top: 8vh; }
+  .hero { display: block; min-height: 85svh; padding-block: 40px; }
   .hero-copy { margin-bottom: 55px; }
   .map-art { height: 105vw; min-height: 360px; }
-  .product-story { padding-block: 56px 64px; }
-  .story-heading { margin-bottom: 40px; }
-  .story-row { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .product-story { padding-block: 0 32px; }
+  .get-started { padding-block: 48px 64px; }
+  .story-heading { min-height: 0; padding-block: 40px; }
+  .story-row { grid-template-columns: minmax(0, 1fr); gap: 28px; min-height: 70vh; min-height: 70svh; align-content: center; padding-block: 32px; }
   .story-row-reverse .story-visual, .story-row-reverse .story-copy { grid-column: auto; grid-row: auto; }
-  .story-row + .story-row { margin-top: 56px; }
   .screenshot-placeholder { min-height: 240px; }
 }
 [hidden] { display: none !important; }
