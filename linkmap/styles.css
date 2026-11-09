@@ -174,16 +174,14 @@ h1 em { color: var(--accent); font-style: normal; }
 
 /* One route through the product story; the rail is visible without JavaScript. */
 .journey { position: relative; max-width: 1480px; margin-inline: auto; isolation: isolate; }
-.journey::before { content: ""; position: absolute; inset: 0 auto 0 24px; width: 1px; background: var(--line); z-index: -1; }
+.journey::before { content: ""; position: absolute; inset: 0 auto 0 24px; width: 6px; border-radius: 6px; background: var(--line); z-index: -1; }
 .journey.has-path::before { display: none; }
 .journey-path { display: none; position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: -1; }
 .has-path .journey-path { display: block; }
-.journey-track, .journey-progress { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.journey-track, .journey-progress { fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
 .journey-track { stroke: var(--line); }
 .journey-progress { stroke: var(--accent); }
-.journey-node { fill: var(--surface); stroke: var(--line); stroke-width: 2; }
-.journey-node.is-reached { stroke: var(--accent); }
-.linkmap-home .journey .product-story { border: 0; padding-bottom: 0; }
+.linkmap-home .product-story.journey { border: 0; padding-bottom: 64px; }
 .linkmap-home .journey .story-heading { padding-block: 112px 64px; min-height: 48svh; }
 .linkmap-home .journey .story-row { padding-block: 112px 80px; min-height: 105svh; }
 .journey .story-copy { grid-column: 2; grid-row: 1; }
@@ -225,11 +223,15 @@ h1 em { color: var(--accent); font-style: normal; }
   .linkmap-home .journey .story-copy h3 { font-size: clamp(2.2rem, 9vw, 3.5rem); }
 }
 
-/* Fine connectors tie each composition to the route beside it. */
-.journey .story-visual { position: relative; }
-.journey .story-visual::before { content: ""; position: absolute; top: 50%; right: 100%; width: calc(5vw - 24px); height: 1px; background: var(--line); }
-.journey .story-row-reverse .story-visual::before { right: auto; left: 100%; }
+/* Opaque reading surfaces separate the text from the route behind it. */
+.journey .story-copy { position: relative; z-index: 1; background: var(--surface); padding-block: 28px; box-shadow: 0 0 0 24px var(--surface); }
+.journey .story-heading { margin-left: 0; text-align: left; }
+.journey .story-heading > * { position: relative; background: var(--surface); box-shadow: 0 0 0 16px var(--surface); }
+.journey .story-heading .eyebrow { justify-content: flex-start; }
+.journey .story-links { background: var(--surface); position: relative; }
 @media (max-width: 760px) {
+  .linkmap-home .product-story.journey { padding-left: 48px; padding-right: 6vw; }
+  .journey-track, .journey-progress { stroke-width: 4; }
+  .journey .story-copy { box-shadow: 0 0 0 12px var(--surface); padding-block: 16px; }
   .linkmap-home .journey .story-visual { max-width: none; }
-  .journey .story-visual::before, .journey .story-row-reverse .story-visual::before { left: auto; right: 100%; width: 26px; }
 }
