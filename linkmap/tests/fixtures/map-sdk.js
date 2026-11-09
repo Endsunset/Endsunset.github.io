@@ -51,7 +51,7 @@
     PlaceSelectionAccessory:class{constructor(options){this.options=options;}},
     PlaceLookup:class{getPlace(annotation){return new Promise((resolve,reject)=>window.__test.lookups.push({annotation,resolve,reject}));}},
     CoordinateSpan:class{constructor(latitudeDelta,longitudeDelta){Object.assign(this,{latitudeDelta,longitudeDelta});}},
-    MarkerAnnotation:Annotation,Annotation,Padding:class{},Style:class{constructor(options){Object.assign(this,options);}},PolygonOverlay:Overlay,PolylineOverlay:Overlay,
+    MarkerAnnotation:Annotation,Annotation,Padding:class{constructor(values){Object.assign(this,values);}},Style:class{constructor(options){Object.assign(this,options);}},PolygonOverlay:Overlay,PolylineOverlay:Overlay,
     Search:class {
       async autocomplete(query){return {results:[{displayLines:[query,'Test address']}]};}
       async search(query){return {places:[{name:typeof query==='string'?query:query.displayLines[0],formattedAddress:'Test address',coordinate:new Coordinate(3,4)}]};}

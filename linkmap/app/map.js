@@ -11,6 +11,62 @@ export function initializeMap(onReady, onSelectLocation = () => {}, onFocusRegio
   let placeRequestVersion = 0;
   let placeLookup;
   let focusedRegionID;
+  let contentPadding = { top: 0, right: 0, bottom: 0, left: 0 };
+
+  // Measure actual overlay geometry, including intermediate animation frames.
+  function updatePadding() {
+    const canvas = document.getElementById("map");
+    if (!map || !canvas.getBoundingClientRect) return;
+    const frame = canvas.getBoundingClientRect();
+    const mobile = window.matchMedia("(max-width: 760px)").matches;
+    const next = { top: 0, right: 0, bottom: 0, left: 0 };
+    for (const id of ["app-rail", "app-sidebar", "record-console"]) {
+      const element = document.getElementById(id);
+      if (!element.getClientRects().length) continue;
+      const rect = element.getBoundingClientRect();
+      if (mobile) {
+        if (id === "app-rail") next.top = Math.max(0, rect.bottom - frame.top);
+        else next.bottom = Math.max(next.bottom, frame.bottom - rect.top);
+      } else next.left = Math.max(next.left, rect.right - frame.left);
+    }
+    next.left = Math.min(next.left, Math.max(0, frame.width - 1));
+    next.bottom = Math.min(next.bottom, Math.max(0, frame.height - next.top - 1));
+    if (Object.keys(next).some(key => next[key] !== contentPadding[key])) {
+      contentPadding = next;
+      map.padding = new window.mapkit.Padding(next);
+    }
+  }
+
+  function observeOverlays() {
+    if (typeof ResizeObserver === "undefined") return;
+    const resize = new ResizeObserver(updatePadding);
+    const mutation = new MutationObserver(updatePadding);
+    const moving = new Set();
+    let frameID;
+    const followTransition = () => {
+      updatePadding();
+      frameID = moving.size ? requestAnimationFrame(followTransition) : null;
+    };
+    const workspace = document.querySelector(".map-workspace");
+    resize.observe(document.getElementById("map"));
+    mutation.observe(workspace, { attributes: true, attributeFilter: ["class"] });
+    for (const id of ["app-rail", "app-sidebar", "record-console"]) {
+      const element = document.getElementById(id);
+      resize.observe(element);
+      element.addEventListener("transitionrun", event => {
+        if (event.target !== element || !["width", "inset-inline-start", "left"].includes(event.propertyName)) return;
+        moving.add(element);
+        if (!frameID) frameID = requestAnimationFrame(followTransition);
+      });
+      for (const type of ["transitionend", "transitioncancel"]) element.addEventListener(type, event => {
+        if (event.target !== element) return;
+        moving.delete(element);
+        updatePadding();
+      });
+      mutation.observe(element, { attributes: true, attributeFilter: ["hidden", "open"] });
+    }
+    updatePadding();
+  }
   const accent = () => getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
 
   // Public MapKit JS token restricted to endsunset.github.io.
@@ -72,6 +128,7 @@ export function initializeMap(onReady, onSelectLocation = () => {}, onFocusRegio
       });
       window.clearTimeout(timeout);
       loading.hidden = true;
+      observeOverlays();
       onReady();
     } catch (error) {
       showError(error);
@@ -130,8 +187,9 @@ export function initializeMap(onReady, onSelectLocation = () => {}, onFocusRegio
 
   function fitGraphics() {
     if (!map) return;
+    updatePadding();
     const items = [...annotations, ...overlays];
-    if (items.length) map.showItems(items, { animate: false, padding: new window.mapkit.Padding(60, 60, 60, 60) });
+    if (items.length) map.showItems(items, { animate: false, padding: new window.mapkit.Padding({ top: contentPadding.top + 60, right: contentPadding.right + 60, bottom: contentPadding.bottom + 60, left: contentPadding.left + 60 }) });
   }
 
   function render(fit = false) {

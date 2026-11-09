@@ -8,11 +8,14 @@ conversion/query helpers. Changes belong to this web app only.
 ## Viewing behavior
 
 - A persistent sidebar stacks LinkMap, Search and Project. The two buttons open one
-  floating panel over the map at a time; choosing the active button again closes that panel.
+  borderless, full-height desktop column over the map at a time; choosing the active button again closes that panel.
   Search opens by default on desktop. Mobile starts with both panels closed to
   leave the map visible, and choosing a Project closes its panel.
 - The button beside LinkMap collapses navigation to the expand button and Search/Project
-  icons. Those icons still open the same overlay panels; expanding restores the labels.
+  icons, with Help available at the bottom. Expansion and collapse animate together
+  with the adjacent columns (unless reduced motion is enabled). The map canvas fills
+  the workspace; MapKit padding tracks the actual overlays, including mobile sheets.
+  Those icons still open the same overlay panels; expanding restores the labels.
 - The project sidebar lists private and accepted shared projects, with project-name
   search, active selection, Refresh map data, retry and sign-in states. Projects sort by creation
   date descending, then natural name. Shared discoveries replace duplicate IDs.
