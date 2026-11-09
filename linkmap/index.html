@@ -89,6 +89,12 @@
         <p class="availability-note">3.0 is an upcoming iOS beta; availability differs from the current App Store release. The Web App focuses on viewing.</p>
       </aside>
 
+      <div class="journey" id="product-journey">
+        <svg class="journey-path" aria-hidden="true" focusable="false">
+          <path class="journey-track" />
+          <path class="journey-progress" />
+          <g class="journey-nodes"></g>
+        </svg>
       <section class="product-story" id="projects" aria-labelledby="projects-title">
         <header class="story-heading story-heading-right">
           <p class="eyebrow"><span class="eyebrow-line"></span>Projects</p>
@@ -96,25 +102,35 @@
           <p>Every round of work begins with a foundation. Bring your places and Items together in a Project, ready to use again and again.</p>
         </header>
         <article class="story-row" aria-labelledby="project-map-title">
-          <figure class="story-visual">
-            <img src="assets/concept-projects.svg" width="720" height="720" alt="Conceptual Project map with layered Regions, connected Locations, and a reusable Item collection." loading="lazy" decoding="async" />
-            <figcaption>Places and Items. One reusable foundation.</figcaption>
-          </figure>
           <div class="story-copy">
             <h3 id="project-map-title">Build your map</h3>
             <p>Organize Regions, Layers, and Locations in one Project. Give your team a shared map of the places where work happens.</p>
           </div>
+          <figure class="story-visual">
+            <svg class="concept-graphic" viewBox="0 0 600 520" role="img" aria-labelledby="concept-title-0">
+              <title id="concept-title-0">Layered Regions and connected Locations form a Project map.</title>
+              <g class="concept-part concept-part-0"><path d="M40 140 315 55 570 205 285 320Z M40 185 315 100 570 250 285 365Z M40 230 315 145 570 295 285 410Z" class="concept-line" /></g>
+              <g class="concept-part concept-part-1"><path d="m105 235 135-55 105 80-100 65Z" class="concept-accent" /><path d="m305 175 65-15 125 95-110 40Z" class="concept-line" /><text x="46" y="68" class="concept-label">Regions / Layers</text></g>
+              <g class="concept-part concept-part-2"><path d="M155 270 270 305 395 245 475 300" class="concept-accent" /><circle cx="155" cy="270" r="10" class="concept-node" /><circle cx="270" cy="305" r="10" class="concept-node" /><circle cx="395" cy="245" r="10" class="concept-node" /><circle cx="475" cy="300" r="10" class="concept-node" /><text x="340" y="408" class="concept-label">Saved Locations</text></g>
+            </svg>
+            <figcaption>Places and Items. One reusable foundation.</figcaption>
+          </figure>
         </article>
         <article class="story-row story-row-reverse" aria-labelledby="project-items-title">
-          <figure class="story-visual">
-            <img src="assets/concept-projects.svg#items" width="640" height="405" alt="Detail of the Project composition connecting reusable Items to future Activities." loading="lazy" decoding="async" />
-            <figcaption>Define once. Bring into the next Activity.</figcaption>
-          </figure>
           <div class="story-copy">
             <h3 id="project-items-title">Set up your Items</h3>
             <p>Define the Items your team uses across Activities. Keep a reusable catalog in the Project, ready for each new round of work.</p>
             <p class="story-note">Item definitions belong to the Project. Supply and quantities are recorded in active Activities.</p>
           </div>
+          <figure class="story-visual">
+            <svg class="concept-graphic" viewBox="0 0 600 520" role="img" aria-labelledby="concept-title-1">
+              <title id="concept-title-1">Reusable Item definitions connect a Project with future Activities.</title>
+              <g class="concept-part concept-part-0"><path d="M300 100V185H105v90 M300 185h195v90 M300 185v90" class="concept-line" /><text x="206" y="80">Project Items</text></g>
+              <g class="concept-part concept-part-1"><path d="m80 280 24-13 24 13v34l-24 13-24-13Z m0 0 24 13 24-13 m-24 13v34" class="concept-accent" /><path d="m275 280 24-13 24 13v34l-24 13-24-13Z m0 0 24 13 24-13 m-24 13v34" class="concept-accent" /><path d="m470 280 24-13 24 13v34l-24 13-24-13Z m0 0 24 13 24-13 m-24 13v34" class="concept-accent" /><text x="60" y="370" class="concept-label">Define</text><text x="260" y="370" class="concept-label">Reuse</text><text x="460" y="370" class="concept-label">Prepare</text></g>
+              <g class="concept-part concept-part-2"><path d="M105 340v65H495v-65 M300 405v35" class="concept-line" /><text x="155" y="475" class="concept-label">A foundation for future Activities</text></g>
+            </svg>
+            <figcaption>Define once. Bring into the next Activity.</figcaption>
+          </figure>
         </article>
       </section>
 
@@ -125,25 +141,35 @@
           <p>Keep ownership close and bring your team into the picture. Your Project lives in your iCloud account, with changes synced through Apple services to devices with access.</p>
         </header>
         <article class="story-row" aria-labelledby="project-sharing-title">
-          <figure class="story-visual">
-            <img src="assets/concept-icloud.svg" width="720" height="720" alt="Conceptual iCloud hub connecting an owner’s Project and Activity to separate invitation groups." loading="lazy" decoding="async" />
-            <figcaption>Connected through iCloud. Shared on your terms.</figcaption>
-          </figure>
           <div class="story-copy">
             <h3 id="project-sharing-title">Share projects</h3>
             <p>Invite collaborators to your Project and choose who can view or edit its reusable places and Item definitions.</p>
           </div>
+          <figure class="story-visual">
+            <svg class="concept-graphic" viewBox="0 0 600 520" role="img" aria-labelledby="concept-title-2">
+              <title id="concept-title-2">An owner’s iCloud Project connects collaborators with viewing or editing permission.</title>
+              <g class="concept-part concept-part-0"><path d="M220 125c-45 0-45-65-10-75 5-50 85-60 105-15 50-10 75 65 25 90Z" class="concept-accent" /><text x="236" y="95" class="concept-label">iCloud</text><text x="380" y="90" class="concept-label">Owner</text></g>
+              <g class="concept-part concept-part-1"><path d="M280 130v70 M280 290v60H110v40 M280 350h190v40" class="concept-line" /><rect x="170" y="200" width="220" height="90" rx="4" class="concept-surface" /><text x="225" y="253">Project</text></g>
+              <g class="concept-part concept-part-2"><circle cx="110" cy="405" r="26" class="concept-node" /><circle cx="470" cy="405" r="26" class="concept-node" /><text x="63" y="465" class="concept-label">Can view</text><text x="423" y="465" class="concept-label">Can edit</text><text x="185" y="330" class="concept-label">Invitation</text></g>
+            </svg>
+            <figcaption>Connected through iCloud. Shared on your terms.</figcaption>
+          </figure>
         </article>
         <article class="story-row story-row-reverse" aria-labelledby="activity-sharing-title">
-          <figure class="story-visual">
-            <img src="assets/concept-icloud.svg#invitations" width="680" height="360" alt="Distinct Project and Activity invitation groups, separated to show independent access." loading="lazy" decoding="async" />
-            <figcaption>Two invitations. Access to the work each person needs.</figcaption>
-          </figure>
           <div class="story-copy">
             <h3 id="activity-sharing-title">Share activities</h3>
             <p>Invite people separately to the Activity they need. Give them permission to help with planning or record work while the Activity is active.</p>
             <p class="story-note">Collaborators need both invitations: accept the Project first, then the Activity. An Activity invitation does not grant Project access.</p>
           </div>
+          <figure class="story-visual">
+            <svg class="concept-graphic" viewBox="0 0 600 520" role="img" aria-labelledby="concept-title-3">
+              <title id="concept-title-3">Project access and a separate Activity invitation connect participants to Planning or Active work.</title>
+              <g class="concept-part concept-part-0"><path d="M80 105H520" class="concept-line" /><rect x="65" y="55" width="210" height="90" rx="4" class="concept-surface" /><text x="94" y="110">Project access</text><text x="325" y="110" class="concept-label">Accepted first</text></g>
+              <g class="concept-part concept-part-1"><rect x="185" y="215" width="230" height="95" rx="4" class="concept-surface" /><text x="245" y="272">Activity</text><path d="M300 160v40 M285 185l15 15 15-15" class="concept-accent" /><text x="30" y="266" class="concept-label">Separate</text></g>
+              <g class="concept-part concept-part-2"><path d="M300 310v50H110v50 M300 360h190v50" class="concept-line" /><circle cx="110" cy="425" r="25" class="concept-node" /><circle cx="490" cy="425" r="25" class="concept-node" /><text x="69" y="480" class="concept-label">Planning</text><text x="459" y="480" class="concept-label">Active</text><text x="215" y="395" class="concept-label">Invitation</text></g>
+            </svg>
+            <figcaption>Two invitations. Access to the work each person needs.</figcaption>
+          </figure>
         </article>
         <p class="story-links">Explore the <a href="documentation/">Documentation</a> or read the <a href="privacy-policy/">privacy policy</a> for storage and sharing details.</p>
       </section>
@@ -155,37 +181,53 @@
           <p>Turn a shared foundation into a round of real work. Prepare the plan, record what happens, and understand what your team accomplished.</p>
         </header>
         <article class="story-row" aria-labelledby="activity-plan-title">
-          <figure class="story-visual">
-            <img src="assets/concept-activities.svg" width="720" height="720" alt="Conceptual workflow linking Assignments and ordered Stops to field recording and saved outcomes." loading="lazy" decoding="async" />
-            <figcaption>A plan that carries through to results.</figcaption>
-          </figure>
           <div class="story-copy">
             <h3 id="activity-plan-title">Plan</h3>
             <p>Prepare Assignments, Routes, and ordered Stops before work begins. Decide where teams will go and which resources they will need.</p>
           </div>
+          <figure class="story-visual">
+            <svg class="concept-graphic" viewBox="0 0 600 520" role="img" aria-labelledby="concept-title-4">
+              <title id="concept-title-4">Assignments connect a Route’s ordered Stops and resource preparation.</title>
+              <g class="concept-part concept-part-0"><rect x="195" y="45" width="210" height="80" rx="4" class="concept-surface" /><text x="223" y="94">Assignments</text><path d="M300 125v55H105v60 M300 180h195v60" class="concept-line" /></g>
+              <g class="concept-part concept-part-1"><path d="M105 245v70Q105 340 135 340H465Q495 340 495 370v45" class="concept-accent" /><circle cx="105" cy="245" r="10" class="concept-node" /><circle cx="205" cy="340" r="10" class="concept-node" /><circle cx="365" cy="340" r="10" class="concept-node" /><circle cx="495" cy="415" r="10" class="concept-node" /><text x="245" y="280" class="concept-label">Ordered Stops</text></g>
+              <g class="concept-part concept-part-2"><path d="m60 405 24-13 24 13v34l-24 13-24-13Z m0 0 24 13 24-13 m-24 13v34" class="concept-accent" /><text x="140" y="442" class="concept-label">Prepare resources</text><path d="M140 465H360" class="concept-line" /></g>
+            </svg>
+            <figcaption>A plan that carries through to results.</figcaption>
+          </figure>
         </article>
         <article class="story-row story-row-reverse" aria-labelledby="activity-record-title">
-          <figure class="story-visual">
-            <img src="assets/concept-activities.svg#record" width="560" height="235" alt="Detail of the workflow showing Item movement and a saved record of people served." loading="lazy" decoding="async" />
-            <figcaption>Make the work visible as it happens.</figcaption>
-          </figure>
           <div class="story-copy">
             <h3 id="activity-record-title">Record</h3>
             <p>During active work, record Item transfers, distributions at Stops, and beneficiary counts. Save what your team delivers and the people it serves.</p>
           </div>
+          <figure class="story-visual">
+            <svg class="concept-graphic" viewBox="0 0 600 520" role="img" aria-labelledby="concept-title-5">
+              <title id="concept-title-5">Item transfers connect Stop distributions with saved beneficiary records.</title>
+              <g class="concept-part concept-part-0"><path d="m60 90 24-13 24 13v34l-24 13-24-13Z m0 0 24 13 24-13 m-24 13v34" class="concept-accent" /><path d="m265 90 24-13 24 13v34l-24 13-24-13Z m0 0 24 13 24-13 m-24 13v34" class="concept-accent" /><path d="m470 90 24-13 24 13v34l-24 13-24-13Z m0 0 24 13 24-13 m-24 13v34" class="concept-accent" /><path d="M130 120h100m-12-10 12 10-12 10 M335 120h100m-12-10 12 10-12 10" class="concept-accent" /><text x="170" y="60" class="concept-label">Item transfers</text></g>
+              <g class="concept-part concept-part-1"><path d="M290 150v70H120v55 M290 220h190v55" class="concept-line" /><circle cx="120" cy="295" r="22" class="concept-node" /><circle cx="480" cy="295" r="22" class="concept-node" /><text x="194" y="264" class="concept-label">Stop distribution</text></g>
+              <g class="concept-part concept-part-2"><rect x="115" y="370" width="370" height="100" rx="4" class="concept-surface" /><path d="m145 414 13 13 22-26" class="concept-accent" /><text x="205" y="412">People served</text><text x="205" y="447" class="concept-label">Saved field records</text></g>
+            </svg>
+            <figcaption>Make the work visible as it happens.</figcaption>
+          </figure>
         </article>
         <article class="story-row" aria-labelledby="activity-review-title">
-          <figure class="story-visual">
-            <img src="assets/concept-activities.svg#review" width="520" height="255" alt="Detail of the workflow showing illustrative bars and a ring chart for saved outcomes." loading="lazy" decoding="async" />
-            <figcaption>See the story in the work you saved.</figcaption>
-          </figure>
           <div class="story-copy">
             <h3 id="activity-review-title">Review</h3>
             <p>Look back at saved outcomes through usage summaries, distribution charts, and completed Activity details. See how resources were used across teams and places.</p>
             <p class="story-note">Activities move through Planning, Active, and Ended. Ended Activities keep their saved results available for review.</p>
           </div>
+          <figure class="story-visual">
+            <svg class="concept-graphic" viewBox="0 0 600 520" role="img" aria-labelledby="concept-title-6">
+              <title id="concept-title-6">Illustrative usage bars and a distribution ring summarize saved Activity outcomes.</title>
+              <g class="concept-part concept-part-0"><path d="M65 80v320H335" class="concept-line" /><text x="65" y="48" class="concept-label">Usage &amp; distribution</text><text x="385" y="48" class="concept-label">Outcomes</text></g>
+              <g class="concept-part concept-part-1"><path d="M110 400V270 M175 400V180 M240 400V230 M305 400V115" class="concept-bars" /><circle cx="470" cy="220" r="75" class="concept-ring" /><path d="M470 145a75 75 0 0 1 75 75" class="concept-ring-accent" /></g>
+              <g class="concept-part concept-part-2"><path d="M70 445h470 M70 480h260" class="concept-line" /><text x="390" y="465" class="concept-label">Saved results</text></g>
+            </svg>
+            <figcaption>See the story in the work you saved.</figcaption>
+          </figure>
         </article>
       </section>
+      </div>
       <section class="product-story get-started" id="get-started" aria-labelledby="get-started-title">
         <header class="story-heading">
           <h2 id="get-started-title">Get Started</h2>

@@ -89,14 +89,6 @@ h1 em { color: var(--accent); font-style: normal; }
 .get-started { padding-block: 64px 96px; }
 .get-started .story-heading { min-height: 0; padding: 0; margin-bottom: 32px; }
 
-/* Visible by default; only the observer can opt offscreen elements into a reveal. */
-@media (prefers-reduced-motion: no-preference) {
-  .reveal-pending { opacity: 0; transform: translateY(32px); }
-  .reveal-ready { transition: opacity 900ms cubic-bezier(.2,.65,.3,1), transform 900ms cubic-bezier(.2,.65,.3,1); }
-  .story-copy.reveal-ready { transition-delay: 220ms; }
-  .reveal-ready:focus-within { opacity: 1; transform: none; transition: none; }
-}
-
 @media (max-width: 760px) {
   .hero { display: block; min-height: 85svh; padding-block: 40px; }
   .hero-copy { margin-bottom: 55px; }
@@ -178,4 +170,66 @@ h1 em { color: var(--accent); font-style: normal; }
   .linkmap-home .story-visual { max-width: 540px; width: 100%; margin-inline: auto; }
   .linkmap-home .product-intro { padding-block: 48px 64px; }
   .linkmap-home .get-started .story-heading { padding: 0; }
+}
+
+/* One route through the product story; the rail is visible without JavaScript. */
+.journey { position: relative; max-width: 1480px; margin-inline: auto; isolation: isolate; }
+.journey::before { content: ""; position: absolute; inset: 0 auto 0 24px; width: 1px; background: var(--line); z-index: -1; }
+.journey.has-path::before { display: none; }
+.journey-path { display: none; position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: -1; }
+.has-path .journey-path { display: block; }
+.journey-track, .journey-progress { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.journey-track { stroke: var(--line); }
+.journey-progress { stroke: var(--accent); }
+.journey-node { fill: var(--surface); stroke: var(--line); stroke-width: 2; }
+.journey-node.is-reached { stroke: var(--accent); }
+.linkmap-home .journey .product-story { border: 0; padding-bottom: 0; }
+.linkmap-home .journey .story-heading { padding-block: 112px 64px; min-height: 48svh; }
+.linkmap-home .journey .story-row { padding-block: 112px 80px; min-height: 105svh; }
+.journey .story-copy { grid-column: 2; grid-row: 1; }
+.journey .story-visual { grid-column: 1; grid-row: 1; }
+.journey .story-row-reverse .story-copy { grid-column: 1; }
+.journey .story-row-reverse .story-visual { grid-column: 2; }
+.journey .story-links { margin: 0; padding-block: 0 64px; }
+.concept-graphic { display: block; width: 100%; height: auto; overflow: visible; }
+.concept-graphic text { font-family: var(--body); font-size: 26px; fill: var(--ink); }
+.concept-graphic .concept-label { font-size: 20px; fill: var(--muted); }
+.concept-line { fill: none; stroke: var(--line); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.concept-accent { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.concept-node { fill: var(--surface); stroke: var(--accent); stroke-width: 2.5; }
+.concept-surface { fill: var(--surface); stroke: var(--line); stroke-width: 2; }
+.concept-bars { fill: none; stroke: var(--accent); stroke-width: 24; }
+.concept-ring, .concept-ring-accent { fill: none; stroke: var(--line); stroke-width: 18; }
+.concept-ring-accent { stroke: var(--accent); }
+/* Text begins first. The composition follows in three deliberate stages. */
+@media (prefers-reduced-motion: no-preference) {
+  .journey-ready .story-copy, .story-heading.journey-ready > *,
+  .journey-ready .concept-part, .journey-ready figcaption {
+    transition: opacity 1000ms cubic-bezier(.2,.65,.3,1), transform 1000ms cubic-bezier(.2,.65,.3,1);
+  }
+  .journey-ready .concept-part-0 { transition-delay: 400ms; }
+  .journey-ready .concept-part-1 { transition-delay: 600ms; }
+  .journey-ready .concept-part-2 { transition-delay: 800ms; }
+  .journey-ready figcaption { transition-delay: 800ms; }
+  .journey-pending .story-copy, .story-heading.journey-pending > *,
+  .journey-pending .concept-part, .journey-pending figcaption { opacity: 0; transform: translateY(32px); }
+  .journey-ready:focus-within .story-copy, .journey-ready:focus-within .concept-part,
+  .journey-ready:focus-within figcaption { opacity: 1; transform: none; transition: none; }
+}
+@media (max-width: 760px) {
+  .journey::before { left: 18px; }
+  .linkmap-home .journey .product-story { padding-left: 48px; padding-right: 6vw; }
+  .linkmap-home .journey .story-heading { padding-block: 88px 48px; min-height: 0; }
+  .linkmap-home .journey .story-row { min-height: 80svh; padding-block: 88px 56px; gap: 40px; }
+  .journey .story-row .story-copy, .journey .story-row .story-visual { grid-column: 1; grid-row: auto; }
+  .linkmap-home .journey .story-copy h3 { font-size: clamp(2.2rem, 9vw, 3.5rem); }
+}
+
+/* Fine connectors tie each composition to the route beside it. */
+.journey .story-visual { position: relative; }
+.journey .story-visual::before { content: ""; position: absolute; top: 50%; right: 100%; width: calc(5vw - 24px); height: 1px; background: var(--line); }
+.journey .story-row-reverse .story-visual::before { right: auto; left: 100%; }
+@media (max-width: 760px) {
+  .linkmap-home .journey .story-visual { max-width: none; }
+  .journey .story-visual::before, .journey .story-row-reverse .story-visual::before { left: auto; right: 100%; width: 26px; }
 }
