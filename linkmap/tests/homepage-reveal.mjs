@@ -22,8 +22,8 @@ function setup({ reduced = false, supported = true, width = 1200, textOffset = 0
     } : i ? stop : null;
     return stop;
   });
-  const track = element(), progress = element(), road = element();
-  const ending = { getBoundingClientRect: () => ({ top: 3000 - scroll, height: 1000 }) };
+  const track = element(), progress = element();
+  const ending = { querySelector: name => name === '.story-heading' ? stops[3] : { getBoundingClientRect: () => ({ height: 100 }) } };
   const sections = [{ getBoundingClientRect: () => ({ bottom: 2900 - scroll }) }];
   // Deterministic monotonic arc model; browser geometry is a separate visual check.
   progress.getTotalLength = () => 4000;
@@ -32,7 +32,7 @@ function setup({ reduced = false, supported = true, width = 1200, textOffset = 0
   svg.querySelector = name => ({ '.journey-track': track, '.journey-progress': progress })[name];
   const journey = element();
   journey.getBoundingClientRect = () => ({ top: -scroll, left: 0, width: window.innerWidth, height: 4000 });
-  journey.querySelector = name => ({ '.journey-path': svg, '.get-started': ending, '.journey-road': road })[name];
+  journey.querySelector = name => ({ '.journey-path': svg, '.get-started': ending })[name];
   journey.querySelectorAll = name => name.includes('product-story') ? sections : stops;
   journey.addEventListener = (_, cb) => { focus = cb; };
   class Observer {
@@ -50,7 +50,7 @@ function setup({ reduced = false, supported = true, width = 1200, textOffset = 0
     requestAnimationFrame: cb => { queued = cb; return 1; },
     document: { querySelectorAll: () => [journey] } });
   const flush = () => { const cb = queued; queued = null; cb?.(); };
-  return { stops, observed, progress, track, road, svg,
+  return { stops, observed, progress, track, svg,
     enter: (index, ratio = .2) => { callback([{ target: stops[index], isIntersecting: true, intersectionRatio: ratio }]); flush(); },
     scroll: y => { scroll = y; events.scroll(); flush(); },
     resize: w => { window.innerWidth = w; resizeObserver(); flush(); },
@@ -89,7 +89,7 @@ assert.equal(s.track.attributes.d, s.progress.attributes.d);
 assert.equal((s.track.attributes.d.match(/M /g) || []).length, 1, 'No disconnected subpaths');
 assert(s.track.attributes.d.startsWith('M 600 136'), 'Chapter starts at the page center');
 assert(s.track.attributes.d.includes('600 2876'), 'Chapter returns to the center at its end');
-assert(s.track.attributes.d.endsWith('V 3618'), 'Line ends 61.8 percent down Get Started');
+assert(s.track.attributes.d.endsWith('V 3150'), 'Line ends behind the center of the Get Started title');
 assert(s.track.attributes.d.includes(' H '), 'Desktop crossings have truly horizontal runs');
 assert(s.track.attributes.d.includes(' Q '), 'Turns use rounded corners');
 assert(s.track.attributes.d.includes('983.3333333333333'), 'Right-column route is one-third from the right');
@@ -98,13 +98,10 @@ s.resize(390);
 assert(s.track.attributes.d.startsWith('M 195'), 'Mobile chapter remains centered');
 assert(s.track.attributes.d.includes('18'), 'Mobile features retain an edge rail');
 s.scroll(3600);
-assert.equal(s.road.style.clipPath, 'inset(0 0 0% 0)', 'Road opens all the way to the bottom');
 s.scroll(0);
-assert.equal(s.road.style.clipPath, 'inset(0 0 0% 0)', 'Road stays revealed on reverse scrolling');
 const changed = setup();
 changed.reduce();
 assert.equal(changed.observed.size, 0);
 assert(changed.stops.every(e => !e.classes.has('journey-pending')));
 assert.equal(+changed.progress.style.strokeDashoffset, 0);
-assert.equal(changed.road.style.clipPath, 'inset(0 0 0% 0)');
-console.log('Passed centered chapter joins, 61.8% road endpoint, road reveal, mobile geometry, reverse scroll, focus and motion fallbacks.');
+console.log('Passed centered chapter joins, Get Started title endpoint, mobile geometry, reverse scroll, focus and motion fallbacks.');

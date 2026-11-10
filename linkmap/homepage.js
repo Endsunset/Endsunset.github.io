@@ -1,4 +1,4 @@
-/* One centered route joins the sections and opens into the final road. */
+/* One centered route joins the sections and ends behind Get Started. */
 (() => {
   for (const journey of document.querySelectorAll('.journey')) initialize(journey);
 
@@ -7,14 +7,15 @@
     const track = svg.querySelector('.journey-track');
     const progress = svg.querySelector('.journey-progress');
     const ending = journey.querySelector('.get-started');
-    const road = journey.querySelector('.journey-road');
+    const endingHeading = ending.querySelector('.story-heading');
+    const endingTitle = ending.querySelector('h2');
     const sections = [...journey.querySelectorAll('.product-story:not(.get-started)')];
     const stops = [...journey.querySelectorAll('.story-heading, .story-row')];
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const canReveal = 'IntersectionObserver' in window;
     const visible = new Set();
     const revealPosition = 0.618;
-    let points = [], length = 0, furthest = 0, frame = 0, measureNeeded = true, endY = 0, roadProgress = 0;
+    let points = [], length = 0, furthest = 0, frame = 0, measureNeeded = true, endY = 0;
     let observer;
 
     function reveal(stop) {
@@ -26,13 +27,16 @@
     function measure() {
       const bounds = journey.getBoundingClientRect();
       const mobile = window.innerWidth <= 760;
+      // The heading has no top padding: its title begins at the heading's top.
+      // Read the title height only, so reveal transforms cannot move the endpoint.
+      endY = endingHeading.getBoundingClientRect().top - bounds.top + endingTitle.getBoundingClientRect().height / 2;
       points = stops.map(stop => {
         const text = stop.querySelector('.story-copy') || stop;
         const textBounds = text.getBoundingClientRect();
         const right = stop.classList.contains('story-row') && !stop.classList.contains('story-row-reverse');
         return {
           x: stop.classList.contains('story-heading') ? bounds.width / 2 : mobile ? 18 : textBounds.left - bounds.left + textBounds.width * (right ? 2 / 3 : 1 / 3),
-          y: stop.getBoundingClientRect().top - bounds.top + 36,
+          y: stop === endingHeading ? endY : stop.getBoundingClientRect().top - bounds.top + 36,
           stop,
         };
       });
@@ -42,9 +46,6 @@
         const rect = section.getBoundingClientRect();
         points.push({ x: bounds.width / 2, y: rect.bottom - bounds.top - 24 });
       }
-      const endingBounds = ending.getBoundingClientRect();
-      endY = endingBounds.top - bounds.top + endingBounds.height * 0.618;
-      points.push({ x: bounds.width / 2, y: endY });
       points.sort((a, b) => a.y - b.y);
       let d = `M ${points[0].x} ${points[0].y}`;
       for (let i = 1; i < points.length; i++) {
@@ -93,10 +94,6 @@
       furthest = motion.matches || !canReveal ? 1 : Math.max(furthest, drawn / length);
       progress.style.strokeDasharray = `${length}`;
       progress.style.strokeDashoffset = `${length * (1 - furthest)}`;
-      const atPageEnd = window.scrollY + window.innerHeight >= (document.documentElement?.scrollHeight ?? Infinity) - 2;
-      const roadFraction = Math.max(0, Math.min(1, (y - endY) / (journey.getBoundingClientRect().height - endY)));
-      roadProgress = motion.matches || !canReveal || atPageEnd ? 1 : Math.max(roadProgress, roadFraction);
-      road.style.clipPath = `inset(0 0 ${(1 - roadProgress) * 100}% 0)`;
       const drawnLength = length * furthest;
       for (const point of points) {
         const reached = point.length <= drawnLength;
