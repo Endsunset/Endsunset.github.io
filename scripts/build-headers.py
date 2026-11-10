@@ -3,7 +3,7 @@
 Run after editing the header partials without rebuilding page content.
 """
 import re
-from site_chrome import ROOT, render_header
+from site_chrome import ROOT, render_header, inject_icons
 
 # Include the backdrop and spacer owned by the header component.
 PATTERN = re.compile(
@@ -25,6 +25,7 @@ def main():
         updated, matches = PATTERN.subn(lambda _: header, source)
         if matches != 1:
             raise ValueError(f'Expected one complete shared header in {page.relative_to(ROOT)}')
+        updated = inject_icons(updated)
         if updated != source:
             page.write_text(updated)
         count += 1

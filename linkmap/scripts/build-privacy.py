@@ -4,6 +4,7 @@ import html
 import re
 from site_header import render_header, render_assets
 from site_footer import render_footer
+from site_chrome import inject_icons
 
 root = Path(__file__).resolve().parents[1]
 
@@ -50,4 +51,6 @@ output.mkdir(exist_ok=True)
 </body>
 </html>
 ''')
+page = output / 'index.html'
+page.write_text(inject_icons(page.read_text()))
 print('Rendered privacy-policy/index.html from privacy-policy.md.')

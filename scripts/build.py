@@ -5,7 +5,7 @@ from html import escape
 from pathlib import Path
 from string import Template
 from urllib.parse import urlparse
-from site_chrome import render_header, render_footer, render_assets, project_url
+from site_chrome import render_header, render_footer, render_head, project_url
 
 ROOT = Path(__file__).resolve().parents[1]
 projects = json.loads((ROOT / 'content/projects.json').read_text())
@@ -48,10 +48,9 @@ content += '</ul></section>'
 template = Template((ROOT / 'templates/page.html').read_text())
 (ROOT / 'projects').mkdir(exist_ok=True)
 (ROOT / 'projects/index.html').write_text(template.substitute(
-    title='Endsunset — Projects',
-    description='Explore the things we’re building at Endsunset, including LinkMap.',
+    head=render_head(title='Endsunset — Projects', description='Explore the things we’re building at Endsunset, including LinkMap.'),
     page='projects', content=content,
-    chrome_assets=render_assets(), header=render_header(),
+    header=render_header(),
     footer=render_footer(),
 ))
 print(f'Built Projects with {len(projects)} project(s).')
@@ -59,9 +58,8 @@ home_content = '<section aria-labelledby="home-title"><h1 class="visually-hidden
 home_content += ''.join(showcase(project) for project in projects)
 home_content += '</section>'
 (ROOT / 'index.html').write_text(template.substitute(
-    title='Endsunset',
-    description='Discover LinkMap from Endsunset. Plan places, routes, and supplies. Together.',
-    page='home', content=home_content, chrome_assets=render_assets(),
+    head=render_head(title='Endsunset', description='Discover LinkMap from Endsunset. Plan places, routes, and supplies. Together.'),
+    page='home', content=home_content,
     header=render_header(), footer=render_footer(),
 ))
 print(f'Built homepage with {len(projects)} project showcase(s).')

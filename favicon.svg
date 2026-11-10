@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Endsunset">
+  <defs>
+    <linearGradient id="topLeft" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#AC78F4"/><stop offset="100%" stop-color="#57228E"/></linearGradient>
+    <linearGradient id="topRight" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="55%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#E7DDF3"/></linearGradient>
+    <linearGradient id="bottomLeft" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#30203D"/><stop offset="100%" stop-color="#050408"/></linearGradient>
+    <linearGradient id="bottomRight" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#8444C6"/><stop offset="100%" stop-color="#281043"/></linearGradient>
+  </defs>
+  <polygon points="100,10 100,100 10,100" fill="url(#topLeft)"/>
+  <polygon points="100,10 190,100 100,100" fill="url(#topRight)"/>
+  <polygon points="10,100 100,100 100,190" fill="url(#bottomLeft)"/>
+  <polygon points="100,100 190,100 100,190" fill="url(#bottomRight)"/>
+</svg>

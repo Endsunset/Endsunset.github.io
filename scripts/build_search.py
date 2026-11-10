@@ -3,7 +3,7 @@ import json
 from html import escape
 from pathlib import Path
 from string import Template
-from site_chrome import render_header, render_footer, render_assets, project_url
+from site_chrome import render_header, render_footer, render_head, project_url
 
 
 def build_search(root):
@@ -20,8 +20,14 @@ def build_search(root):
             entries.append(dict(title=article['metadata']['title'], url='/linkmap' + route + '/', summary='LinkMap documentation'))
     rows = ''.join(f'<li data-search-entry><a href="{escape(e["url"], quote=True)}">{escape(e["title"])}</a><p>{escape(e["summary"])}</p></li>' for e in entries)
     content = f'''<section class="search-page shell"><h1>Search Endsunset</h1><p>Find projects and documentation.</p><form id="site-search-controls" role="search" action="/search/" method="get"><label for="site-search">Search this site</label><div class="site-search-field"><input id="site-search" name="q" type="search" autocomplete="off" placeholder="Search LinkMap, documentation…"><button id="site-search-clear" type="button" aria-label="Clear search" hidden>×</button></div><p id="search-status" role="status"></p></form><ul class="search-results" hidden>{rows}</ul><noscript><p>Enable JavaScript to show search results.</p></noscript></section>'''
-    page = Template((root / 'templates/page.html').read_text()).substitute(title='Search — Endsunset', description='Search Endsunset projects and documentation.', page='search', content=content, chrome_assets=render_assets(), header=render_header(), footer=render_footer())
-    page = page.replace('</head>', '<script src="/assets/scripts/search.js" defer></script>\n</head>')
+    page = Template((root / 'templates/page.html').read_text()).substitute(
+        head=render_head(
+            title='Search — Endsunset',
+            description='Search Endsunset projects and documentation.',
+            page_assets='<script src="/assets/scripts/search.js" defer></script>',
+        ),
+        page='search', content=content, header=render_header(), footer=render_footer(),
+    )
     (root / 'search').mkdir(exist_ok=True)
     (root / 'search/index.html').write_text(page)
     print(f'Built search with {len(entries)} destinations.')

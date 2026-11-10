@@ -47,7 +47,7 @@ def check_url(source, url, *, fragments=False):
     if source.is_relative_to(PROJECT):
         assert target.resolve().is_relative_to(PROJECT) or (
             target.resolve().is_relative_to(ROOT / "assets") or
-            target in [ROOT / "index.html", ROOT / "projects/index.html", ROOT / "search/index.html"]
+            target in [ROOT / "index.html", ROOT / "projects/index.html", ROOT / "search/index.html", ROOT / "favicon.svg", ROOT / "apple-touch-icon.png"]
         ), f"Unexpected LinkMap destination: {url}"
     if fragments and resolved.fragment and target.suffix == ".html":
         # DocC renders article headings at runtime from its JSON data.

@@ -1,6 +1,7 @@
 """Refresh shared headers in every checked-in page."""
 import re
 from site_header import ROOT, START, END, render_header, render_assets
+from site_chrome import inject_icons
 
 for page in sorted(ROOT.rglob('index.html')):
     relative = page.relative_to(ROOT)
@@ -16,5 +17,5 @@ for page in sorted(ROOT.rglob('index.html')):
     assets = render_assets()
     if '/assets/styles/site-chrome.css' not in updated:
         updated = updated.replace('</head>', assets + '\n</head>', 1)
-    page.write_text(updated)
+    page.write_text(inject_icons(updated))
     print(f'Updated {relative}')

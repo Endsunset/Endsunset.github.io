@@ -8,6 +8,7 @@ import subprocess
 import tempfile
 
 from site_header import render_header, render_assets
+from site_chrome import inject_icons
 from site_footer import render_footer
 
 
@@ -97,7 +98,7 @@ def add_website_chrome(documentation):
         html = html.replace('<body data-color-scheme="light">',
                             '<body data-color-scheme="light">' + render_header(inline=True))
         html = html.replace('</body>', render_footer() + '</body>')
-        page.write_text(html)
+        page.write_text(inject_icons(html))
 
 
 def main():
@@ -141,6 +142,8 @@ def main():
                 aliases[article.stem.lower()] = f"ios/{article.stem.lower()}"
         for former, destination in aliases.items():
             redirect(documentation / former, documentation / destination)
+        for page in documentation.rglob("index.html"):
+            page.write_text(inject_icons(page.read_text()))
 
         # Publish only generator-owned paths; the product homepage stays intact.
         for name in (*ASSET_DIRECTORIES, *ASSET_FILES, "documentation"):
@@ -156,6 +159,8 @@ def main():
                 shutil.copyfile(source, destination)
 
     redirect(ROOT / "docs", OUTPUT)
+    shortcut = ROOT / "docs" / "index.html"
+    shortcut.write_text(inject_icons(shortcut.read_text()))
     print("Built the iOS and Web DocC collections at /linkmap/documentation/")
 
 
