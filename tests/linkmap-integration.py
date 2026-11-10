@@ -120,7 +120,13 @@ def main():
             assert "cloudkit-auth.js" in source and "cloudkit-config.js" in source
         else:
             assert not re.search(r"cloudkit(?:-auth|-config|\.js)|apple-sign-(?:in|out)-button|data-account-link|data-header-sign-in", source), page
-            assert not any("/sign-in/" in url or "login/" in url or "account/" in url for url in Page(source).urls), page
+            # External privacy links (including Apple's apple-account page) are
+            # not app authentication controls. Match local route segments only.
+            destinations = [urlsplit(urljoin(f"{ORIGIN}/{page.relative_to(ROOT)}", url))
+                            for url in Page(source).urls]
+            assert not any(destination.netloc == "endsunset.github.io" and
+                           {"sign-in", "login", "account"} & set(destination.path.split("/"))
+                           for destination in destinations), page
         # Redirects intentionally have no website chrome.
         if not in_app and 'http-equiv="refresh"' not in source and page not in [ROOT / "redirect.html", ROOT / "redirect_wechat.html"]:
             assert "endsunset-header" in source and "endsunset-footer" in source, page

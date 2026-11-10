@@ -12,7 +12,7 @@ They are not Collection Groups underneath an authored LinkMap collection.
 Info.plist display names iOS and Web provide stable native route namespaces;
 the root article headings provide the full LinkMap for iOS and LinkMap for Web
 names. Keep these identities stable. iOS contains the comprehensive user guide;
-Web contains a brief development notice.
+Web documents the current read-only map app, with its own task-based articles.
 
 ## Build and hosting
 
@@ -53,10 +53,14 @@ The shared footer’s Documentation link returns to the merged directory. The me
 
 ## Authoring and compatibility
 
-Curate each iOS article once, under Get started, Projects and places, Plan and
-follow work, or Share and sync. Use native `<doc:...>` links within a catalog.
+Curate each article once. iOS uses Get started, Projects and places, Plan and
+follow work, and Share and sync. Web follows the same pattern for its supported
+tasks, omitting Plan and follow work. Use native `<doc:...>` links within a catalog.
 Use the LinkMap Documentation directory to move between platforms. The footer link remains available on static loads and client-side navigation without
-cross-catalog link resolution or renderer changes. Keep Web short until its functionality is ready.
+cross-catalog link resolution or renderer changes. Check Web instructions against
+`app/index.html` and the modules in `app/`, including account and sign-in pages.
+Distinguish Apple Maps search from saved Project details, explain ground-level
+viewing, and direct editing and Activity workflows to iOS.
 
 Old flat article URLs, iOS/Web platform pages, introductory aliases, the former
 `/documentation/linkmap/` root, and `/linkmap/docs/` have direct redirects.

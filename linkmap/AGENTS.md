@@ -46,7 +46,8 @@ replace this with nested Collection Groups or a separate documentation framework
 `/linkmap/documentation/` is DocC's synthesized LinkMap Documentation directory;
 `/linkmap/documentation/ios/` and `/web/` are independent collection roots.
 Curate iOS tasks in this order: Get started, Projects and places, Plan and follow
-work, Share and sync. Web remains a brief under-development collection.
+work, Share and sync. Web follows the same task-based pattern for the current
+read-only web app, omitting unsupported planning and work-recording tasks.
 Keep the renderer native. The installed renderer scopes the sidebar differently
 on client-side entry versus a deep refresh; this is an accepted limitation.
 Do not add a separate collection-directory row above the native documentation navigation.

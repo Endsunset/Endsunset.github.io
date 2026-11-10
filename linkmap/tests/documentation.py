@@ -18,6 +18,10 @@ IOS_ARTICLES = {
     "sharing", "icloud", "apple-maps", "items", "item-transfers",
     "results-and-reports", "settings-and-imports",
 }
+WEB_ARTICLES = {
+    "how-linkmap-works", "basic-workflow", "project", "map", "locations",
+    "regions-and-layers", "items", "icloud",
+}
 
 
 class References(HTMLParser):
@@ -72,40 +76,40 @@ def check_navigation():
         assert page["identifier"]["url"].startswith(f"doc://io.github.endsunset.LinkMap.{ 'iOS' if slug == 'ios' else 'Web' }/")
     ios = platforms["LinkMap for iOS"]
     web = platforms["LinkMap for Web"]
-    assert not children(web)
     expected = {
         "Get started": ["How LinkMap Works", "Basic Workflow"],
         "Projects and places": ["Project", "Map", "Locations", "Regions and Layers", "Items"],
         "Plan and follow work": ["Activities", "Routes and Stops", "Assignments", "Item Transfers", "Results and Reports"],
         "Share and sync": ["Sharing", "iCloud", "Maps", "Settings and Imports"],
     }
-    groups = {}
-    for entry in ios["children"]:
-        if entry["type"] == "groupMarker":
-            group = entry["title"]
-            groups[group] = []
-        else:
-            groups[group].append(entry["title"])
-            assert not children(entry), entry
-    assert list(groups) == list(expected)
-    assert groups == expected
+    web_expected = {group: expected[group] for group in
+                    ("Get started", "Projects and places")}
+    web_expected["Share and sync"] = ["iCloud"]
+    for platform, slug, sections in [(ios, "ios", expected), (web, "web", web_expected)]:
+        groups = {}
+        for entry in platform["children"]:
+            if entry["type"] == "groupMarker":
+                group = entry["title"]
+                groups[group] = []
+            else:
+                groups[group].append(entry["title"])
+                assert not children(entry), entry
+        assert list(groups) == list(sections)
+        assert groups == sections
+        root_data = load(f"/documentation/{slug}")
+        assert [section["title"] for section in root_data["topicSections"]] == list(sections)
+        for section in root_data["topicSections"]:
+            assert [root_data["references"][identifier]["title"]
+                    for identifier in section["identifiers"]] == sections[section["title"]]
+        for article in children(platform).values():
+            assert article["path"].startswith(f"/documentation/{slug}/")
+            assert load(article["path"])["hierarchy"]["paths"] == [[root_data["identifier"]["url"]]]
     landing = load("/documentation")
     assert landing["metadata"]["title"] == "LinkMap Documentation"
     assert landing["metadata"]["role"] == "collection"
     assert [landing["references"][identifier]["url"]
             for section in landing["topicSections"] for identifier in section["identifiers"]] == [
                 "/documentation/ios", "/documentation/web"]
-    ios_data = load("/documentation/ios")
-    assert [section["title"] for section in ios_data["topicSections"]] == list(expected)
-    for section in ios_data["topicSections"]:
-        assert [ios_data["references"][identifier]["title"]
-                for identifier in section["identifiers"]] == expected[section["title"]]
-    for article in children(ios).values():
-        assert article["path"].startswith("/documentation/ios/")
-        assert load(article["path"])["hierarchy"]["paths"] == [[ios_data["identifier"]["url"]]]
-    web_data = load("/documentation/web")
-    assert "still under development" in web_data["abstract"][0]["text"]
-    assert not web_data.get("topicSections")
 
     def paths(node):
         yield node["path"]
@@ -116,7 +120,8 @@ def check_navigation():
     curated = list(paths(directory))
     assert len(curated) == len(set(curated)) == len(ARTICLES) + 1
     assert set(curated) == {"/documentation", "/documentation/ios", "/documentation/web"} | {
-        f"/documentation/ios/{slug}" for slug in IOS_ARTICLES}
+        f"/documentation/ios/{slug}" for slug in IOS_ARTICLES} | {
+        f"/documentation/web/{slug}" for slug in WEB_ARTICLES}
     return set(curated)
 
 
