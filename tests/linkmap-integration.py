@@ -70,7 +70,10 @@ def main():
     pages = [*PROJECT.rglob("index.html"), ROOT / "index.html", ROOT / "projects/index.html", ROOT / "search/index.html", ROOT / "redirect.html",
              ROOT / "redirect_wechat.html"]
     for page in pages:
-        for url in Page(page.read_text()).urls:
+        html = page.read_text()
+        assert html.count('rel="icon" type="image/svg+xml" href="/favicon.svg"') == 1, page
+        assert html.count('rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"') == 1, page
+        for url in Page(html).urls:
             check_url(page, url, fragments=True)
     for style in [*PROJECT.rglob("*.css"), *(ROOT / "assets").rglob("*.css")]:
         for url in re.findall(r"url\(\s*['\"]?([^)'\"\s]+)", style.read_text()):

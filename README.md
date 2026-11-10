@@ -25,7 +25,8 @@ Projects appear in both the homepage showcase and `/projects/` index in catalog 
 
 - `content/projects.json`: project descriptions, icons, and website links.
 - `scripts/build.py`: homepage, Projects, and search rendering.
-- `templates/page.html`: document shell and metadata.
+- `templates/page.html`: reusable document wrapper for generated pages.
+- `partials/head.html`: shared page metadata and style/script resources; `partials/icons.html`: shared favicon links.
 - `partials/`: shared header and footer, included at build time.
 - `assets/styles/`: responsive styles.
 - `assets/images/`: project assets. `linkmap-brandmark.svg` preserves the original LinkMap three-bar mark as an SVG with a white icon background. Its bar proportions and rotation are preserved, with the original dark gray (`#202124`) and red (`#b4232c`) colors. The rotated artwork is centered within a square SVG viewport; the section background remains independent.
@@ -91,3 +92,9 @@ Its search bar has a clear button; every Enter submits the edited query as new
 URL parameters. Empty queries show no results or empty-results message.
 Run the shared generators after changes, then `python3 tests/linkmap-integration.py`,
 the JavaScriptCore navigation tests, and `node tests/search.mjs`.
+
+## Shared document head and site icons
+
+The homepage, Projects, and Search pages are built with `templates/page.html` and `render_head()` from `scripts/site_chrome.py`. Shared metadata is defined in `partials/head.html`; icon links live in `partials/icons.html`. The favicon and Apple Touch Icon files are served at `/favicon.svg` and `/apple-touch-icon.png`.
+
+LinkMap's specialized pages and DocC output preserve their own HTML shells while sharing icon metadata via `inject_icons()`. Run `python3 scripts/build-heads.py` to refresh favicon links in all checked-in HTML files. Rebuild generated pages with their existing generators and commit the generated output.
