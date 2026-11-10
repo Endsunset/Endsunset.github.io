@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 const source = readFileSync(new URL('../homepage.js', import.meta.url), 'utf8');
-function setup({ reduced = false, supported = true, width = 1200 } = {}) {
+function setup({ reduced = false, supported = true, width = 1200, textOffset = 0 } = {}) {
   let scroll = 0, callback, motionChange, focus, queued, resizeObserver;
   const events = {}, observed = new Set();
   function element(names = []) {
@@ -16,7 +16,10 @@ function setup({ reduced = false, supported = true, width = 1200 } = {}) {
     const stop = element((i === 0 || i === 3) ? ['story-heading'] : i === 1 ? ['story-row'] : ['story-row', 'story-row-reverse']);
     stop.getBoundingClientRect = () => ({ top: top - scroll, left: i === 1 ? 650 : 100, width: i === 0 ? 900 : 500 });
     stop.closest = () => stop;
-    stop.querySelector = () => i ? stop : null;
+    stop.querySelector = () => i === 1 && textOffset ? {
+      getBoundingClientRect: () => ({ top: top + textOffset - scroll, left: 650, width: 500 }),
+      closest: () => stop,
+    } : i ? stop : null;
     return stop;
   });
   const track = element(), progress = element(), road = element();
@@ -61,6 +64,13 @@ for (const options of [{ reduced: true }, { supported: false }]) {
   assert(s.stops.every(e => !e.classes.has('journey-pending')));
   assert.equal(+s.progress.style.strokeDashoffset, 0, 'Fallback shows the entire route');
 }
+const later = setup({ textOffset: 100 });
+later.enter(1);
+later.scroll(550);
+assert(later.stops[1].classes.has('journey-pending'), 'Text below 61.8% waits even after its path anchor is reached');
+assert(Math.abs((4000 - +later.progress.style.strokeDashoffset) - (550 + 800 * .618)) < .01, 'Line tip follows the 61.8% viewport position');
+later.scroll(606);
+assert(!later.stops[1].classes.has('journey-pending'), 'Text reveals as its top crosses 61.8%');
 const s = setup();
 assert.equal(s.stops[0].classes.has('journey-pending'), false);
 assert.equal(s.observed.size, 3);

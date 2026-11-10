@@ -13,6 +13,7 @@
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const canReveal = 'IntersectionObserver' in window;
     const visible = new Set();
+    const revealPosition = 0.618;
     let points = [], length = 0, furthest = 0, frame = 0, measureNeeded = true, endY = 0, roadProgress = 0;
     let observer;
 
@@ -62,8 +63,7 @@
       track.setAttribute('d', d);
       progress.setAttribute('d', d);
       length = progress.getTotalLength();
-      // Cache arc lengths at stops. Interpolation lets horizontal runs draw smoothly
-      // across a scroll interval instead of jumping at one vertical coordinate.
+      // Cache arc lengths at stops so content waits for its part of the route.
       for (const point of points) {
         let low = 0, high = length;
         for (let i = 0; i < 20; i++) {
@@ -79,17 +79,17 @@
     function update() {
       frame = 0;
       if (measureNeeded) { measure(); measureNeeded = false; }
-      const y = window.innerHeight * 0.8 - journey.getBoundingClientRect().top;
-      const anchors = points;
-      let drawn = y >= anchors.at(-1).y ? length : 0;
-      for (let i = 1; i < anchors.length; i++) {
-        const start = anchors[i - 1], end = anchors[i];
-        if (y >= start.y && y < end.y) {
-          const fraction = (y - start.y) / (end.y - start.y);
-          drawn = start.length + fraction * (end.length - start.length);
-          break;
-        }
+      const triggerY = window.innerHeight * revealPosition;
+      const y = triggerY - journey.getBoundingClientRect().top;
+      // Follow the actual vertical position, including horizontal runs. A short
+      // stroke transition smooths their draw without advancing beyond the trigger.
+      let low = 0, high = length;
+      for (let i = 0; i < 20; i++) {
+        const mid = (low + high) / 2;
+        if (progress.getPointAtLength(mid).y <= y) low = mid;
+        else high = mid;
       }
+      const drawn = y >= endY ? length : low;
       furthest = motion.matches || !canReveal ? 1 : Math.max(furthest, drawn / length);
       progress.style.strokeDasharray = `${length}`;
       progress.style.strokeDashoffset = `${length * (1 - furthest)}`;
@@ -100,7 +100,10 @@
       const drawnLength = length * furthest;
       for (const point of points) {
         const reached = point.length <= drawnLength;
-        if (reached && point.stop && visible.has(point.stop)) reveal(point.stop);
+        if (reached && point.stop && visible.has(point.stop)) {
+          const text = point.stop.querySelector('.story-copy') || point.stop;
+          if (text.getBoundingClientRect().top <= triggerY) reveal(point.stop);
+        }
       }
     }
     function schedule() { if (!frame) frame = requestAnimationFrame(update); }
@@ -120,7 +123,7 @@
       for (const stop of stops) {
         const text = stop.querySelector('.story-copy') || stop;
         // Keep restored positions, fragment navigation and initially visible text readable.
-        if (text.getBoundingClientRect().top < window.innerHeight) continue;
+        if (text.getBoundingClientRect().top < window.innerHeight * revealPosition) continue;
         observer.observe(text);
         stop.classList.add('journey-ready', 'journey-pending');
       }
